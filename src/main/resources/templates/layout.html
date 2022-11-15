@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html th:fragment="layout (template, menu)" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Porra Miguelon GP</title>
+</head>
+<body>
+
+<nav class="ui-menu" role="navigation">
+    <ul class="ui-menu">
+        <li><a th:text="#{menuHome}" th:href="@{/}"></a></li>
+        <li><a th:text="#{menuCalendar}" th:href="@{/calendar}"></a></li>
+        <li><a th:text="#{menuViewTable}" th:href="@{/classification/?race=0}"></a></li>
+        <li><a th:text="#{menuMakeBet}" href="#"></a></li>
+        <li><a th:text="#{menuRules}" href="#"></a></li>
+    </ul>
+</nav>
+<div sec:authorize="isAuthenticated()">
+    <span th:text="${#authentication.getPrincipal().team.name}"></span>
+    <a th:text="#{logout}" th:href="@{/logout}"></a>
+</div>
+<div sec:authorize="isAnonymous()">
+    <a th:text="#{login}" th:href="@{/login}"></a>
+</div>
+
+<div>
+    <th:block th:include="${template}"/>
+</div>
+
+</body>
+</html>

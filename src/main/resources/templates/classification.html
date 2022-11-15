@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::body}, 'classification')}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Miguelon Porra GP</title>
+</head>
+<body>
+<h1 th:text="#{classificationTitle(${currentClassification.raceName})}"></h1>
+<div>
+    <form action="#" th:action="@{/classification}" method="get">
+        <label th:text="#{classificationTitle('')}"></label>
+        <select id="raceSelect" name="race">
+            <option th:each="race: ${races}" th:value="${race.id}" th:text="${race.id} + '. ' + ${race.name}" th:selected="${race.name} == ${currentClassification.raceName}"></option>
+            <input type="submit" value="Ver" />
+        </select>
+    </form>
+    <table id="classificationTable">
+        <thead>
+        <tr>
+            <th th:text="#{position}"></th>
+            <th th:text="#{name}"></th>
+            <th th:text="#{points}"></th>
+            <th th:text="#{pointsDif}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="classifiedTeam : ${currentClassification.classifiedTeams}">
+            <td th:text="${classifiedTeam.position}"></td>
+            <td th:text="${classifiedTeam.teamName}"></td>
+            <td th:text="${classifiedTeam.points}"></td>
+            <td th:text="${classifiedTeam.pointsDif}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

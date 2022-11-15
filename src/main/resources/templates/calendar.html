@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::body}, 'calendar')}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Miguelon Porra GP</title>
+</head>
+<body>
+<h1 th:text="#{calendarTitle}"></h1>
+<div>
+    <table id="calendarTable">
+        <thead>
+        <tr>
+            <th th:text="#{raceNumber}"></th>
+            <th th:text="#{raceCountry}"></th>
+            <th th:text="#{circuitName}"></th>
+            <th th:text="#{raceStartDate}"></th>
+            <th th:text="#{raceEndDate}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="race : ${races}">
+            <td th:text="${race.id}"></td>
+            <td th:text="${race.country}"></td>
+            <td th:text="${race.name}"></td>
+            <td th:text="${#dates.format(race.startDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#dates.format(race.endDate, 'dd-MM-yyyy')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::body}, 'home')}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Miguelon Porra GP</title>
+</head>
+<body>
+    <h1 th:text="#{homeTitle}"></h1>
+    <h3 th:text="${nextRace} != null ? #{nextRace(${nextRace.id}, ${nextRace.name}, ${nextRace.startDate}, ${nextRace.endDate})} : #{noNextRace}"></h3>
+    <div>
+        <h5 th:text="#{generalClassification}"></h5>
+        <table id="classificationTable">
+            <thead>
+                <tr>
+                    <th th:text="#{position}"></th>
+                    <th th:text="#{name}"></th>
+                    <th th:text="#{points}"></th>
+                    <th th:text="#{pointsDif}"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="classifiedTeam : ${classification.classifiedTeams}">
+                    <td th:text="${classifiedTeam.position}"></td>
+                    <td th:text="${classifiedTeam.teamName}"></td>
+                    <td th:text="${classifiedTeam.points}"></td>
+                    <td th:text="${classifiedTeam.pointsDif}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

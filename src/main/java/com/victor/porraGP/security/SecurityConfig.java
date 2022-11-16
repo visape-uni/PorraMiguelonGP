@@ -31,7 +31,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        logger.info("FILTER CHAIN!");
         http.csrf()
                 .disable()
                 .authorizeRequests()

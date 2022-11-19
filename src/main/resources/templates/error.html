@@ -3,7 +3,7 @@
 <head>
     <title>Error page</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" href="css/main.css" th:href="@{/static/styles/css/main.css}" />
 </head>
 <body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
     <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|"></h1>

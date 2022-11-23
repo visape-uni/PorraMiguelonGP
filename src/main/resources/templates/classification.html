@@ -5,10 +5,10 @@
     <title>Miguelon Porra GP</title>
 </head>
 <body>
-<h1 th:text="#{classificationTitle(${currentClassification.raceName})}"></h1>
+<h1 th:text="#{classification.title(${currentClassification.raceName})}"></h1>
 <div>
     <form action="#" th:action="@{/classification}" method="get">
-        <label th:text="#{classificationTitle('')}"></label>
+        <label th:text="#{classification.title('')}"></label>
         <select id="raceSelect" name="race">
             <option th:each="race: ${races}" th:value="${race.id}" th:text="${race.id} + '. ' + ${race.name}" th:selected="${race.name} == ${currentClassification.raceName}"></option>
             <input type="submit" value="Ver" />
@@ -17,10 +17,10 @@
     <table id="classificationTable">
         <thead>
         <tr>
-            <th th:text="#{position}"></th>
-            <th th:text="#{name}"></th>
-            <th th:text="#{points}"></th>
-            <th th:text="#{pointsDif}"></th>
+            <th th:text="#{home.position}"></th>
+            <th th:text="#{home.teamName}"></th>
+            <th th:text="#{home.points}"></th>
+            <th th:text="#{home.pointsDif}"></th>
         </tr>
         </thead>
         <tbody>

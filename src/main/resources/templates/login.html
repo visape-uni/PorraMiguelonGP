@@ -5,18 +5,20 @@
     <title>Login Porra Miguelon</title>
 </head>
 <body>
-    <h1 th:text="#{logintitle}"></h1>
-    <div th:if="${errorMessage}" th:text="${errorMessage}"></div>
-    <div th:if="${param.logout}" th:text="#{loggedOut}"></div>
+    <h1 th:text="#{login.title}"></h1>
+    <div th:if="${createdUser}" th:text="#{login.createdUser(${createdUser})}"></div>
+    <div th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
+    <div th:if="${param.logout}" th:text="#{login.loggedOut}"></div>
     <form th:action="@{/login}" method="post">
         <div>
-            <label for="username" th:text="#{username}"> </label> <input id="username" type="text" name="username"/>
+            <label for="username" th:text="#{login.username}"> </label> <input id="username" type="text" name="username"/>
         </div>
         <div>
-            <label for="password" th:text="#{password}"> </label> <input id="password" type="password" name="password"/>
+            <label for="password" th:text="#{login.password}"> </label> <input id="password" type="password" name="password"/>
         </div>
         <div>
-            <input type="submit" th:value="#{login}"/>
+            <a th:text="#{layout.register}" th:href="@{/register}"></a>
+            <input type="submit" th:value="#{layout.login}"/>
         </div>
     </form>
 </body>

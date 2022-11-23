@@ -2,7 +2,7 @@
 <html th:fragment="layout (template, menu)" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link th:href="@{/styles/css/singlePageTemplate.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/styles/css/main.css}" rel="stylesheet" type="text/css">
     <title>Porra Miguelon GP</title>
 <body>
 
@@ -11,23 +11,24 @@
         <a href=""> <img th:src="@{/resources/static/images/LOGO porra.png}" alt=""/> </a>
         <nav class="ui-menu" role="navigation">
             <ul class="ui-menu">
-                <li><a th:text="#{menuHome}" th:href="@{/}"></a></li>
-                <li><a th:text="#{menuCalendar}" th:href="@{/calendar}"></a></li>
-                <li><a th:text="#{menuViewTable}" th:href="@{/classification/?race=0}"></a></li>
-                <li><a th:text="#{menuMakeBet}" href="#"></a></li>
-                <li><a th:text="#{menuRules}" href="#"></a></li>
+                <li><a th:text="#{menu.home}" th:href="@{/}"></a></li>
+                <li><a th:text="#{menu.calendar}" th:href="@{/calendar}"></a></li>
+                <li><a th:text="#{menu.viewTable}" th:href="@{/classification/?race=0}"></a></li>
+                <li><a th:text="#{menu.makeBet}" href="#"></a></li>
+                <li><a th:text="#{menu.rules}" href="#"></a></li>
             </ul>
         </nav>
     </header>
     <div sec:authorize="isAuthenticated()">
         <span th:text="${#authentication.getPrincipal().team.name}"></span>
-        <a th:text="#{logout}" th:href="@{/logout}"></a>
+        <a th:text="#{layout.logout}" th:href="@{/logout}"></a>
     </div>
     <div sec:authorize="isAnonymous()">
-        <a th:text="#{login}" th:href="@{/login}"></a>
+        <a th:text="#{layout.register}" th:href="@{/register}"></a>
+        <a th:text="#{layout.login}" th:href="@{/login}"></a>
     </div>
 
-    <div>
+    <div id="content">
         <th:block th:include="${template}"/>
     </div>
     <div class="copyright">&copy;2022</div>

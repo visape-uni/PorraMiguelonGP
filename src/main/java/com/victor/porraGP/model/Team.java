@@ -20,6 +20,4 @@ public class Team extends BaseEntity {
     private Integer totalEarned;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
     private List<ClassifiedTeam> classifiedTeams = new ArrayList<>();
-    @OneToOne
-    private User user;
 }

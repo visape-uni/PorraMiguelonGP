@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::body}, 'home')}">
 <head>
-    <link th:href="@{/styles/css/singlePageTemplate.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/styles/css/main.css}" rel="stylesheet" type="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Miguelon Porra GP</title>
 </head>
 <body>
-    <h1 th:text="#{homeTitle}"></h1>
-    <h3 th:text="${nextRace} != null ? #{nextRace(${nextRace.id}, ${nextRace.name}, ${nextRace.startDate}, ${nextRace.endDate})} : #{noNextRace}"></h3>
+    <h1 th:text="#{home.title}"></h1>
+    <h3 th:text="${nextRace} != null ? #{home.nextRace(${nextRace.id}, ${nextRace.name}, ${nextRace.startDate}, ${nextRace.endDate})} : #{home.noNextRace}"></h3>
     <div>
-        <h5 th:text="#{generalClassification}"></h5>
+        <h5 th:text="#{home.generalClassification}"></h5>
         <table id="classificationTable">
             <thead>
                 <tr>
-                    <th th:text="#{position}"></th>
-                    <th th:text="#{name}"></th>
-                    <th th:text="#{points}"></th>
-                    <th th:text="#{pointsDif}"></th>
+                    <th th:text="#{home.position}"></th>
+                    <th th:text="#{home.teamName}"></th>
+                    <th th:text="#{home.points}"></th>
+                    <th th:text="#{home.pointsDif}"></th>
                 </tr>
             </thead>
             <tbody>

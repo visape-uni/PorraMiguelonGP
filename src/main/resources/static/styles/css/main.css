@@ -1,0 +1,230 @@
+@charset "UTF-8";
+/* Body */
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+body {
+    font-family: source-sans-pro, sans-serif;
+    margin: 0px;
+    font-style: normal;
+    font-weight: 200;
+    background: no-repeat url("../../images/motorcycle-2016.jpeg");
+    background-size: cover;
+}
+h1{
+    color: #790909;
+}
+/* Container */
+.container {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 1000px;
+    background-color: #FFFFFF;
+    opacity:.9;
+}
+.padding{
+    padding: 2%;
+}
+.user{
+    float: right;
+}
+/* Navigation */
+/*header {
+	width: 100%;
+	height: 10%;
+	background-color: #790909;
+}
+header img{
+	height: 90%;
+	margin-left: 1%;
+	margin-top:0.25%;
+}*/
+.logo {
+    color: #fff;
+    text-align: center;
+    width: 10%;
+    float: left;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 25px;
+    letter-spacing: 4px;
+}
+nav {
+    /*float: right;
+    width: 50%;
+    text-align: right;
+    margin-right: 25px;*/
+    width: 100%;
+    height: 10%;
+    background-color: #790909;
+}
+nav img{
+    height: 90%;
+    margin-left: 1%;
+    margin-top:0.25%;
+    float: left;
+}
+nav ul {
+    float: left;
+    height: 100%;
+}
+nav ul li {
+    float: left;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: left;
+    margin-right: 25px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    transition: all 0.3s linear;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+li:hover a, li:active a{
+    color: #ec7979;
+}
+.user{
+    float: left;
+    text-align: right;
+    margin-right: 25px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.user a{
+    color: white;
+}
+/* More info */
+
+
+.copyright {
+    text-align: center;
+    padding-top: 1%;
+    padding-bottom:1%;
+    background-color: #717070;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    font-weight: lighter;
+    letter-spacing: 2px;
+    border-top-width: 2px;
+    position: fixed;
+    min-width: 80%;
+    bottom: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Mobile */
+@media (max-width: 320px) {
+    .logo {
+        width: 100%;
+        text-align: center;
+        margin-top: 13px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+    }
+    .container header nav {
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        width: 100%;
+        float: none;
+        display: none;
+    }
+    header nav ul {
+    }
+    nav ul li {
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+/* Small Tablets */
+@media (min-width: 321px)and (max-width: 767px) {
+    .logo {
+        width: 100%;
+        text-align: center;
+        margin-top: 13px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        color: #043745;
+    }
+    .container header nav {
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        width: 100%;
+        float: none;
+        overflow: auto;
+        display: inline-block;
+        background: #52bad5;
+    }
+    header nav ul {
+        padding: 0px;
+        float: none;
+    }
+    nav ul li {
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        width: 100%;
+        text-align: center;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .banner {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .footer_column {
+        width: 100%;
+    }
+}
+
+/* Small Desktops */
+@media (min-width: 768px) and (max-width: 1096px) {
+    .text_column {
+        width: 100%;
+    }
+    .thumbnail {
+        width: 50%;
+    }
+    .text_column {
+        width: 100%;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+    }
+    .banner {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+}

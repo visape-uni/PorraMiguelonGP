@@ -91,9 +91,7 @@ ul li a {
     color: #FFFFFF;
     text-decoration: none;
 }
-li:hover a, li:active a{
-    color: #ec7979;
-}
+
 .user{
     float: left;
     text-align: right;
@@ -130,6 +128,10 @@ li:hover a, li:active a{
 .active {
     background-color: #5c0707;
     font-weight: bold;
+}
+
+li:hover {
+    background-color: #ec7979;
 }
 
 /* Mobile */

@@ -13,8 +13,8 @@
                 <li th:class="${menu} == 'home' ? 'active' : null"><a th:text="#{menu.home}" th:href="@{/}"></a></li>
                 <li th:class="${menu} == 'calendar' ? 'active' : null"><a th:text="#{menu.calendar}" th:href="@{/calendar}"></a></li>
                 <li th:class="${menu} == 'classification' ? 'active' : null"><a th:text="#{menu.viewTable}" th:href="@{/classification/?race=0}"></a></li>
-                <li><a th:text="#{menu.makeBet}" href="#"></a></li>
-                <li><a th:text="#{menu.rules}" href="#"></a></li>
+                <li th:class="${menu} == 'bet' ? 'active' : null"><a th:text="#{menu.makeBet}" th:href="@{/make-bet}"></a></li>
+                <li th:class="${menu} == 'rules' ? 'active' : null"><a th:text="#{menu.rules}" th:href="@{/rules}"></a></li>
             </ul>
             <div class="user" sec:authorize="isAuthenticated()">
                 <span th:text="${#authentication.getPrincipal().team.name}"></span>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -45,6 +46,6 @@ public class RaceServiceImpl implements RaceService {
     }
 
     private static boolean generalRaceFilter(boolean general, Race race) {
-        return general || race.getId() != 0;
+        return general || !Objects.equals(race.getName(), "General");
     }
 }

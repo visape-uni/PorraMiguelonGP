@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link th:href="@{/styles/css/main.css}" rel="stylesheet" type="text/css">
     <title>Login Porra Miguelon</title>
 </head>
 <body>
@@ -10,16 +11,16 @@
     <div th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
     <div th:if="${param.logout}" th:text="#{login.loggedOut}"></div>
     <form th:action="@{/login}" method="post">
-        <div>
+        <p>
             <label for="username" th:text="#{login.username}"> </label> <input id="username" type="text" name="username"/>
-        </div>
-        <div>
+        </p>
+        <p>
             <label for="password" th:text="#{login.password}"> </label> <input id="password" type="password" name="password"/>
-        </div>
-        <div>
+        </p>
+        <p>
             <a th:text="#{layout.register}" th:href="@{/register}"></a>
-            <input type="submit" th:value="#{layout.login}"/>
-        </div>
+            <button type="submit" th:text="#{login.submit}"></button>
+        </p>
     </form>
 </body>
 </html>

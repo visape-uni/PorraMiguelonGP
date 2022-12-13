@@ -2,9 +2,62 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::body}, 'bet')}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Title</title>
+    <title>Miguelon Porra GP</title>
 </head>
 <body>
+<h1 th:text="#{bet.title}"></h1>
+
+<div>
+    <form th:action="@{/make-bet}" method="post">
+        <section>
+            <h2 th:text="#{bet.moto3.title}"></h2>
+            <p>
+                <label for="moto3-first" th:text="#{bet.firstPilot}"></label>
+                <input id="moto3-first" type="text" name="moto3-first"/>
+            </p>
+        </section>
+        <section>
+            <h2 th:text="#{bet.moto2.title}"></h2>
+            <p>
+                <label for="moto2-first" th:text="#{bet.firstPilot}"></label>
+                <input id="moto2-first" type="text" name="moto2-first"/>
+            </p>
+        </section>
+        <section>
+            <h2 th:text="#{bet.motogp.title}"></h2>
+            <p>
+                <label for="motogp-first" th:text="#{bet.firstPilot}"></label>
+                <input id="motogp-first" type="text" name="motogp-first"/>
+            </p>
+            <p>
+                <label for="motogp-second" th:text="#{bet.secondPilot}"></label>
+                <input id="motogp-second" type="text" name="motogp-second"/>
+            </p>
+            <p>
+                <label for="motogp-third" th:text="#{bet.thirdPilot}"></label>
+                <input id="motogp-third" type="text" name="motogp-third"/>
+            </p>
+            <p>
+                <label for="motogp-forth" th:text="#{bet.forthPilot}"></label>
+                <input id="motogp-forth" type="text" name="motogp-forth"/>
+            </p>
+            <p>
+                <label for="motogp-fifth" th:text="#{bet.fifthPilot}"></label>
+                <input id="motogp-fifth" type="text" name="motogp-fifth"/>
+            </p>
+            <p>
+                <label for="motogp-sixth" th:text="#{bet.sixthPilot}"></label>
+                <input id="motogp-sixth" type="text" name="motogp-sixth"/>
+            </p>
+        </section>
+        <section>
+            <p>
+                <button type="reset" th:text="#{bet.reset}"></button>
+                <button type="submit" th:text="#{bet.submit}"></button>
+            </p>
+        </section>
+    </form>
+</div>
 
 </body>
 </html>

@@ -45,10 +45,6 @@ public class RaceServiceImpl implements RaceService {
     }
 
     private static boolean generalRaceFilter(boolean general, Race race) {
-        if (general) {
-            return race.getId() != 0;
-        } else {
-            return true;
-        }
+        return general || race.getId() != 0;
     }
 }

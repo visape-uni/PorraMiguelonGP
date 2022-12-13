@@ -10,9 +10,9 @@
         <nav class="ui-menu" role="navigation">
             <a href=""> <img th:src="@{/images/LOGO porra.png}" alt=""/> </a>
             <ul class="ui-menu">
-                <li><a th:text="#{menu.home}" th:href="@{/}"></a></li>
-                <li><a th:text="#{menu.calendar}" th:href="@{/calendar}"></a></li>
-                <li><a th:text="#{menu.viewTable}" th:href="@{/classification/?race=0}"></a></li>
+                <li th:class="${menu} == 'home' ? 'active' : null"><a th:text="#{menu.home}" th:href="@{/}"></a></li>
+                <li th:class="${menu} == 'calendar' ? 'active' : null"><a th:text="#{menu.calendar}" th:href="@{/calendar}"></a></li>
+                <li th:class="${menu} == 'classification' ? 'active' : null"><a th:text="#{menu.viewTable}" th:href="@{/classification/?race=0}"></a></li>
                 <li><a th:text="#{menu.makeBet}" href="#"></a></li>
                 <li><a th:text="#{menu.rules}" href="#"></a></li>
             </ul>
@@ -30,7 +30,7 @@
 
 
     <div class="padding">
-        <th:block th:include="${template}"/>
+        <th:block th:insert="${template}"/>
     </div>
     <footer class="copyright">&copy;2022</footer>
 </div>

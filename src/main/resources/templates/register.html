@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link th:href="@{/styles/css/main.css}" rel="stylesheet" type="text/css">
     <title>Registrarse Porra Miguelon</title>
 </head>
 <body>
-    <h1 th:text="#{register.title}"></h1>
-    <div th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
-    <form action="/register" th:object="${user}" method="POST" enctype="utf8">
-        <p>
+<div class="container">
+
+    <div class="center">
+        <div > <img th:src="@{/images/LOGO porraNegro.png}" alt=""/> </div>
+     <h2 th:text="#{register.title}"></h2>
+     <div th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
+        <form action="/register" th:object="${user}" method="POST" enctype="utf8">
+        <div>
             <label th:text="#{register.teamName}"></label>
             <input th:field="*{teamName}"/>
             <p th:each="error: ${#fields.errors('teamName')}"
                th:text="#{${error}}">Validation error</p>
-        </p>
-        <p>
+        </div>
+        <div>
             <label th:text="#{register.password}"></label>
             <input type="password" th:field="*{password}"/>
             <p th:each="error : ${#fields.errors('password')}"
                th:text="#{${error}}">Validation error</p>
-        </p>
-        <p>
+        </div>
+        <div>
             <label th:text="#{register.confirmPassword}"></label>
             <input type="password" th:field="*{confirmPassword}"/>
             <p th:each="error : ${#fields.globalErrors()}"
                th:text="#{${error}}">Global error</p>
-        </p>
-        <p>
-            <a th:href="@{/login.html}" th:text="#{register.login}">login</a>
-            <button type="submit" th:text="#{register.create}"></button>
-        </p>
+        </div>
+            <button class="register" type="submit" th:text="#{register.create}"></button>
     </form>
+
+   <a th:href="@{/login.html}" th:text="#{register.login}">login</a>
+    </div>
+    <footer class="copyright">&copy;2022</footer>
+
+</div>
 </body>
 </html>

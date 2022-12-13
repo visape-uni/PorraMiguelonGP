@@ -19,6 +19,10 @@ body {
 }
 h1{
     color: #790909;
+    margin-bottom: 2%;
+}
+h2{
+    margin-bottom: 2%;
 }
 /* Container */
 .container {
@@ -35,6 +39,22 @@ h1{
 .user{
     float: right;
 }
+form div{
+    margin-bottom: 1%;
+}
+
+button{
+    display: inline-block;
+    background-color: #790909;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    margin-top: 10px;
+}
+
 /* Navigation */
 /*header {
 	width: 100%;
@@ -47,14 +67,18 @@ header img{
 	margin-top:0.25%;
 }*/
 .logo {
-    color: #fff;
-    text-align: center;
-    width: 10%;
     float: left;
-    margin-top: 15px;
-    margin-bottom: 15px;
     margin-left: 25px;
-    letter-spacing: 4px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+}
+.pre-nav{
+    position: relative;
+    background: #f5f5f5;
+    height: 36px;
+    width: 100%;
 }
 nav {
     /*float: right;
@@ -65,15 +89,16 @@ nav {
     height: 10%;
     background-color: #790909;
 }
-nav img{
+.logo img{
     height: 90%;
     margin-left: 1%;
     margin-top:0.25%;
     float: left;
 }
 nav ul {
-    float: left;
+    float: right;
     height: 100%;
+    margin-right: 5%;
 }
 nav ul li {
     float: left;
@@ -82,6 +107,7 @@ nav ul li {
     text-align: left;
     margin-right: 25px;
     letter-spacing: 2px;
+    font-weight: bold;
     transition: all 0.3s linear;
     display: flex;
     align-items: center;
@@ -93,18 +119,46 @@ ul li a {
 }
 
 .user{
-    float: left;
+    float: right;
     text-align: right;
     margin-right: 25px;
     height: 100%;
     display: flex;
     align-items: center;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+    font-weight: bold;
 }
 .user *{
     color: white;
+.user a{
+    color: #790909;
+    margin-right: 3%;
+}
+.center{
+    width: 60%;
+    margin-left: 25%;
+    padding-top: 2%;
+}
+.center img{
+    width: 10%;
+    margin-bottom: 1%;
 }
 /* More info */
 
+label {
+    font-size: 16px;
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+input{
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    display: block;
+}
 
 .copyright {
     text-align: center;

@@ -7,8 +7,18 @@
 <body class="background">
 
 <div class="container">
+    <div class="pre-nav">
+        <div class="user" sec:authorize="isAuthenticated()">
+            <span th:text="${#authentication.getPrincipal().team.name}"></span>
+            <a th:text="#{layout.logout}" th:href="@{/logout}"></a>
+        </div>
+        <div class="user" sec:authorize="isAnonymous()">
+            <a th:text="#{layout.register}" th:href="@{/register}"></a>
+            <a th:text="#{layout.login}" th:href="@{/login}"></a>
+        </div>
+    </div>
         <nav class="ui-menu" role="navigation">
-            <a href=""> <img th:src="@{/images/LOGO porra.png}" alt=""/> </a>
+            <div class="logo"> <img th:src="@{/images/LOGO porra.png}" alt=""/> </div>
             <ul class="ui-menu">
                 <li th:class="${menu} == 'home' ? 'active' : null"><a th:text="#{menu.home}" th:href="@{/}"></a></li>
                 <li th:class="${menu} == 'calendar' ? 'active' : null"><a th:text="#{menu.calendar}" th:href="@{/calendar}"></a></li>
@@ -16,14 +26,7 @@
                 <li th:class="${menu} == 'bet' ? 'active' : null"><a th:text="#{menu.makeBet}" th:href="@{/make-bet}"></a></li>
                 <li th:class="${menu} == 'rules' ? 'active' : null"><a th:text="#{menu.rules}" th:href="@{/rules}"></a></li>
             </ul>
-            <div class="user" sec:authorize="isAuthenticated()">
-                <span th:text="${#authentication.getPrincipal().team.name}"></span>
-                <a th:text="#{layout.logout}" th:href="@{/logout}"></a>
-            </div>
-            <div class="user" sec:authorize="isAnonymous()">
-                <a th:text="#{layout.register}" th:href="@{/register}"></a>
-                <a th:text="#{layout.login}" th:href="@{/login}"></a>
-            </div>
+
         </nav>
 
 

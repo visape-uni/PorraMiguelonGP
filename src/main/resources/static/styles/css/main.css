@@ -12,6 +12,8 @@ body {
     margin: 0px;
     font-style: normal;
     font-weight: 200;
+}
+.background {
     background: no-repeat url("../../images/motorcycle-2016.jpeg");
     background-size: cover;
 }

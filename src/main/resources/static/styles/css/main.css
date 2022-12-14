@@ -16,6 +16,8 @@ body {
 .background {
     background: no-repeat url("../../images/motorcycle-2016.jpeg");
     background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
 }
 h1{
     color: #790909;
@@ -33,43 +35,15 @@ h2, h3{
     background-color: #FFFFFF;
     opacity:.9;
 }
-.padding{
-    padding: 2%;
-}
-form div{
-    margin-bottom: 1%;
-}
 
-button{
-    display: inline-block;
-    background-color: #790909;
-    border: none;
-    color: white;
-    text-transform: uppercase;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin: 4px 2px;
-    margin-top: 10px;
-}
+/*menu*/
 
-/* Navigation */
-/*header {
-	width: 100%;
-	height: 10%;
-	background-color: #790909;
-}
-header img{
-	height: 90%;
-	margin-left: 1%;
-	margin-top:0.25%;
-}*/
 .logo {
     float: left;
-    margin-left: 25px;
+    margin-left: 1%;
     height: 100%;
     display: flex;
     align-items: center;
-
 }
 .pre-nav{
     position: relative;
@@ -78,10 +52,6 @@ header img{
     width: 100%;
 }
 nav {
-    /*float: right;
-    width: 50%;
-    text-align: right;
-    margin-right: 25px;*/
     width: 100%;
     height: 10%;
     background-color: #790909;
@@ -100,7 +70,7 @@ nav ul {
 nav ul li {
     float: left;
     color: #FFFFFF;
-    font-size: 14px;
+    font-size: 0.8em;
     text-align: left;
     margin-right: 25px;
     letter-spacing: 2px;
@@ -116,7 +86,12 @@ ul li a {
     color: #FFFFFF;
     text-decoration: none;
 }
-
+.active {
+    background-color: #5c0707;
+}
+li:hover {
+    background-color: #ec7979;
+}
 .user{
     float: right;
     height: 100%;
@@ -127,7 +102,6 @@ ul li a {
     font-weight: bold;
     width: 30%;
 }
-
 .user *{
     color: white;
 }
@@ -141,17 +115,27 @@ ul li a {
     text-align: right;
     width: 70%;
 }
-.center{
-    width: 60%;
-    margin-left: 25%;
-    padding-top: 2%;
+
+/* tabla */
+.padding{
+    padding: 2%;
 }
-.center img{
-    width: 10%;
+
+/* formulario */
+form div{
     margin-bottom: 1%;
 }
-/* More info */
-
+button{
+    display: inline-block;
+    background-color: #790909;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    margin-top: 10px;
+}
 label {
     font-size: 16px;
     margin-bottom: 0px;
@@ -166,6 +150,16 @@ input{
     display: block;
 }
 
+/* More info */
+.center{
+    width: 60%;
+    margin-left: 25%;
+    padding-top: 2%;
+}
+.center img{
+    width: 10%;
+    margin-bottom: 1%;
+}
 .copyright {
     text-align: center;
     padding-top: 1%;
@@ -183,15 +177,6 @@ input{
 .hidden {
     display: none;
 }
-
-.active {
-    background-color: #5c0707;
-}
-
-li:hover {
-    background-color: #ec7979;
-}
-
 /* Mobile */
 @media (max-width: 320px) {
     .logo {
@@ -211,8 +196,7 @@ li:hover {
         float: none;
         display: none;
     }
-    header nav ul {
-    }
+
     nav ul li {
         margin-top: 0px;
         margin-right: 0px;
@@ -226,6 +210,10 @@ li:hover {
 
 /* Small Tablets */
 @media (min-width: 321px)and (max-width: 767px) {
+    .user {
+        width: 50%;
+    }
+
     .logo {
         width: 100%;
         text-align: center;
@@ -235,21 +223,23 @@ li:hover {
         margin-left: 0px;
         color: #043745;
     }
+
     .container header nav {
         margin-top: 0px;
         margin-right: 0px;
         margin-bottom: 0px;
         margin-left: 0px;
-        width: 100%;
         float: none;
         overflow: auto;
         display: inline-block;
         background: #52bad5;
     }
+
     header nav ul {
         padding: 0px;
         float: none;
     }
+
     nav ul li {
         margin-top: 0px;
         margin-right: 0px;
@@ -261,36 +251,15 @@ li:hover {
         padding-bottom: 8px;
     }
 
-    .banner {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    .footer_column {
-        width: 100%;
-    }
 }
 
 /* Small Desktops */
 @media (min-width: 768px) and (max-width: 1096px) {
-    .text_column {
-        width: 100%;
-    }
-    .thumbnail {
+    .user{
         width: 50%;
     }
-    .text_column {
-        width: 100%;
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-        padding-top: 0px;
-        padding-right: 0px;
-        padding-bottom: 0px;
-        padding-left: 0px;
+    nav ul li {
+        margin-right: 5px;
     }
-    .banner {
-        margin-top: 0px;
-        padding-top: 0px;
-    }
+}
 }

@@ -14,24 +14,24 @@
      <h2 th:text="#{register.title}"></h2>
      <div th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
         <form action="/register" th:object="${user}" method="POST" enctype="utf8">
-        <div>
+        <p>
             <label th:text="#{register.teamName}"></label>
             <input th:field="*{teamName}"/>
             <p th:each="error: ${#fields.errors('teamName')}"
                th:text="#{${error}}">Validation error</p>
-        </div>
-        <div>
+        </p>
+        <p>
             <label th:text="#{register.password}"></label>
             <input type="password" th:field="*{password}"/>
             <p th:each="error : ${#fields.errors('password')}"
                th:text="#{${error}}">Validation error</p>
-        </div>
-        <div>
+        </p>
+        <p>
             <label th:text="#{register.confirmPassword}"></label>
             <input type="password" th:field="*{confirmPassword}"/>
             <p th:each="error : ${#fields.globalErrors()}"
                th:text="#{${error}}">Global error</p>
-        </div>
+        </p>
             <button class="register" type="submit" th:text="#{register.create}"></button>
     </form>
 

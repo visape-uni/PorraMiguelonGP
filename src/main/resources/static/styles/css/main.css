@@ -21,7 +21,7 @@ h1{
     color: #790909;
     margin-bottom: 2%;
 }
-h2{
+h2, h3{
     margin-bottom: 2%;
 }
 /* Container */
@@ -35,9 +35,6 @@ h2{
 }
 .padding{
     padding: 2%;
-}
-.user{
-    float: right;
 }
 form div{
     margin-bottom: 1%;
@@ -112,6 +109,8 @@ nav ul li {
     display: flex;
     align-items: center;
     height: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 ul li a {
     color: #FFFFFF;
@@ -120,20 +119,27 @@ ul li a {
 
 .user{
     float: right;
-    text-align: right;
-    margin-right: 25px;
     height: 100%;
     display: flex;
     align-items: center;
     font-size: 0.8em;
     letter-spacing: 1px;
     font-weight: bold;
+    width: 30%;
 }
+
 .user *{
     color: white;
+}
 .user a{
     color: #790909;
-    margin-right: 3%;
+    text-align: right;
+    width: 30%;
+}
+.user span{
+    color: #790909;
+    text-align: right;
+    width: 70%;
 }
 .center{
     width: 60%;
@@ -163,7 +169,7 @@ input{
 .copyright {
     text-align: center;
     padding-top: 1%;
-    padding-bottom:1%;
+    padding-bottom: 1%;
     background-color: #717070;
     color: #FFFFFF;
     text-transform: uppercase;
@@ -174,14 +180,12 @@ input{
     min-width: 80%;
     bottom: 0;
 }
-
 .hidden {
     display: none;
 }
 
 .active {
     background-color: #5c0707;
-    font-weight: bold;
 }
 
 li:hover {

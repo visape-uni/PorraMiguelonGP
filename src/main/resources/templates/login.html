@@ -5,11 +5,14 @@
     <link th:href="@{/styles/css/main.css}" rel="stylesheet" type="text/css">
     <title>Login Porra Miguelon</title>
 </head>
-<body>
+<body class="background">
+<div class="container">
+    <div class="center">
+
     <h1 th:text="#{login.title}"></h1>
-    <div th:if="${createdUser}" th:text="#{login.createdUser(${createdUser})}"></div>
-    <div th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
-    <div th:if="${param.logout}" th:text="#{login.loggedOut}"></div>
+    <h2 th:if="${createdUser}" th:text="#{login.createdUser(${createdUser})}"></h2>
+    <h2 th:if="${errorMessage}" th:text="#{${errorMessage}}"></h2>
+    <h2 th:if="${param.logout}" th:text="#{login.loggedOut}"></h2>
     <form th:action="@{/login}" method="post">
         <p>
             <label for="username" th:text="#{login.username}"> </label> <input id="username" type="text" name="username"/>
@@ -22,5 +25,10 @@
             <button type="submit" th:text="#{login.submit}"></button>
         </p>
     </form>
+
+    </div>
+<footer class="copyright">&copy;2022</footer>
+
+</div>
 </body>
 </html>

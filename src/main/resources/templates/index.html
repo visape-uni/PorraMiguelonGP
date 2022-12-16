@@ -9,7 +9,7 @@
     <h1 th:text="#{home.title}"></h1>
     <h3 th:text="${nextRace} != null ? #{home.nextRace(${nextRace.id}, ${nextRace.name}, ${nextRace.startDate}, ${nextRace.endDate})} : #{home.noNextRace}"></h3>
     <div>
-        <h5 th:text="#{home.generalClassification}"></h5>
+        <h3 class="color" th:text="#{home.generalClassification}"></h3>
         <table id="classificationTable">
             <thead>
                 <tr>

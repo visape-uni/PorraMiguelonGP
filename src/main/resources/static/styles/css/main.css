@@ -34,10 +34,11 @@ h1,h2, h3, h4, h5{
     margin-left: auto;
     margin-right: auto;
     height: 1000px;
-    background-color: #FFFFFF;
-    opacity:.9;
+    background-color: rgba(255, 255, 255, .9);;
 }
-
+.padding{
+    padding: 2%;
+}
 /*menu*/
 
 .logo{
@@ -75,7 +76,6 @@ nav ul li a{
     color: #fff;
     font-size: 0.9em;
     padding: 7px 13px;
-    border-radius: 3px;
     letter-spacing: 2px;
     font-weight: bold;
 }
@@ -123,10 +123,54 @@ li:hover {
 }
 
 /* tabla */
-.padding{
-    padding: 2%;
+
+table {
+    table-layout: fixed;
+    width: 80%;
+    border-collapse: collapse;
+}
+thead th:nth-child(1) {
+    width: 15%;
 }
 
+thead th:nth-child(2) {
+    width: 40%;
+}
+
+thead th:nth-child(3) {
+    width: 20%;
+}
+
+thead th:nth-child(4) {
+    width: 25%;
+}
+th, td {
+    padding: 1%;
+}
+th {
+    letter-spacing: 2px;
+}
+
+td {
+    letter-spacing: 1px;
+}
+tbody tr:nth-child(odd) {
+    background-color: #d5d3d3;
+}
+tbody tr:nth-child(even) {
+    background-color: #b6b4b4;
+}
+thead, tfoot {
+    background-color: #790909;
+    color: white;
+}
+tbody td {
+    text-align: center;
+}
+
+tfoot th {
+    text-align: right;
+}
 /* formulario */
 form div{
     margin-bottom: 1%;

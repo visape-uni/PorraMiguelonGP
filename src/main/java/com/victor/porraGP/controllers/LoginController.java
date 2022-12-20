@@ -52,7 +52,7 @@ public class LoginController {
         if (!errors.hasErrors()) {
             try {
                 userService.createNewUser(userDto);
-                return new ModelAndView("redirect:/index", "createdUser", userDto);
+                return new ModelAndView("login", "createdUser", userDto);
             } catch (UserAlreadyExistException ex) {
                 return new ModelAndView("register", "errorMessage", ERROR_TEAM_ALREADY_EXISTS);
             }

@@ -4,31 +4,32 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@IdClass(ClassifiedTeamId.class)
-@Table(name = "classified_teams")
-public class ClassifiedTeam implements Serializable {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long position;
+@Table(name = "classification", uniqueConstraints = {@UniqueConstraint(name = "uniqueTeamRace", columnNames = {"team_id", "race_id"})})
+public class ClassifiedTeam extends BaseEntity {
+    private Integer position;
     @Column(name = "points")
     private Integer points;
     @Column(name = "earned")
     private Integer earned;
 
     @ManyToOne
-    @Id
     @JoinColumn(name = "team_id", referencedColumnName = "id")
     private Team team;
     @ManyToOne
-    @Id
     @JoinColumn(name = "race_id", referencedColumnName = "id")
     private Race race;
+    @OneToOne
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "bet_id", referencedColumnName = "id")
+    private Bet bet;
 }

@@ -2,8 +2,12 @@ package com.victor.porraGP.services.impl;
 
 import com.victor.porraGP.dto.UserDto;
 import com.victor.porraGP.exceptions.UserAlreadyExistException;
+import com.victor.porraGP.model.ClassifiedTeam;
+import com.victor.porraGP.model.Race;
 import com.victor.porraGP.model.Team;
 import com.victor.porraGP.model.User;
+import com.victor.porraGP.repositories.ClassificationRepository;
+import com.victor.porraGP.repositories.RaceRepository;
 import com.victor.porraGP.repositories.TeamRepository;
 import com.victor.porraGP.repositories.UserRepository;
 import com.victor.porraGP.services.UserService;
@@ -12,18 +16,26 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import static com.victor.porraGP.controllers.ClassificationController.SEASON;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final TeamRepository teamRepository;
+    private final RaceRepository raceRepository;
+    private final ClassificationRepository classificationRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, TeamRepository teamRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, TeamRepository teamRepository, RaceRepository raceRepository, ClassificationRepository classificationRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.teamRepository = teamRepository;
+        this.raceRepository = raceRepository;
+        this.classificationRepository = classificationRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -41,11 +53,32 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistException("User already exists");
         }
         Team team = teamRepository.save(creatTeam(userDto));
+        addToClassifications(team);
+        User user = createUser(userDto, team);
+        return userRepository.save(user);
+    }
+
+    private User createUser(UserDto userDto, Team team) {
         User user = new User();
         user.setUsername(userDto.getTeamName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setTeam(team);
-        return userRepository.save(user);
+        return user;
+    }
+
+    private void addToClassifications(Team team) {
+        List<Race> races = raceRepository.findAllBySeason(SEASON).stream().toList();
+        List<ClassifiedTeam> classifications = new ArrayList<>();
+        for (Race race : races) {
+            ClassifiedTeam classifiedTeam = new ClassifiedTeam();
+            classifiedTeam.setRace(race);
+            classifiedTeam.setEarned(0);
+            classifiedTeam.setTeam(team);
+            classifiedTeam.setPoints(0);
+            classifiedTeam.setPosition((int) (classificationRepository.countAllByRaceId(race.getId()) + 1));
+            classifications.add(classifiedTeam);
+        }
+        classificationRepository.saveAll(classifications);
     }
 
     private Team creatTeam(UserDto userDto) {

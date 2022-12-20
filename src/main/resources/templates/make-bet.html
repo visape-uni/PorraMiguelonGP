@@ -7,14 +7,19 @@
 </head>
 <body>
 <h1 th:text="#{bet.title}"></h1>
-
+<p th:text="${bet.race} != null ? #{bet.nextRace(${bet.race.id}, ${bet.race.name}, ${bet.race.country}, ${bet.race.startDate})} : #{bet.noNextRace}"></p>
 <div>
-    <form th:action="@{/make-bet}" th:object="${bet}" method="post" enctype="utf8">
+    <form th:action="@{/make-bet}" th:if="${bet.race}" th:object="${bet}" method="post" enctype="utf8">
+        <input type="hidden" name="race.id" th:value="${bet.race.id}">
+        <input type="hidden" name="race.name" th:value="${bet.race.name}">
+        <input type="hidden" name="race.country" th:value="${bet.race.country}">
+        <input type="hidden" name="race.startDate" th:value="${#dates.format(bet.race.startDate, 'yyyy-MM-dd HH:mm:ss.S')}">
+        <input type="hidden" name="race.endDate" th:value="${#dates.format(bet.race.endDate, 'yyyy-MM-dd HH:mm:ss.S')}">
         <section>
             <h2 th:text="#{bet.moto3.title}"></h2>
             <p>
                 <label for="moto3-first" th:text="#{bet.firstPilot}"></label>
-                <input id="moto3-first" type="text" name="moto3-first"/>
+                <input id="moto3-first" type="text" name="moto3"/>
                 <p th:each="error: ${#fields.errors('moto3')}"
                    th:text="#{${error}}">Validation error</p>
             </p>
@@ -23,7 +28,7 @@
             <h2 th:text="#{bet.moto2.title}"></h2>
             <p>
                 <label for="moto2-first" th:text="#{bet.firstPilot}"></label>
-                <input id="moto2-first" type="text" name="moto2-first"/>
+                <input id="moto2-first" type="text" name="moto2"/>
                 <p th:each="error: ${#fields.errors('moto2')}"
                    th:text="#{${error}}">Validation error</p>
             </p>
@@ -32,37 +37,37 @@
             <h2 th:text="#{bet.motogp.title}"></h2>
             <p>
                 <label for="motogp-first" th:text="#{bet.firstPilot}"></label>
-                <input id="motogp-first" type="text" name="motogp-first"/>
+                <input id="motogp-first" type="text" name="motogpFirst"/>
                 <p th:each="error: ${#fields.errors('motogpFirst')}"
                    th:text="#{${error}}">Validation error</p>
             </p>
             <p>
                 <label for="motogp-second" th:text="#{bet.secondPilot}"></label>
-                <input id="motogp-second" type="text" name="motogp-second"/>
+                <input id="motogp-second" type="text" name="motogpSecond"/>
                 <p th:each="error: ${#fields.errors('motogpSecond')}"
                    th:text="#{${error}}">Validation error</p>
             </p>
             <p>
                 <label for="motogp-third" th:text="#{bet.thirdPilot}"></label>
-                <input id="motogp-third" type="text" name="motogp-third"/>
+                <input id="motogp-third" type="text" name="motogpThird"/>
                 <p th:each="error: ${#fields.errors('motogpThird')}"
                    th:text="#{${error}}">Validation error</p>
             </p>
             <p>
                 <label for="motogp-forth" th:text="#{bet.forthPilot}"></label>
-                <input id="motogp-forth" type="text" name="motogp-forth"/>
+                <input id="motogp-forth" type="text" name="motogpForth"/>
                 <p th:each="error: ${#fields.errors('motogpForth')}"
                    th:text="#{${error}}">Validation error</p>
             </p>
             <p>
                 <label for="motogp-fifth" th:text="#{bet.fifthPilot}"></label>
-                <input id="motogp-fifth" type="text" name="motogp-fifth"/>
+                <input id="motogp-fifth" type="text" name="motogpFifth"/>
                 <p th:each="error: ${#fields.errors('motogpFifth')}"
                    th:text="#{${error}}">Validation error</p>
             </p>
             <p>
                 <label for="motogp-sixth" th:text="#{bet.sixthPilot}"></label>
-                <input id="motogp-sixth" type="text" name="motogp-sixth"/>
+                <input id="motogp-sixth" type="text" name="motogpSixth"/>
                 <p th:each="error: ${#fields.errors('motogpSixth')}"
                    th:text="#{${error}}">Validation error</p>
             </p>

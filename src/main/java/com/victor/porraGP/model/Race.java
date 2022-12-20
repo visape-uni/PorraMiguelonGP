@@ -30,5 +30,5 @@ public class Race extends BaseEntity {
     private Integer season;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "race")
-    private List<ClassifiedTeam> classifiedTeams = new ArrayList<>();
+    private List<ClassifiedTeam> classifications = new ArrayList<>();
 }

@@ -1,13 +1,13 @@
 package com.victor.porraGP.dto;
 
 import com.victor.porraGP.model.ClassifiedTeam;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -20,14 +20,20 @@ public class ClassificationDto {
 
 
     public ClassificationDto(List<ClassifiedTeam> classifiedTeams, ClassifiedTeam firstClassified) {
+        List<ClassifiedTeamDto> noClassified = new ArrayList<>();
         for(ClassifiedTeam classifiedTeam : classifiedTeams) {
             ClassifiedTeamDto classifiedTeamDto = new ClassifiedTeamDto();
             classifiedTeamDto.position = classifiedTeam.getPosition();
             classifiedTeamDto.teamName = classifiedTeam.getTeam().getName();
             classifiedTeamDto.points = classifiedTeam.getPoints();
             classifiedTeamDto.pointsDif = calculatePointsDif(classifiedTeam, firstClassified);
-            this.classifiedTeams.add(classifiedTeamDto);
+            if (classifiedTeam.getPosition() != 0) {
+                this.classifiedTeams.add(classifiedTeamDto);
+            } else {
+                noClassified.add(classifiedTeamDto);
+            }
         }
+        this.classifiedTeams.addAll(noClassified);
         if (firstClassified.getRace() != null) {
             this.raceName = firstClassified.getRace().getName();
         } else {
@@ -39,14 +45,14 @@ public class ClassificationDto {
     @Getter
     @Setter
     private static class ClassifiedTeamDto {
-        private Long position;
+        private Integer position;
         private String teamName;
         private Integer points;
         private Integer pointsDif;
     }
 
     private Integer calculatePointsDif(ClassifiedTeam actualTeam, ClassifiedTeam firstClassified) {
-        if (actualTeam.equals(firstClassified)) {
+        if (Objects.isNull(firstClassified) || actualTeam.equals(firstClassified)) {
             return 0;
         } else {
             return firstClassified.getPoints() - actualTeam.getPoints();

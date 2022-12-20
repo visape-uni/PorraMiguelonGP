@@ -14,7 +14,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "bets")
 public class Bet extends BaseEntity {
+    @Column(name = "moto3")
     private String moto3;
+    @Column(name = "moto2")
     private String moto2;
     @Column(name = "motogp_1")
     private String motogpFirst;

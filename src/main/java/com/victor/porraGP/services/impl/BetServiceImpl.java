@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +36,7 @@ public class BetServiceImpl implements BetService {
     public BetDto saveBet(BetDto betDto) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ClassifiedTeam classifiedTeam = classificationRepository
-                .findClassifiedTeamByRaceIdAndTeamId(betDto.getRace().getId(), user.getTeam().getId());
+                .findClassifiedTeamByRaceIdAndTeamId(betDto.getRaceId(), user.getTeam().getId());
 
         Bet bet = betRepository.save(createBet(betDto, classifiedTeam));
         classifiedTeam.setBet(bet);
@@ -67,6 +68,20 @@ public class BetServiceImpl implements BetService {
         }
 
         return null;
+    }
+
+    @Override
+    public BetDto findBet(Long raceId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ClassifiedTeam classifiedTeam = classificationRepository.findClassifiedTeamByRaceIdAndTeamId(raceId, user.getTeam().getId());
+        BetDto betDto = null;
+        if (!Objects.isNull(classifiedTeam) && !Objects.isNull(classifiedTeam.getBet())) {
+            betDto = new BetDto(raceId, classifiedTeam.getBet().getMoto3(), classifiedTeam.getBet().getMoto2(),
+                    classifiedTeam.getBet().getMotogpFirst(), classifiedTeam.getBet().getMotogpSecond(),
+                    classifiedTeam.getBet().getMotogpThird(), classifiedTeam.getBet().getMotogpForth(),
+                    classifiedTeam.getBet().getMotogpFifth(), classifiedTeam.getBet().getMotogpSixth());
+        }
+        return betDto;
     }
 
     private Bet createBet(BetDto betDto, ClassifiedTeam classifiedTeam) {

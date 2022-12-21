@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @ToString
 public class BetDto {
-    private RaceDto race;
+    private Long raceId;
     @NotBlank(message = "error.pilotBetEmpty")
     private String moto3;
     @NotBlank(message = "error.pilotBetEmpty")

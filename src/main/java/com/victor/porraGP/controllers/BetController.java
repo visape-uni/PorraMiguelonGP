@@ -1,6 +1,7 @@
 package com.victor.porraGP.controllers;
 
 import com.victor.porraGP.dto.BetDto;
+import com.victor.porraGP.dto.RaceDto;
 import com.victor.porraGP.dto.RiderDto;
 import com.victor.porraGP.services.BetService;
 import com.victor.porraGP.services.RaceService;
@@ -35,10 +36,8 @@ public class BetController {
 
     @GetMapping("/make-bet")
     public String getMakeBet(Model model) {
-        //model.addAttribute("nextRace", raceService.findNextRace());
-        addRidersToModel(model);
+        addAttributesToModel(model);
         BetDto betDto = new BetDto();
-        betDto.setRace(raceService.findNextRace());
         model.addAttribute("bet", betDto);
         return "make-bet";
     }
@@ -56,11 +55,15 @@ public class BetController {
                 model.addAttribute("validationError", validationError);
             }
         }
-        addRidersToModel(model);
+        addAttributesToModel(model);
         return model;
     }
 
-    private void addRidersToModel(Model model) {
+    private void addAttributesToModel(Model model) {
+        RaceDto nextRace = raceService.findNextRace();
+        model.addAttribute("nextRace", nextRace);
+        BetDto existingBet = betService.findBet(nextRace.getId());
+        model.addAttribute("existingBet", existingBet);
         Map<String, List<RiderDto>> ridersMap = riderService.getAllRiders();
         model.addAttribute("ridersMoto3", ridersMap.get(MOTO_3_CATEGORY));
         model.addAttribute("ridersMoto2", ridersMap.get(MOTO_2_CATEGORY));

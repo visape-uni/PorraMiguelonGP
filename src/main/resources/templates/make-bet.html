@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1 th:text="#{bet.title}"></h1>
-<p th:text="${nextRace} != null ? #{bet.nextRace(${nextRace.id}, ${nextRace.name}, ${nextRace.country}, ${nextRace.startDate})} : #{bet.noNextRace}"></p>
+<h3 th:text="${nextRace} != null ? #{bet.nextRace(${nextRace.id}, ${nextRace.name}, ${nextRace.country}, ${nextRace.startDate})} : #{bet.noNextRace}"></h3>
 <div>
     <p th:if="${existingBet}" th:text="#{bet.existingBet}"></p>
     <p th:if="${validationError}" th:text="#{${validationError}}"></p>

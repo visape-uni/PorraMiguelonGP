@@ -11,7 +11,7 @@
 
     <div class="center">
         <div > <img th:src="@{/images/LOGO porraNegro.png}" alt=""/> </div>
-     <h2 th:text="#{register.title}"></h2>
+     <h2 th:class="color" th:text="#{register.title}"></h2>
      <div th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
         <form action="/register" th:object="${user}" method="POST" enctype="utf8">
         <p>
@@ -33,8 +33,8 @@
                th:text="#{${error}}">Global error</p>
         </p>
             <button class="register" type="submit" th:text="#{register.create}"></button>
-    </form>
-   <a th:href="@{/login.html}" th:text="#{register.login}">login</a>
+            <a th:href="@{/login.html}" th:text="#{register.login}">login</a>
+        </form>
     </div>
     <footer class="copyright">&copy;2022</footer>
 

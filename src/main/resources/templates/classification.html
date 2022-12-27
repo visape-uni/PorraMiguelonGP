@@ -8,7 +8,7 @@
 <body>
 <h1 th:text="#{classification.title(${currentClassification.raceName})}"></h1>
 <div>
-    <form action="#" th:action="@{/classification}" method="get">
+    <form class="classification" action="#" th:action="@{/classification}" method="get">
         <label th:text="#{classification.title('')}"></label>
         <select id="raceSelect" name="race">
             <option th:each="race: ${races}" th:value="${race.id}" th:text="${race.id} + '. ' + ${race.name}" th:selected="${race.name} == ${currentClassification.raceName}"></option>

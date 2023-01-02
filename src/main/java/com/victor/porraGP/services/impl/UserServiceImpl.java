@@ -2,10 +2,7 @@ package com.victor.porraGP.services.impl;
 
 import com.victor.porraGP.dto.UserDto;
 import com.victor.porraGP.exceptions.UserAlreadyExistException;
-import com.victor.porraGP.model.ClassifiedTeam;
-import com.victor.porraGP.model.Race;
-import com.victor.porraGP.model.Team;
-import com.victor.porraGP.model.User;
+import com.victor.porraGP.model.*;
 import com.victor.porraGP.repositories.ClassificationRepository;
 import com.victor.porraGP.repositories.RaceRepository;
 import com.victor.porraGP.repositories.TeamRepository;
@@ -62,6 +59,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setUsername(userDto.getTeamName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setRole(Role.USER);
         user.setTeam(team);
         return user;
     }

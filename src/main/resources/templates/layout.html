@@ -31,6 +31,7 @@
                 <li th:class="${menu} == 'classification' ? 'active' : null"><a th:text="#{menu.viewTable}" th:href="@{/classification/?race=0}"></a></li>
                 <li th:class="${menu} == 'bet' ? 'active' : null"><a th:text="#{menu.makeBet}" th:href="@{/make-bet}"></a></li>
                 <li th:class="${menu} == 'rules' ? 'active' : null"><a th:text="#{menu.rules}" th:href="@{/rules}"></a></li>
+                <li sec:authorize="hasAuthority('ADMIN')" th:class="${menu} == 'admin' ? 'active' : null"><a th:text="#{menu.admin}" th:href="@{/admin}"></a></li>
             </ul>
 
         </nav>

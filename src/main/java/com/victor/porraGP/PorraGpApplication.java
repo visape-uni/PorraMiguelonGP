@@ -12,7 +12,6 @@ public class PorraGpApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PorraGpApplication.class, args);
 	}
-
 	@Bean
 	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();

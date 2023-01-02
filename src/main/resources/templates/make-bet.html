@@ -11,7 +11,7 @@
 <div>
     <p th:if="${existingBet}" th:text="#{bet.existingBet}"></p>
     <p th:if="${validationError}" th:text="#{${validationError}}"></p>
-    <form th:action="@{/make-bet}" th:if="${nextRace}" th:object="${bet}" method="post" enctype="utf8">
+    <form class="makeBet" th:action="@{/make-bet}" th:if="${nextRace}" th:object="${bet}" method="post" enctype="utf8">
         <input type="hidden" name="raceId" th:value="${nextRace.id}">
         <section>
             <h2 th:text="#{bet.moto3.title}"></h2>

@@ -97,6 +97,9 @@ nav ul li a{
 a:hover {
     background-color: #ec7979;
 }
+.user a:hover {
+    background-color: white;
+}
 .checkbtn{
     font-size: 30px;
     color: #fff;

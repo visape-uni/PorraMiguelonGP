@@ -94,7 +94,7 @@ nav ul li a{
 .active {
     background-color: #360404;
 }
-a:hover {
+nav ul li a:hover {
     background-color: #ec7979;
 }
 .user a:hover {
@@ -309,6 +309,14 @@ select option {
 }
 .blackText{
     color: black;
+}
+
+.external-link::after {
+    content: "";
+    display: inline-block;
+    background: url("../../images/ic_external_link.svg") no-repeat top right;
+    width: 14px;
+    height: 12px;
 }
 
 /* Mobile */

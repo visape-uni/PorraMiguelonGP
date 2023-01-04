@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "bets")
+@Table(name = "bets", uniqueConstraints = {@UniqueConstraint(name = "uniqueBetTeamRace", columnNames = {"team_id", "race_id"})})
 public class Bet extends BaseEntity {
     @Column(name = "moto3")
     private String moto3;
@@ -25,12 +25,17 @@ public class Bet extends BaseEntity {
     @Column(name = "motogp_3")
     private String motogpThird;
     @Column(name = "motogp_4")
-    private String motogpForth;
+    private String motogpFourth;
     @Column(name = "motogp_5")
     private String motogpFifth;
     @Column(name = "motogp_6")
     private String motogpSixth;
-    @OneToOne
-    @JoinColumn(name = "classification_id")
-    private ClassifiedTeam classifiedTeam;
+    @ManyToOne
+    @JoinColumn(name = "team_id", referencedColumnName = "id")
+    private Team team;
+    @ManyToOne
+    @JoinColumn(name = "race_id", referencedColumnName = "id")
+    private Race race;
+    @Column(name = "result")
+    private Boolean result;
 }

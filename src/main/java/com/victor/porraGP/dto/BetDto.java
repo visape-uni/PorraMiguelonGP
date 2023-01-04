@@ -22,7 +22,7 @@ public class BetDto {
     @NotBlank(message = "error.pilotBetEmpty")
     private String motogpThird;
     @NotBlank(message = "error.pilotBetEmpty")
-    private String motogpForth;
+    private String motogpFourth;
     @NotBlank(message = "error.pilotBetEmpty")
     private String motogpFifth;
     @NotBlank(message = "error.pilotBetEmpty")

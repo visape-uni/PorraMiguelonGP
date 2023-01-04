@@ -12,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static com.victor.porraGP.model.Role.ADMIN;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -40,7 +38,7 @@ public class SecurityConfig {
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/admin").hasRole(ADMIN.name())
+                .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers(new String[]{"/", "/index", "/index.html", "/home", "/home.html"}).permitAll()
                 .antMatchers("/styles/**").permitAll()
                 .antMatchers("/images/**").permitAll()

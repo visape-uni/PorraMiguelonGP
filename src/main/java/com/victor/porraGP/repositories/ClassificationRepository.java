@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface ClassificationRepository extends CrudRepository<ClassifiedTeam, Long> {
     List<ClassifiedTeam> findClassificationsByRaceIdIsOrderByPositionAsc(Long raceId);
-    ClassifiedTeam findClassifiedTeamByRaceIdAndTeamId(Long raceId, Long teamId);
+    List<ClassifiedTeam> findClassificationsByRaceId(Long raceId);
     long countAllByRaceId(Long raceId);
 }

@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -14,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "classification", uniqueConstraints = {@UniqueConstraint(name = "uniqueTeamRace", columnNames = {"team_id", "race_id"})})
+@Table(name = "classification", uniqueConstraints = {@UniqueConstraint(name = "uniqueClassifiedTeamRace", columnNames = {"team_id", "race_id"})})
 public class ClassifiedTeam extends BaseEntity {
     private Integer position;
     @Column(name = "points")
@@ -28,8 +26,4 @@ public class ClassifiedTeam extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "race_id", referencedColumnName = "id")
     private Race race;
-    @OneToOne
-    @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "bet_id", referencedColumnName = "id")
-    private Bet bet;
 }

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.victor.porraGP.controllers.ClassificationController.SEASON;
+import static com.victor.porraGP.services.impl.RaceServiceImpl.SEASON_2023;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -59,13 +59,13 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setUsername(userDto.getTeamName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setRole(Role.USER);
+        user.setRole(Role.ROLE_USER);
         user.setTeam(team);
         return user;
     }
 
     private void addToClassifications(Team team) {
-        List<Race> races = raceRepository.findAllBySeason(SEASON).stream().toList();
+        List<Race> races = raceRepository.findAllBySeason(SEASON_2023).stream().toList();
         List<ClassifiedTeam> classifications = new ArrayList<>();
         for (Race race : races) {
             ClassifiedTeam classifiedTeam = new ClassifiedTeam();

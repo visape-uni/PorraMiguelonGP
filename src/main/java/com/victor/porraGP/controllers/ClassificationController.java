@@ -7,10 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import static com.victor.porraGP.services.impl.RaceServiceImpl.SEASON_2023;
+
 @Controller
 public class ClassificationController {
-    public static final int SEASON = 2023;
-
     private final ClassificationService classificationService;
     private final RaceService raceService;
 
@@ -22,7 +22,7 @@ public class ClassificationController {
     @RequestMapping("/classification")
     public String getClassification(Model model, @RequestParam("race") Long classificationId) {
         model.addAttribute("currentClassification", classificationService.findClassificationByRace(classificationId));
-        model.addAttribute("races", raceService.getAllRacesBySeason(SEASON));
+        model.addAttribute("races", raceService.getAllRacesBySeason(SEASON_2023, true));
         return "classification";
     }
 }

@@ -15,10 +15,22 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class RaceServiceImpl implements RaceService {
+
+    public static final int SEASON_2023 = 2023;
     private final RaceRepository raceRepository;
 
     public RaceServiceImpl(RaceRepository raceRepository) {
         this.raceRepository = raceRepository;
+    }
+
+    @Override
+    public RaceDto findRace(Long raceId) {
+        RaceDto raceDto = null;
+        Race race = raceRepository.findById(raceId).orElse(null);
+        if (race != null) {
+            raceDto = new RaceDto(race);
+        }
+        return raceDto;
     }
 
     @Override
@@ -41,8 +53,8 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
-    public List<RaceDto> getAllRacesBySeason(Integer season) {
-        return raceRepository.findAllBySeason(season).stream().map(RaceDto::new).collect(Collectors.toList());
+    public List<RaceDto> getAllRacesBySeason(Integer season, boolean general) {
+        return raceRepository.findAllBySeason(season).stream().filter(race -> generalRaceFilter(general, race)).map(RaceDto::new).collect(Collectors.toList());
     }
 
     private static boolean generalRaceFilter(boolean general, Race race) {

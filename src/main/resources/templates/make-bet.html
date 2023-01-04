@@ -18,6 +18,7 @@
             <p>
                 <label for="moto3-first" th:text="#{bet.firstPilot}"></label>
                 <select id="moto3-first" name="moto3">
+                    <option value="selecciona">Selecciona un corredor</option>
                     <option th:each="rider : ${ridersMoto3}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.moto3}"></option>
                 </select>
@@ -30,6 +31,7 @@
             <p>
                 <label for="moto2-first" th:text="#{bet.firstPilot}"></label>
                 <select id="moto2-first" name="moto2">
+                    <option value="selecciona">Selecciona un corredor</option>
                     <option th:each="rider : ${ridersMoto2}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.moto2}"></option>
                 </select>
@@ -42,6 +44,7 @@
             <p>
                 <label for="motogp-first" th:text="#{bet.firstPilot}"></label>
                 <select id="motogp-first" name="motogpFirst">
+                    <option value="selecciona">Selecciona un corredor</option>
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpFirst}"></option>
                 </select>
@@ -51,6 +54,7 @@
             <p>
                 <label for="motogp-second" th:text="#{bet.secondPilot}"></label>
                 <select id="motogp-second" name="motogpSecond">
+                    <option value="selecciona">Selecciona un corredor</option>
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpSecond}"></option>
                 </select>
@@ -60,6 +64,7 @@
             <p>
                 <label for="motogp-third" th:text="#{bet.thirdPilot}"></label>
                 <select id="motogp-third" name="motogpThird">
+                    <option value="selecciona">Selecciona un corredor</option>
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpThird}"></option>
                 </select>
@@ -69,6 +74,7 @@
             <p>
                 <label for="motogp-forth" th:text="#{bet.forthPilot}"></label>
                 <select id="motogp-forth" name="motogpForth">
+                    <option value="selecciona">Selecciona un corredor</option>
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpForth}"></option>
                 </select>
@@ -78,6 +84,7 @@
             <p>
                 <label for="motogp-fifth" th:text="#{bet.fifthPilot}"></label>
                 <select id="motogp-fifth" name="motogpFifth">
+                    <option value="selecciona">Selecciona un corredor</option>
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpFifth}"></option>
                 </select>
@@ -87,6 +94,7 @@
             <p>
                 <label for="motogp-sixth" th:text="#{bet.sixthPilot}"></label>
                 <select id="motogp-sixth" name="motogpSixth">
+                    <option value="selecciona">Selecciona un corredor</option>
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpSixth}"></option>
                 </select>

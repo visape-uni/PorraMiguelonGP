@@ -197,7 +197,7 @@ form div{
     margin-bottom: 1%;
 }
 form.makeBet {
-    margin-bottom: 4%;
+    margin-bottom: 8%;
 }
 
 button, .center a{
@@ -239,7 +239,7 @@ input{
     border: none;
     color: white;
     text-transform: uppercase;
-    padding: 10px 10px;
+    padding: 0.4em 0.8em 0.3em 0.8em;
     text-decoration: none;
     font-size: 1em;
     font-weight: 400;
@@ -277,6 +277,8 @@ select:focus {
 }
 select option {
     font-weight:normal;
+    font-size: 1em;
+
 }
 /* More info */
 .center{
@@ -348,7 +350,7 @@ select option {
         width: 100%;
     }
     th, td {
-        font-size: 0.7em;
+        font-size: 0.8em;
         letter-spacing: 1px;
     }
     td{
@@ -385,6 +387,10 @@ select option {
     .copyright {
         padding-top: 2%;
         padding-bottom: 2%;
+    }
+    select{
+        margin-top: 1%;
+        margin-bottom: 3%;
     }
 }
 
@@ -443,7 +449,7 @@ select option {
         width: 100%;
     }
     th, td {
-        font-size: 0.7em;
+        font-size: 0.8em;
         letter-spacing: 1px;
     }
     .copyright {
@@ -455,6 +461,10 @@ select option {
     .copyright {
         padding-top: 2%;
         padding-bottom: 2%;
+    }
+    select{
+        margin-top: 1%;
+        margin-bottom: 3%;
     }
 }
 
@@ -488,6 +498,7 @@ select option {
     th, td {
         font-size: 0.8em;
     }
+
 }
 
 

@@ -54,13 +54,18 @@ public class BetServiceImpl implements BetService {
 
     @Override
     public BetDto saveResult(BetDto betDto) {
-        Bet bet = betRepository.save(createResult(betDto));
-        //TODO: CALCULAR RESULTADOS
+        Bet existingBet = betRepository.findBetByRaceIdAndTeamId(betDto.getRaceId(), null);
+        Bet bet = null;
+        if (existingBet != null) {
+            bet = betRepository.save(modifyResult(betDto, existingBet));
+        } else {
+            bet = betRepository.save(createResult(betDto));
+        }
         calculatePoints(bet);
         return betDto;
     }
     private void calculatePoints(Bet result) {
-        List<Bet> bets = betRepository.findBetsByRaceId(result.getRace().getId());
+        List<Bet> bets = betRepository.findBetsByRaceId(result.getRace().getId()).stream().filter(b -> !b.getResult()).collect(Collectors.toList());
         List<ClassifiedTeam> classifiedTeams = classificationRepository.findClassificationsByRaceId(result.getRace().getId());
         List<ClassifiedTeam> generalTeams = classificationRepository.findClassificationsByRaceId(0L);
 
@@ -81,8 +86,8 @@ public class BetServiceImpl implements BetService {
         );
 
         for(Bet bet : bets) {
-            int totalPoints = 0;
-            calculateTotalPoints(result, uniqueRidersList, motoGpResults, bet, totalPoints);
+            int totalPoints = calculateTotalPoints(result, uniqueRidersList, motoGpResults, bet);
+
 
             ClassifiedTeam classifiedTeam = classifiedTeams.stream().filter(team -> team.getTeam().equals(bet.getTeam())
                     && team.getRace().equals(bet.getRace())).findFirst().get();
@@ -90,6 +95,7 @@ public class BetServiceImpl implements BetService {
         }
 
         // Order according points
+        //TODO: MAKE THIS SORT WORK
         classifiedTeams.sort(Comparator.comparing(ClassifiedTeam::getPoints));
         // Set Position
         calculatePositions(classifiedTeams);
@@ -122,10 +128,10 @@ public class BetServiceImpl implements BetService {
                 .collect(Collectors.groupingBy(ClassifiedTeam::getPosition));
 
         List<ClassifiedTeam> firstTeams = podiumMap.get(1);
-        if (firstTeams.size() == 1) {
+        if (firstTeams!= null && firstTeams.size() == 1) {
             setEarnedMoney(firstTeams, FIRST_MONEY);
             awardedTeams += 1;
-        } else if (firstTeams.size() == 2) {
+        } else if (firstTeams!= null && firstTeams.size() == 2) {
             Integer givenMoney = FIRST_MONEY + SECOND_MONEY;
             setEarnedMoney(firstTeams, givenMoney);
             awardedTeams += 2;
@@ -137,7 +143,7 @@ public class BetServiceImpl implements BetService {
 
         if (awardedTeams == 1) {
             List<ClassifiedTeam> secondTeams = podiumMap.get(2);
-            if (secondTeams.size() == 1) {
+            if (secondTeams!= null && secondTeams.size() == 1) {
                 setEarnedMoney(secondTeams, SECOND_MONEY);
                 awardedTeams += 1;
             } else {
@@ -154,7 +160,9 @@ public class BetServiceImpl implements BetService {
     }
 
     private static void setEarnedMoney(List<ClassifiedTeam> teams, Integer givenMoney) {
-        teams.forEach(classifiedTeam -> classifiedTeam.setEarned(givenMoney / teams.size()));
+        if (teams != null) {
+            teams.forEach(classifiedTeam -> classifiedTeam.setEarned(givenMoney / teams.size()));
+        }
     }
 
     private static boolean isaPodium(ClassifiedTeam classifiedTeam) {
@@ -177,20 +185,22 @@ public class BetServiceImpl implements BetService {
             ++position;
         }
     }
-    private static void calculateTotalPoints(Bet result, List<String> uniqueRidersList, Map<Integer, String> motoGpResults, Bet bet, int totalPoints) {
+    private static int calculateTotalPoints(Bet result, List<String> uniqueRidersList, Map<Integer, String> motoGpResults, Bet bet) {
+        int totalPoints = 0;
         List<Integer> rightPositions = new ArrayList<>();
-        addPointsFromRider(bet.getMoto3(), 7, rightPositions, result.getMoto3(), MOTO3_POINTS, totalPoints);
-        addPointsFromRider(bet.getMoto2(), 8, rightPositions, result.getMoto2(), MOTO2_POINTS, totalPoints);
-        addPointsFromGpRider(bet.getMotogpFirst(), 1, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_FIRST_POINTS, totalPoints);
-        addPointsFromGpRider(bet.getMotogpSecond(), 2, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_SECOND_POINTS, totalPoints);
-        addPointsFromGpRider(bet.getMotogpThird(), 3, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_THIRD_POINTS, totalPoints);
-        addPointsFromGpRider(bet.getMotogpFourth(), 4, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_FOURTH_POINTS, totalPoints);
-        addPointsFromGpRider(bet.getMotogpFifth(), 5, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_FIFTH_POINTS, totalPoints);
-        addPointsFromGpRider(bet.getMotogpSixth(), 6, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_SIXTH_POINTS, totalPoints);
-        addBonusPointsForAllRiders(rightPositions, totalPoints);
+        totalPoints = addPointsFromRider(bet.getMoto3(), 7, rightPositions, result.getMoto3(), MOTO3_POINTS, totalPoints);
+        totalPoints = addPointsFromRider(bet.getMoto2(), 8, rightPositions, result.getMoto2(), MOTO2_POINTS, totalPoints);
+        totalPoints = addPointsFromGpRider(bet.getMotogpFirst(), 1, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_FIRST_POINTS, totalPoints);
+        totalPoints = addPointsFromGpRider(bet.getMotogpSecond(), 2, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_SECOND_POINTS, totalPoints);
+        totalPoints = addPointsFromGpRider(bet.getMotogpThird(), 3, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_THIRD_POINTS, totalPoints);
+        totalPoints = addPointsFromGpRider(bet.getMotogpFourth(), 4, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_FOURTH_POINTS, totalPoints);
+        totalPoints = addPointsFromGpRider(bet.getMotogpFifth(), 5, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_FIFTH_POINTS, totalPoints);
+        totalPoints = addPointsFromGpRider(bet.getMotogpSixth(), 6, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_SIXTH_POINTS, totalPoints);
+        totalPoints = addBonusPointsForAllRiders(rightPositions, totalPoints);
+        return totalPoints;
     }
 
-    private static void addBonusPointsForAllRiders(List<Integer> rightPositions, int totalPoints) {
+    private static int addBonusPointsForAllRiders(List<Integer> rightPositions, int totalPoints) {
         if (rightPositions.size() >= 6) {
             if (rightPositions.size() == 8) {
                 totalPoints += ALL_RIDERS_POINTS + ALL_MOTOGP_RIDERS_POINTS;
@@ -198,8 +208,9 @@ public class BetServiceImpl implements BetService {
                 totalPoints += ALL_MOTOGP_RIDERS_POINTS;
             }
         }
+        return totalPoints;
     }
-    private static void addPointsFromGpRider(String betRider, Integer betPosition, List<Integer> rightPositions,
+    private static int addPointsFromGpRider(String betRider, Integer betPosition, List<Integer> rightPositions,
                                              Map<Integer, String> motoGpResult, List<String> uniqueRidersList,
                                              Integer riderPositionPoints, int totalPoints) {
         if (motoGpResult.containsValue(betRider)) {
@@ -212,13 +223,15 @@ public class BetServiceImpl implements BetService {
                 totalPoints += UNIQUE_RIDER_POINTS;
             }
         }
+        return totalPoints;
     }
-    private static void addPointsFromRider(String betRider, Integer betPosition, List<Integer> rightPositions,
+    private static int addPointsFromRider(String betRider, Integer betPosition, List<Integer> rightPositions,
                                            String resultRider, Integer riderPoints, int totalPoints) {
         if (betRider.equals(resultRider)) {
             totalPoints += riderPoints;
             rightPositions.add(betPosition);
         }
+        return totalPoints;
     }
     // Returns a map with Key = riderId and Value = number of times it appears
     private Map<String, Integer> createUniqueRidersList(List<Bet> bets) {
@@ -303,6 +316,14 @@ public class BetServiceImpl implements BetService {
         return betDto;
     }
 
+    private Bet modifyResult(BetDto betDto, Bet existingResult) {
+        fillBetWithPilots(betDto, existingResult);
+        existingResult.setResult(true);
+        Race race = new Race();
+        race.setId(betDto.getRaceId());
+        existingResult.setRace(race);
+        return existingResult;
+    }
     private Bet createResult(BetDto betDto) {
         Bet bet = new Bet();
         fillBetWithPilots(betDto, bet);

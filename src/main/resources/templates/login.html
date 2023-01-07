@@ -13,7 +13,7 @@
 
     <h1 th:text="#{login.title}"></h1>
     <h2 th:if="${createdUser}" th:text="#{login.createdUser(${createdUser.teamName})}"></h2>
-    <h2 th:if="${errorMessage}" th:text="#{${errorMessage}}"></h2>
+    <h2 class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></h2>
     <h2 th:if="${param.logout}" th:text="#{login.loggedOut}"></h2>
     <form th:action="@{/login}" method="post">
         <p>

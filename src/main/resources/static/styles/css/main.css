@@ -76,12 +76,12 @@ nav {
 }
 nav ul{
     float: right;
-    margin-right: 20px;
+    margin-right: 5px;
+    font-size: 1em;
 }
 nav ul li{
     display: inline-block;
     line-height: 80px;
-    margin: 0 5px;
 }
 nav ul li a{
     color: #fff;
@@ -141,7 +141,7 @@ nav ul li a:hover {
 
 table {
     table-layout: fixed;
-    width: 90%;
+    width: 100%;
     border-collapse: collapse;
     margin-bottom: 4%;
 }
@@ -255,9 +255,6 @@ select{
     border: 1px solid #aaa;
     box-shadow: 0 1px 0 1px rgba(0,0,0,.03);
     border-radius: .3em;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
     color: #360404;
     background: linear-gradient(to bottom, #d7c4c4 0%,#c19898 100%);
     margin-bottom: 1%;
@@ -479,15 +476,13 @@ select option {
 
 
 /* Small Desktops */
-@media (min-width: 768px) and (max-width: 900px) {
+@media (min-width: 768px) and (max-width: 983px) {
     .user {
         width: 70%;
     }
-    nav ul{
-        width:80%;
-    }
+
     nav ul li {
-        margin-right: 5px;
+        margin-right: 0px;
         letter-spacing: 1.5px;
         padding-right: 0px;
         padding-left: 0px;

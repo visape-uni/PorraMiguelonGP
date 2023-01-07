@@ -471,7 +471,7 @@ select option {
 
 
 /* Small Desktops */
-@media (min-width: 768px) and (max-width: 900px) {
+@media (min-width: 768px) and (max-width: 945px) {
     .user {
         width: 70%;
     }

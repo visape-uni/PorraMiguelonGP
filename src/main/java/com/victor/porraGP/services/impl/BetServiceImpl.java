@@ -95,8 +95,7 @@ public class BetServiceImpl implements BetService {
         }
 
         // Order according points
-        //TODO: MAKE THIS SORT WORK
-        classifiedTeams.sort(Comparator.comparing(ClassifiedTeam::getPoints));
+        classifiedTeams.sort(Comparator.comparing(ClassifiedTeam::getPoints).reversed());
         // Set Position
         calculatePositions(classifiedTeams);
         // Set Money
@@ -154,7 +153,7 @@ public class BetServiceImpl implements BetService {
         }
 
         if (awardedTeams == 2) {
-            List<ClassifiedTeam> thirdTeams = podiumMap.get(2);
+            List<ClassifiedTeam> thirdTeams = podiumMap.get(3);
             setEarnedMoney(thirdTeams, THIRD_MONEY);
         }
     }

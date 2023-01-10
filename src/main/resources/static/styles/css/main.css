@@ -50,6 +50,7 @@ section{
 .padding{
     padding: 2%;
 }
+
 /*menu*/
 
 .logo{
@@ -307,11 +308,20 @@ select option {
 .blackText{
     color: black;
 }
-
+a.external-link {
+    font-size: 1.2em;
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+    display: inline-block;
+    background-color: #790909;
+    padding: 1%;
+    margin-bottom: 2%;
+}
 .external-link::after {
     content: "";
     display: inline-block;
-    background: url("../../images/ic_external_link.svg") no-repeat top right;
+    background: url("../../images/ic_external_linkWhite.svg") no-repeat top right;
     width: 14px;
     height: 12px;
 }
@@ -319,7 +329,10 @@ select option {
 /* Mobile */
 @media (max-width: 399px) {
     h1{
-        font-size: 1.7em;
+        font-size: 1.6em;
+    }
+    h1, h2, h3, h4, h5 {
+        margin-bottom: 3%;
     }
     h3{
         font-size: 1em;
@@ -353,9 +366,10 @@ select option {
     }
     table {
         width: 100%;
+        margin-bottom: 15%;
     }
     th, td {
-        font-size: 0.8em;
+        font-size: 0.6em;
         letter-spacing: 1px;
     }
     td{
@@ -368,13 +382,19 @@ select option {
         width: 35%;
     }
     thead th:nth-child(3) {
-        width: 20%;
-    }
-    thead th:nth-child(4) {
         width: 25%;
     }
-    .copyright {
-        min-width: 90%;
+    thead th:nth-child(4) {
+        width: 15%;
+    }
+    #classificationTable thead th:nth-child(3) {
+        width: 20%;
+    }
+    #classificationTable thead th:nth-child(4) {
+        width: 25%;
+    }
+    #calendarTable thead th:nth-child(5) {
+        width: 15%;
     }
     .user {
         width: 100%;
@@ -387,15 +407,34 @@ select option {
         margin-bottom: 8%;
     }
     section {
-        margin-bottom: 5%;
+        margin-top: 5%;
     }
     .copyright {
+        min-width: 90%;
         padding-top: 2%;
         padding-bottom: 2%;
     }
     select{
         margin-top: 1%;
         margin-bottom: 3%;
+        padding: 0.3em 1em 0.2em 0.1em;
+    }
+    .classification input {
+        padding: 0.3em 0.4em 0.3em 0.4em;
+        margin-left: 0;
+    }
+    a.external-link {
+        font-size: 1em;
+        margin-bottom: 6%;
+        font-weight: 550;
+        font-weight: 550;
+        padding: 1.5%;
+        padding-bottom: 2%
+        }
+    }
+    .external-link::after {
+        width: 14px;
+        height: 12px;
     }
 }
 

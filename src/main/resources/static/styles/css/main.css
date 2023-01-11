@@ -16,6 +16,9 @@ body {
     font-style: normal;
     font-weight: 200;
 }
+.sangria{
+    margin-left: 25px;
+}
 .background {
     background: no-repeat url("../../images/motorcycle-2016.jpeg");
     background-size: cover;
@@ -277,6 +280,18 @@ select option {
     font-weight:normal;
     font-size: 1em;
 
+}
+/* Rules */
+.rules li{
+    padding-bottom: 1%;
+    list-style-type: disc;
+}
+.rules p{
+    line-height: 150%
+}
+.rules {
+    padding-bottom: 2%;
+    padding-left: 1%;
 }
 /* More info */
 .center{

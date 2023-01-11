@@ -88,7 +88,6 @@ public class BetServiceImpl implements BetService {
         for(Bet bet : bets) {
             int totalPoints = calculateTotalPoints(result, uniqueRidersList, motoGpResults, bet);
 
-
             ClassifiedTeam classifiedTeam = classifiedTeams.stream().filter(team -> team.getTeam().equals(bet.getTeam())
                     && team.getRace().equals(bet.getRace())).findFirst().get();
             classifiedTeam.setPoints(totalPoints);
@@ -101,23 +100,27 @@ public class BetServiceImpl implements BetService {
         // Set Money
         calculateMoney(classifiedTeams);
 
-        addToGeneralClassification(classifiedTeams, generalTeams);
+        // Save Race Classification
+        classificationRepository.saveAll(classifiedTeams);
 
-        List<ClassifiedTeam> saveClassifiedTeams = new ArrayList<>();
-        saveClassifiedTeams.addAll(classifiedTeams);
-        saveClassifiedTeams.addAll(generalTeams);
-        classificationRepository.saveAll(saveClassifiedTeams);
+        addToGeneralClassification(generalTeams);
+        // Save General Classification
+        classificationRepository.saveAll(generalTeams);
     }
 
-    private static void addToGeneralClassification(List<ClassifiedTeam> classifiedTeams, List<ClassifiedTeam> generalTeams) {
-        for(ClassifiedTeam classifiedTeam : classifiedTeams) {
-            // TODO: VIGILAR EL CASO EN EL QUE SE INTRODUZCAN LOS RESULTADOS DE UNA CARRERA Y LUEGO SE CAMBIEN, SE SUMARIAN DOS VECES LOS PUNTOS A LA GENERAL
+    private void addToGeneralClassification(List<ClassifiedTeam> generalTeams) {
+        List<ClassifiedTeam> notGeneralRaceTeamsWithPointsOrEarned = classificationRepository.findClassificationsByRaceIdIsNotAndHasPointsOrEarned(0L);
+        Map<Team, List<ClassifiedTeam>> mapOfTeams = notGeneralRaceTeamsWithPointsOrEarned.stream().collect(Collectors.groupingBy(ClassifiedTeam::getTeam));
+        mapOfTeams.forEach((teamFromMap, classifications) -> {
+            int totalTeamPoints = classifications.stream().reduce(0, (subtotal, element) -> subtotal + element.getPoints(), Integer::sum);
+            int totalTeamEarned = classifications.stream().reduce(0, (subtotal, element) -> subtotal + element.getEarned(), Integer::sum);
+
             ClassifiedTeam generalTeam = generalTeams.stream()
-                    .filter(team -> team.getTeam().equals(classifiedTeam.getTeam()))
+                    .filter(generalClassifiedTeam -> generalClassifiedTeam.getTeam().equals(teamFromMap))
                     .findFirst().get();
-            generalTeam.setPoints(generalTeam.getPoints() + classifiedTeam.getPoints());
-            generalTeam.setEarned(generalTeam.getEarned() + classifiedTeam.getEarned());
-        }
+            generalTeam.setPoints(totalTeamPoints);
+            generalTeam.setEarned(totalTeamEarned);
+        });
         calculatePositions(generalTeams);
     }
     private static void calculateMoney(List<ClassifiedTeam> classifiedTeams) {

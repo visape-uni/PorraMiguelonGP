@@ -27,6 +27,7 @@ public class ClassificationDto {
             classifiedTeamDto.teamName = classifiedTeam.getTeam().getName();
             classifiedTeamDto.points = classifiedTeam.getPoints();
             classifiedTeamDto.pointsDif = calculatePointsDif(classifiedTeam, firstClassified);
+            classifiedTeamDto.earned = classifiedTeam.getEarned();
             if (classifiedTeam.getPosition() != 0) {
                 this.classifiedTeams.add(classifiedTeamDto);
             } else {
@@ -49,6 +50,7 @@ public class ClassificationDto {
         private String teamName;
         private Integer points;
         private Integer pointsDif;
+        private Integer earned;
     }
 
     private Integer calculatePointsDif(ClassifiedTeam actualTeam, ClassifiedTeam firstClassified) {

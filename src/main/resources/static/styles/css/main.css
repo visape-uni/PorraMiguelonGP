@@ -128,7 +128,7 @@ nav ul li a:hover {
     width: 30%;
 }
 .user *{
-    color: white;
+    color: lightgray;
 }
 .user a{
     color: #790909;
@@ -137,7 +137,6 @@ nav ul li a:hover {
     margin-right: 3%;
 }
 .user span{
-    color: black;
     text-align: right;
     width: 70%;
 }
@@ -186,7 +185,7 @@ tbody tr:nth-child(even) {
 }
 thead, tfoot {
     background-color: #790909;
-    color: white;
+    color: lightgray;
 }
 tbody td {
     text-align: center;
@@ -210,7 +209,7 @@ button, .center a{
     display: inline-block;
     background-color: #790909;
     border: none;
-    color: white;
+    color: lightgray;
     text-transform: uppercase;
     padding: 10px 10px;
     text-decoration: none;
@@ -243,7 +242,7 @@ input{
     margin-left: 2%;
     background-color: #790909;
     border: none;
-    color: white;
+    color: lightgray;
     text-transform: uppercase;
     padding: 0.4em 0.8em 0.3em 0.8em;
     text-decoration: none;
@@ -309,7 +308,7 @@ select option {
     text-align: center;
     padding-top: 1%;
     padding-bottom: 1%;
-    background-color: #717070;
+    background-color: #414141;;
     color: #FFFFFF;
     text-transform: uppercase;
     font-weight: lighter;
@@ -322,18 +321,15 @@ select option {
 .hidden {
     display: none;
 }
-.blackText{
-    color: black;
-}
 a.external-link {
     font-size: 0.8em;
-    color: white;
     font-weight: bold;
     text-decoration: underline;
     display: inline-block;
-    background-color: #790909;
-    padding: 1%;
+    background-color: #414141;
+    padding: 0.5%;
     margin-bottom: 2%;
+
 }
 .external-link::after {
     content: "";
@@ -447,7 +443,6 @@ a.external-link {
         font-weight: 550;
         padding: 1.5%;
         padding-bottom: 2%
-        }
     }
     .external-link::after {
         width: 14px;

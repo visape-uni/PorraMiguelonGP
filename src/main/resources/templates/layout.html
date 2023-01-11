@@ -11,7 +11,7 @@
 <div class="container">
     <div class="pre-nav">
         <div class="user" sec:authorize="isAuthenticated()">
-            <span class="blackText" th:text="${#authentication.getPrincipal().team.name}"></span>
+            <span th:text="${#authentication.getPrincipal().team.name}"></span>
             <a th:text="#{layout.logout}" th:href="@{/logout}"></a>
         </div>
         <div class="user" sec:authorize="isAnonymous()">

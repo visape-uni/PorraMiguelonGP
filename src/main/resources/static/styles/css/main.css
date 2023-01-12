@@ -28,7 +28,7 @@ body {
     height: 100%;
 }
 h1{
-    color: #790909;
+    color: #ccc7c7;
 }
 h1,h2, h3, h4, h5{
     margin-bottom: 2%;
@@ -38,7 +38,7 @@ h1,h2, h3, h4, h5{
     font-weight: bold;
 }
 .color{
-    color: #790909;
+    color: #ccc7c7;
 }
 section{
     margin-bottom: 3%;
@@ -131,7 +131,7 @@ nav ul li a:hover {
     color: lightgray;
 }
 .user a{
-    color: #790909;
+    color: #ccc7c7;
     text-align: right;
     width: 30%;
     margin-right: 3%;
@@ -161,10 +161,10 @@ thead th:nth-child(3) {
 thead th:nth-child(4) {
     width: 25%;
 }
-#calendarTable thead th:nth-child(2) {
+.tableColumn thead th:nth-child(2) {
     width: 20%;
 }
-#calendarTable thead th:nth-child(5) {
+thead th:nth-child(5) {
     width: 20%;
 }
 th, td {
@@ -178,10 +178,10 @@ td {
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #5b5b5b;
+    background-color: #757373;
 }
 tbody tr:nth-child(even) {
-    background-color: #414141;
+    background-color: #585858;
 }
 thead, tfoot {
     background-color: #790909;
@@ -287,12 +287,16 @@ select option {
     padding-bottom: 1%;
     list-style-type: disc;
 }
-.rules p{
-    line-height: 150%
-}
 .rules {
     padding-bottom: 2%;
     padding-left: 1%;
+    line-height: 150%
+}
+ul ul{
+    padding-left: 1%;
+}
+.firstLine{
+    padding-top: 1%;
 }
 /* More info */
 .center{
@@ -400,13 +404,13 @@ a.external-link {
     thead th:nth-child(4) {
         width: 15%;
     }
-    #classificationTable thead th:nth-child(3) {
+   /* #classificationTable thead th:nth-child(3) {
         width: 20%;
     }
     #classificationTable thead th:nth-child(4) {
         width: 25%;
-    }
-    #calendarTable thead th:nth-child(5) {
+    }*/
+    thead th:nth-child(5) {
         width: 15%;
     }
     .user {

@@ -25,7 +25,12 @@ public class ClassificationDto {
             ClassifiedTeamDto classifiedTeamDto = new ClassifiedTeamDto();
             classifiedTeamDto.position = classifiedTeam.getPosition();
             classifiedTeamDto.teamName = classifiedTeam.getTeam().getName();
-            classifiedTeamDto.points = classifiedTeam.getPoints();
+            classifiedTeamDto.entryPoints = classifiedTeam.getEntryPoints();
+            classifiedTeamDto.positionPoints = classifiedTeam.getPositionPoints();
+            classifiedTeamDto.bonificationGpPoints = classifiedTeam.getBonificationGpPoints();
+            classifiedTeamDto.motoTwoAndThreePoints = classifiedTeam.getMotoTwoAndThreePoints();
+            classifiedTeamDto.totalGpPoints = classifiedTeam.getTotalGpPoints();
+            classifiedTeamDto.totalPoints = classifiedTeam.getTotalPoints();
             classifiedTeamDto.pointsDif = calculatePointsDif(classifiedTeam, firstClassified);
             classifiedTeamDto.earned = classifiedTeam.getEarned();
             if (classifiedTeam.getPosition() != 0) {
@@ -48,16 +53,21 @@ public class ClassificationDto {
     private static class ClassifiedTeamDto {
         private Integer position;
         private String teamName;
-        private Integer points;
+        private Integer entryPoints;
+        private Integer positionPoints;
+        private Integer bonificationGpPoints;
+        private Integer totalGpPoints;
+        private Integer motoTwoAndThreePoints;
+        private Integer totalPoints;
         private Integer pointsDif;
-        private Integer earned;
+        private Double earned;
     }
 
     private Integer calculatePointsDif(ClassifiedTeam actualTeam, ClassifiedTeam firstClassified) {
         if (Objects.isNull(firstClassified) || actualTeam.equals(firstClassified)) {
             return 0;
         } else {
-            return firstClassified.getPoints() - actualTeam.getPoints();
+            return firstClassified.getTotalPoints() - actualTeam.getTotalPoints();
         }
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public interface ClassificationRepository extends CrudRepository<ClassifiedTeam, Long> {
     List<ClassifiedTeam> findClassificationsByRaceIdIsOrderByPositionAsc(Long raceId);
     List<ClassifiedTeam> findClassificationsByRaceId(Long raceId);
-    @Query("select t from ClassifiedTeam t where t.race.id <> ?1 and (t.points > 0 or t.earned > 0)")
+    @Query("select t from ClassifiedTeam t where t.race.id <> ?1 and (t.totalPoints > 0 or t.earned > 0)")
     List<ClassifiedTeam> findClassificationsByRaceIdIsNotAndHasPointsOrEarned(Long raceId);
     long countAllByRaceId(Long raceId);
 }

@@ -18,18 +18,28 @@
     <table id="classificationTable" class="tableColumn">
         <thead>
         <tr>
-            <th th:text="#{home.position}"></th>
-            <th th:text="#{home.teamName}"></th>
-            <th th:text="#{home.points}"></th>
-            <th th:text="#{home.pointsDif}"></th>
-            <th th:text="#{home.earned}"></th>
+            <th th:text="#{classification.position}"></th>
+            <th th:text="#{classification.teamName}"></th>
+            <th th:text="#{classification.entryPoints}"></th>
+            <th th:text="#{classification.positionPoints}"></th>
+            <th th:text="#{classification.bonificationPoints}"></th>
+            <th th:text="#{classification.totalGpPoints}"></th>
+            <th th:text="#{classification.moto2and3Points}"></th>
+            <th th:text="#{classification.totalPoints}"></th>
+            <th th:text="#{classification.pointsDif}"></th>
+            <th th:text="#{classification.earned}"></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="classifiedTeam : ${currentClassification.classifiedTeams}">
             <td th:text="${classifiedTeam.position}"></td>
             <td th:text="${classifiedTeam.teamName}"></td>
-            <td th:text="${classifiedTeam.points}"></td>
+            <td th:text="${classifiedTeam.entryPoints}"></td>
+            <td th:text="${classifiedTeam.positionPoints}"></td>
+            <td th:text="${classifiedTeam.bonificationGpPoints}"></td>
+            <td th:text="${classifiedTeam.totalGpPoints}"></td>
+            <td th:text="${classifiedTeam.motoTwoAndThreePoints}"></td>
+            <td th:text="${classifiedTeam.totalPoints}"></td>
             <td th:text="${classifiedTeam.pointsDif}"></td>
             <td th:text="${classifiedTeam.earned}"></td>
         </tr>

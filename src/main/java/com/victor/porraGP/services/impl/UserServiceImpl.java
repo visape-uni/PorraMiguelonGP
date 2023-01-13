@@ -70,9 +70,14 @@ public class UserServiceImpl implements UserService {
         for (Race race : races) {
             ClassifiedTeam classifiedTeam = new ClassifiedTeam();
             classifiedTeam.setRace(race);
-            classifiedTeam.setEarned(0);
+            classifiedTeam.setEarned((double) 0);
             classifiedTeam.setTeam(team);
-            classifiedTeam.setPoints(0);
+            classifiedTeam.setPositionPoints(0);
+            classifiedTeam.setEntryPoints(0);
+            classifiedTeam.setBonificationGpPoints(0);
+            classifiedTeam.setMotoTwoAndThreePoints(0);
+            classifiedTeam.setTotalPoints(0);
+            classifiedTeam.setTotalGpPoints(0);
             classifiedTeam.setPosition((int) (classificationRepository.countAllByRaceId(race.getId()) + 1));
             classifications.add(classifiedTeam);
         }

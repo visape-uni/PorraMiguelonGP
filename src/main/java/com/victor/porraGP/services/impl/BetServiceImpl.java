@@ -2,11 +2,11 @@ package com.victor.porraGP.services.impl;
 
 import com.victor.porraGP.dto.BetDto;
 import com.victor.porraGP.model.*;
-import com.victor.porraGP.repositories.BetRepository;
-import com.victor.porraGP.repositories.ClassificationRepository;
-import com.victor.porraGP.repositories.RaceRepository;
-import com.victor.porraGP.repositories.RiderRepository;
+import com.victor.porraGP.repositories.*;
 import com.victor.porraGP.services.BetService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -26,36 +26,38 @@ public class BetServiceImpl implements BetService {
     private static final Integer MOTO3_POINTS = 10;
     private static final Integer MOTO2_POINTS = 10;
     private static final Integer MOTOGP_FIRST_POINTS = 10;
-    private static final Integer MOTOGP_SECOND_POINTS = 10;
-    private static final Integer MOTOGP_THIRD_POINTS = 10;
-    private static final Integer MOTOGP_FOURTH_POINTS = 10;
-    private static final Integer MOTOGP_FIFTH_POINTS = 10;
-    private static final Integer MOTOGP_SIXTH_POINTS = 10;
-    private static final Integer MOTOGP_PRESENT_POINTS = 10;
-    private static final Integer UNIQUE_RIDER_POINTS = 10;
+    private static final Integer MOTOGP_SECOND_POINTS = 11;
+    private static final Integer MOTOGP_THIRD_POINTS = 12;
+    private static final Integer MOTOGP_FOURTH_POINTS = 13;
+    private static final Integer MOTOGP_FIFTH_POINTS = 14;
+    private static final Integer MOTOGP_SIXTH_POINTS = 15;
+    private static final Integer MOTOGP_PRESENT_POINTS = 5;
+    private static final Integer UNIQUE_RIDER_POINTS = 25;
     private static final Integer ALL_MOTOGP_RIDERS_POINTS = 25;
     private static final Integer ALL_RIDERS_POINTS = 25;
     // Money
-    private static final Integer FIRST_MONEY = 100;
-    private static final Integer SECOND_MONEY = 50;
-    private static final Integer THIRD_MONEY = 50;
+    private static final Integer FIRST_MONEY = 50;
+    private static final Integer SECOND_MONEY = 25;
+    private static final Integer THIRD_MONEY = 20;
+    private static final Integer FOURTH_MONEY = 5;
     // Repositories
     private final RaceRepository raceRepository;
     private final BetRepository betRepository;
     private final RiderRepository riderRepository;
     private final ClassificationRepository classificationRepository;
-
-    public BetServiceImpl(RaceRepository raceRepository, BetRepository betRepository, RiderRepository riderRepository, ClassificationRepository classificationRepository) {
+    private final ConfigurationRepository configurationRepository;
+    public BetServiceImpl(RaceRepository raceRepository, BetRepository betRepository, RiderRepository riderRepository, ClassificationRepository classificationRepository, ConfigurationRepository configurationRepository) {
         this.raceRepository = raceRepository;
         this.betRepository = betRepository;
         this.riderRepository = riderRepository;
         this.classificationRepository = classificationRepository;
+        this.configurationRepository = configurationRepository;
     }
 
     @Override
     public BetDto saveResult(BetDto betDto) {
         Bet existingBet = betRepository.findBetByRaceIdAndTeamId(betDto.getRaceId(), null);
-        Bet bet = null;
+        Bet bet;
         if (existingBet != null) {
             bet = betRepository.save(modifyResult(betDto, existingBet));
         } else {
@@ -86,20 +88,20 @@ public class BetServiceImpl implements BetService {
         );
 
         for(Bet bet : bets) {
-            int totalPoints = calculateTotalPoints(result, uniqueRidersList, motoGpResults, bet);
-
             ClassifiedTeam classifiedTeam = classifiedTeams.stream().filter(team -> team.getTeam().equals(bet.getTeam())
                     && team.getRace().equals(bet.getRace())).findFirst().get();
-            classifiedTeam.setPoints(totalPoints);
+            setAllPoints(result, uniqueRidersList, motoGpResults, bet, classifiedTeam);
         }
-
-        // Order according points
-        classifiedTeams.sort(Comparator.comparing(ClassifiedTeam::getPoints).reversed());
-        // Set Position
-        calculatePositions(classifiedTeams);
+        // Order according Gp points
+        classifiedTeams.sort(Comparator.comparing(ClassifiedTeam::getTotalGpPoints).reversed());
+        // Set Position GP
+        calculateGpPositions(classifiedTeams);
         // Set Money
         calculateMoney(classifiedTeams);
-
+        // Order according total points
+        classifiedTeams.sort(Comparator.comparing(ClassifiedTeam::getTotalPoints).reversed());
+        // Set Position final
+        calculatePositions(classifiedTeams);
         // Save Race Classification
         classificationRepository.saveAll(classifiedTeams);
 
@@ -109,21 +111,27 @@ public class BetServiceImpl implements BetService {
     }
 
     private void addToGeneralClassification(List<ClassifiedTeam> generalTeams) {
-        List<ClassifiedTeam> notGeneralRaceTeamsWithPointsOrEarned = classificationRepository.findClassificationsByRaceIdIsNotAndHasPointsOrEarned(0L);
-        Map<Team, List<ClassifiedTeam>> mapOfTeams = notGeneralRaceTeamsWithPointsOrEarned.stream().collect(Collectors.groupingBy(ClassifiedTeam::getTeam));
+        List<ClassifiedTeam> notGeneralRaceTeamsWithPointsOrEarned =
+                classificationRepository.findClassificationsByRaceIdIsNotAndHasPointsOrEarned(0L);
+        Map<Team, List<ClassifiedTeam>> mapOfTeams =
+                notGeneralRaceTeamsWithPointsOrEarned.stream().collect(Collectors.groupingBy(ClassifiedTeam::getTeam));
         mapOfTeams.forEach((teamFromMap, classifications) -> {
-            int totalTeamPoints = classifications.stream().reduce(0, (subtotal, element) -> subtotal + element.getPoints(), Integer::sum);
-            int totalTeamEarned = classifications.stream().reduce(0, (subtotal, element) -> subtotal + element.getEarned(), Integer::sum);
+            int totalTeamPoints = classifications.stream()
+                    .reduce(0, (subtotal, element) -> subtotal + element.getTotalPoints(), Integer::sum);
+            double totalTeamEarned = classifications.stream()
+                    .reduce(0.0, (subtotal, element) -> subtotal + element.getEarned(), Double::sum);
 
             ClassifiedTeam generalTeam = generalTeams.stream()
                     .filter(generalClassifiedTeam -> generalClassifiedTeam.getTeam().equals(teamFromMap))
                     .findFirst().get();
-            generalTeam.setPoints(totalTeamPoints);
+            generalTeam.setTotalPoints(totalTeamPoints);
             generalTeam.setEarned(totalTeamEarned);
         });
         calculatePositions(generalTeams);
     }
-    private static void calculateMoney(List<ClassifiedTeam> classifiedTeams) {
+    private void calculateMoney(List<ClassifiedTeam> classifiedTeams) {
+        final int RACE_PRICE = Integer.parseInt(configurationRepository
+                .findConfigurationByClave("RACE_PRICE").getValor());
         int awardedTeams = 0;
         Map<Integer, List<ClassifiedTeam>> podiumMap = classifiedTeams.stream()
                 .filter(BetServiceImpl::isaPodium)
@@ -131,37 +139,55 @@ public class BetServiceImpl implements BetService {
 
         List<ClassifiedTeam> firstTeams = podiumMap.get(1);
         if (firstTeams!= null && firstTeams.size() == 1) {
-            setEarnedMoney(firstTeams, FIRST_MONEY);
+            setEarnedMoney(firstTeams, FIRST_MONEY*RACE_PRICE/100);
             awardedTeams += 1;
-        } else if (firstTeams!= null && firstTeams.size() == 2) {
-            Integer givenMoney = FIRST_MONEY + SECOND_MONEY;
+        } else if (firstTeams != null && firstTeams.size() == 2) {
+            int givenMoney = (FIRST_MONEY + SECOND_MONEY)*RACE_PRICE/100;
             setEarnedMoney(firstTeams, givenMoney);
             awardedTeams += 2;
-        } else {
-            Integer givenMoney = FIRST_MONEY + SECOND_MONEY + THIRD_MONEY;
+        } else if (firstTeams != null && firstTeams.size() == 3) {
+            int givenMoney = (FIRST_MONEY + SECOND_MONEY + THIRD_MONEY)*RACE_PRICE/100;
+            setEarnedMoney(firstTeams, givenMoney);
+            awardedTeams += 3;
+        } else if (firstTeams != null && firstTeams.size() > 3) {
+            int givenMoney = (FIRST_MONEY + SECOND_MONEY + THIRD_MONEY + FOURTH_MONEY)*RACE_PRICE/100;
             setEarnedMoney(firstTeams, givenMoney);
             awardedTeams += firstTeams.size();
         }
-
         if (awardedTeams == 1) {
             List<ClassifiedTeam> secondTeams = podiumMap.get(2);
-            if (secondTeams!= null && secondTeams.size() == 1) {
-                setEarnedMoney(secondTeams, SECOND_MONEY);
+            if (secondTeams != null && secondTeams.size() == 1) {
+                setEarnedMoney(secondTeams, SECOND_MONEY*RACE_PRICE/100);
                 awardedTeams += 1;
-            } else {
-                Integer givenMoney = SECOND_MONEY + THIRD_MONEY;
+            } else if (secondTeams != null && secondTeams.size() == 2) {
+                int givenMoney = (SECOND_MONEY + THIRD_MONEY)*RACE_PRICE/100;
+                setEarnedMoney(secondTeams, givenMoney);
+                awardedTeams += 2;
+            } else if (secondTeams != null && secondTeams.size() > 2){
+                int givenMoney = (SECOND_MONEY + THIRD_MONEY + FOURTH_MONEY)*RACE_PRICE/100;
                 setEarnedMoney(secondTeams, givenMoney);
                 awardedTeams += secondTeams.size();
             }
         }
-
         if (awardedTeams == 2) {
             List<ClassifiedTeam> thirdTeams = podiumMap.get(3);
-            setEarnedMoney(thirdTeams, THIRD_MONEY);
+            if (thirdTeams != null && thirdTeams.size() == 1) {
+                setEarnedMoney(thirdTeams, THIRD_MONEY*RACE_PRICE/100);
+                awardedTeams += 1;
+            } else if(thirdTeams != null && thirdTeams.size() > 1) {
+                setEarnedMoney(thirdTeams, (THIRD_MONEY + FOURTH_MONEY)*RACE_PRICE/100);
+                awardedTeams += thirdTeams.size();
+            }
+        }
+        if (awardedTeams == 3) {
+            List<ClassifiedTeam> fourthTeams = podiumMap.get(4);
+            if (fourthTeams != null && fourthTeams.size() == 1) {
+                setEarnedMoney(fourthTeams, FOURTH_MONEY*RACE_PRICE/100);
+                awardedTeams += fourthTeams.size();
+            }
         }
     }
-
-    private static void setEarnedMoney(List<ClassifiedTeam> teams, Integer givenMoney) {
+    private static void setEarnedMoney(List<ClassifiedTeam> teams, double givenMoney) {
         if (teams != null) {
             teams.forEach(classifiedTeam -> classifiedTeam.setEarned(givenMoney / teams.size()));
         }
@@ -169,71 +195,109 @@ public class BetServiceImpl implements BetService {
 
     private static boolean isaPodium(ClassifiedTeam classifiedTeam) {
         return classifiedTeam.getPosition().equals(1) || classifiedTeam.getPosition().equals(2)
-                || classifiedTeam.getPosition().equals(3);
+                || classifiedTeam.getPosition().equals(3) || classifiedTeam.getPosition().equals(4);
+    }
+    private static void calculateGpPositions(List<ClassifiedTeam> classifiedTeams) {
+        int position = 1;
+        int positionSkipped = 1;
+        int pointsLast = 0;
+        for(ClassifiedTeam classifiedTeam : classifiedTeams) {
+            if (pointsLast == classifiedTeam.getTotalGpPoints()) {
+                classifiedTeam.setPosition(position - positionSkipped);
+                ++positionSkipped;
+            } else {
+                classifiedTeam.setPosition(position);
+                pointsLast = classifiedTeam.getTotalGpPoints();
+                positionSkipped = 1;
+            }
+            ++position;
+        }
     }
     private static void calculatePositions(List<ClassifiedTeam> classifiedTeams) {
         int position = 1;
         int positionSkipped = 1;
         int pointsLast = 0;
         for(ClassifiedTeam classifiedTeam : classifiedTeams) {
-            if (pointsLast == classifiedTeam.getPoints()) {
+            if (pointsLast == classifiedTeam.getTotalPoints()) {
                 classifiedTeam.setPosition(position - positionSkipped);
                 ++positionSkipped;
             } else {
                 classifiedTeam.setPosition(position);
-                pointsLast = classifiedTeam.getPoints();
+                pointsLast = classifiedTeam.getTotalPoints();
                 positionSkipped = 1;
             }
             ++position;
         }
     }
-    private static int calculateTotalPoints(Bet result, List<String> uniqueRidersList, Map<Integer, String> motoGpResults, Bet bet) {
-        int totalPoints = 0;
+    private static void setAllPoints(Bet result, List<String> uniqueRidersList, Map<Integer, String> motoGpResults,
+                                     Bet bet, ClassifiedTeam classifiedTeam) {
+        int moto2And3Points = 0;
+        MotoGpPoints motoGpPoints = new MotoGpPoints();
+        int totalGpPoints;
+        int totalPoints;
         List<Integer> rightPositions = new ArrayList<>();
-        totalPoints = addPointsFromRider(bet.getMoto3(), 7, rightPositions, result.getMoto3(), MOTO3_POINTS, totalPoints);
-        totalPoints = addPointsFromRider(bet.getMoto2(), 8, rightPositions, result.getMoto2(), MOTO2_POINTS, totalPoints);
-        totalPoints = addPointsFromGpRider(bet.getMotogpFirst(), 1, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_FIRST_POINTS, totalPoints);
-        totalPoints = addPointsFromGpRider(bet.getMotogpSecond(), 2, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_SECOND_POINTS, totalPoints);
-        totalPoints = addPointsFromGpRider(bet.getMotogpThird(), 3, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_THIRD_POINTS, totalPoints);
-        totalPoints = addPointsFromGpRider(bet.getMotogpFourth(), 4, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_FOURTH_POINTS, totalPoints);
-        totalPoints = addPointsFromGpRider(bet.getMotogpFifth(), 5, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_FIFTH_POINTS, totalPoints);
-        totalPoints = addPointsFromGpRider(bet.getMotogpSixth(), 6, rightPositions, motoGpResults, uniqueRidersList, MOTOGP_SIXTH_POINTS, totalPoints);
-        totalPoints = addBonusPointsForAllRiders(rightPositions, totalPoints);
-        return totalPoints;
+        moto2And3Points += addPointsFromRider(bet.getMoto3(), 7, rightPositions, result.getMoto3(), MOTO3_POINTS);
+        moto2And3Points += addPointsFromRider(bet.getMoto2(), 8, rightPositions, result.getMoto2(), MOTO2_POINTS);
+
+        addPointsFromGpRider(bet.getMotogpFirst(), 1, rightPositions, motoGpResults, uniqueRidersList,
+                MOTOGP_FIRST_POINTS, motoGpPoints);
+        addPointsFromGpRider(bet.getMotogpSecond(), 2, rightPositions, motoGpResults, uniqueRidersList,
+                MOTOGP_SECOND_POINTS, motoGpPoints);
+        addPointsFromGpRider(bet.getMotogpThird(), 3, rightPositions, motoGpResults, uniqueRidersList,
+                MOTOGP_THIRD_POINTS, motoGpPoints);
+        addPointsFromGpRider(bet.getMotogpFourth(), 4, rightPositions, motoGpResults, uniqueRidersList,
+                MOTOGP_FOURTH_POINTS, motoGpPoints);
+        addPointsFromGpRider(bet.getMotogpFifth(), 5, rightPositions, motoGpResults, uniqueRidersList,
+                MOTOGP_FIFTH_POINTS, motoGpPoints);
+        addPointsFromGpRider(bet.getMotogpSixth(), 6, rightPositions, motoGpResults, uniqueRidersList,
+                MOTOGP_SIXTH_POINTS, motoGpPoints);
+
+        addBonusPointsForAllRiders(rightPositions, motoGpPoints);
+
+        //Set points
+        moto2And3Points += motoGpPoints.bonificationMoto3And2Points;
+        totalGpPoints = motoGpPoints.entryPoints + motoGpPoints.positionPoints + motoGpPoints.bonificationPoints;
+        totalPoints = moto2And3Points + totalGpPoints;
+        classifiedTeam.setMotoTwoAndThreePoints(moto2And3Points);
+        classifiedTeam.setEntryPoints(motoGpPoints.entryPoints);
+        classifiedTeam.setPositionPoints(motoGpPoints.positionPoints);
+        classifiedTeam.setBonificationGpPoints(motoGpPoints.bonificationPoints);
+        classifiedTeam.setTotalGpPoints(totalGpPoints);
+        classifiedTeam.setTotalPoints(totalPoints);
     }
 
-    private static int addBonusPointsForAllRiders(List<Integer> rightPositions, int totalPoints) {
+    private static void addBonusPointsForAllRiders(List<Integer> rightPositions, MotoGpPoints motoGpPoints) {
         if (rightPositions.size() >= 6) {
             if (rightPositions.size() == 8) {
-                totalPoints += ALL_RIDERS_POINTS + ALL_MOTOGP_RIDERS_POINTS;
+                motoGpPoints.bonificationMoto3And2Points += ALL_RIDERS_POINTS;
+                motoGpPoints.bonificationPoints += ALL_MOTOGP_RIDERS_POINTS;
             } else if(!rightPositions.contains(7) && !rightPositions.contains(8)) {
-                totalPoints += ALL_MOTOGP_RIDERS_POINTS;
+                motoGpPoints.bonificationPoints += ALL_MOTOGP_RIDERS_POINTS;
             }
         }
-        return totalPoints;
     }
-    private static int addPointsFromGpRider(String betRider, Integer betPosition, List<Integer> rightPositions,
+    private static void addPointsFromGpRider(String betRider, Integer betPosition, List<Integer> rightPositions,
                                              Map<Integer, String> motoGpResult, List<String> uniqueRidersList,
-                                             Integer riderPositionPoints, int totalPoints) {
+                                             Integer riderPositionPoints, MotoGpPoints motoGpPoints) {
         if (motoGpResult.containsValue(betRider)) {
-            totalPoints += MOTOGP_PRESENT_POINTS;
+            motoGpPoints.entryPoints += MOTOGP_PRESENT_POINTS;
             rightPositions.add(betPosition);
             if (motoGpResult.get(betPosition).equals(betRider)) {
-                totalPoints += riderPositionPoints;
+                motoGpPoints.positionPoints += riderPositionPoints;
             }
             if (uniqueRidersList.size() > 0 && uniqueRidersList.contains(betRider)) {
-                totalPoints += UNIQUE_RIDER_POINTS;
+                motoGpPoints.bonificationPoints += UNIQUE_RIDER_POINTS;
+                uniqueRidersList.remove(betRider);
             }
         }
-        return totalPoints;
     }
     private static int addPointsFromRider(String betRider, Integer betPosition, List<Integer> rightPositions,
-                                           String resultRider, Integer riderPoints, int totalPoints) {
+                                           String resultRider, Integer riderPoints) {
         if (betRider.equals(resultRider)) {
-            totalPoints += riderPoints;
             rightPositions.add(betPosition);
+            return riderPoints;
         }
-        return totalPoints;
+        return 0;
     }
     // Returns a map with Key = riderId and Value = number of times it appears
     private Map<String, Integer> createUniqueRidersList(List<Bet> bets) {
@@ -273,7 +337,12 @@ public class BetServiceImpl implements BetService {
 
         Optional<Race> race = raceRepository.findById(betDto.getRaceId());
         if (race.isPresent()) {
-            Bet bet = betRepository.save(createBet(betDto, user.getTeam(), race.get()));
+            Bet existingbet = betRepository.findBetByRaceIdAndTeamId(race.get().getId(), user.getTeam().getId());
+            if (existingbet != null) {
+                betRepository.save(modifyBet(betDto, user.getTeam(), race.get(), existingbet));
+            } else {
+                betRepository.save(createBet(betDto, user.getTeam(), race.get()));
+            }
         } else {
             throw new RuntimeException("Race was not found");
         }
@@ -336,6 +405,13 @@ public class BetServiceImpl implements BetService {
         bet.setRace(race);
         return bet;
     }
+    private Bet modifyBet(BetDto betDto, Team team, Race race, Bet existingBet) {
+        fillBetWithPilots(betDto, existingBet);
+        existingBet.setTeam(team);
+        existingBet.setRace(race);
+        existingBet.setResult(false);
+        return existingBet;
+    }
     private Bet createBet(BetDto betDto, Team team, Race race) {
         Bet bet = new Bet();
         fillBetWithPilots(betDto, bet);
@@ -344,7 +420,6 @@ public class BetServiceImpl implements BetService {
         bet.setResult(false);
         return bet;
     }
-
     private static void fillBetWithPilots(BetDto betDto, Bet bet) {
         bet.setMoto3(betDto.getMoto3());
         bet.setMoto2(betDto.getMoto2());
@@ -354,5 +429,15 @@ public class BetServiceImpl implements BetService {
         bet.setMotogpFourth(betDto.getMotogpFourth());
         bet.setMotogpFifth(betDto.getMotogpFifth());
         bet.setMotogpSixth(betDto.getMotogpSixth());
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    private static class MotoGpPoints {
+        private int entryPoints;
+        private int positionPoints;
+        private int bonificationPoints;
+        private int bonificationMoto3And2Points;
     }
 }

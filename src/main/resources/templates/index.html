@@ -24,7 +24,7 @@
                 <tr th:each="classifiedTeam : ${classification.classifiedTeams}">
                     <td th:text="${classifiedTeam.position} != 0 ? ${classifiedTeam.position} : '-' "></td>
                     <td th:text="${classifiedTeam.teamName}"></td>
-                    <td th:text="${classifiedTeam.points}"></td>
+                    <td th:text="${classifiedTeam.totalPoints}"></td>
                     <td th:text="${classifiedTeam.pointsDif}"></td>
                 </tr>
             </tbody>

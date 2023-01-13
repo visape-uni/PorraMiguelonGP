@@ -10,6 +10,5 @@ import java.util.Date;
 @Repository
 public interface RaceRepository extends CrudRepository<Race, Long> {
     Race findFirstByEndDateAfter(Date date);
-
     Collection<Race> findAllBySeason(Integer season);
 }

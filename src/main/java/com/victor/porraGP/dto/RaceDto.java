@@ -21,6 +21,7 @@ public class RaceDto {
     private Date startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.S")
     private Date endDate;
+    private boolean open;
 
     public RaceDto(Race race) {
         this.id = race.getId();
@@ -28,6 +29,6 @@ public class RaceDto {
         this.country = race.getCountry();
         this.startDate = race.getStartDate();
         this.endDate = race.getEndDate();
+        this.open = race.isOpen();
     }
-
 }

@@ -28,6 +28,8 @@ public class Race extends BaseEntity {
     private Date endDate;
     @Column(name = "season")
     private Integer season;
+    @Column(name = "open")
+    private boolean open;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "race")
     private List<ClassifiedTeam> classifications = new ArrayList<>();

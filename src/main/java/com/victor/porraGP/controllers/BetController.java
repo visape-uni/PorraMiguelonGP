@@ -23,11 +23,10 @@ import static com.victor.porraGP.services.impl.BetServiceImpl.*;
 @Controller
 public class BetController {
 
-
+    private static final String ERROR_BET_CLOSED = "error.betIsClosed";
     private final BetService betService;
     private final RaceService raceService;
     private final RiderService riderService;
-
     public BetController(BetService betService, RaceService raceService, RiderService riderService) {
         this.betService = betService;
         this.raceService = raceService;
@@ -48,8 +47,12 @@ public class BetController {
         if (!errors.hasErrors()) {
             String validationError = betService.validateAndCompleteBet(betDto);
             if (!StringUtils.hasText(validationError)) {
-                BetDto bet = betService.saveBet(betDto);
-                //TODO: SHOW SUCCESS MESSAGE
+                RaceDto race = raceService.findRace(betDto.getRaceId());
+                if (race.isOpen()) {
+                    BetDto bet = betService.saveBet(betDto);
+                } else {
+                    model.addAttribute("validationError", ERROR_BET_CLOSED);
+                }
             } else {
                 model.addAttribute("validationError", validationError);
             }
@@ -68,5 +71,4 @@ public class BetController {
         model.addAttribute("ridersMoto2", ridersMap.get(MOTO_2_CATEGORY));
         model.addAttribute("ridersMotoGP", ridersMap.get(MOTO_GP_CATEGORY));
     }
-
 }

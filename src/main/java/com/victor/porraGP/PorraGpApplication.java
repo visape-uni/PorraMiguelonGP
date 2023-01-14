@@ -16,5 +16,4 @@ public class PorraGpApplication {
 	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 }

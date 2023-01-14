@@ -1,4 +1,4 @@
-package com.victor.porraGP.security;
+package com.victor.porraGP.configuration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,15 +16,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
-
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
-
     public SecurityConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
-
     @Bean
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -32,7 +29,6 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf()
@@ -58,6 +54,4 @@ public class SecurityConfig {
                 .clearAuthentication(true).permitAll();
         return http.build();
     }
-
-
 }

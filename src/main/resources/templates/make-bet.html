@@ -22,8 +22,8 @@
                     <option th:each="rider : ${ridersMoto3}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.moto3}"></option>
                 </select>
-                <p class="error" th:each="error: ${#fields.errors('moto3')}"
-                   th:text="#{${error}}">Validation error</p>
+            <p class="error" th:each="error: ${#fields.errors('moto3')}"
+               th:text="#{${error}}">Validation error</p>
             </p>
         </section>
         <section>
@@ -35,8 +35,8 @@
                     <option th:each="rider : ${ridersMoto2}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.moto2}"></option>
                 </select>
-                <p class="error" th:each="error: ${#fields.errors('moto2')}"
-                   th:text="#{${error}}">Validation error</p>
+            <p class="error" th:each="error: ${#fields.errors('moto2')}"
+               th:text="#{${error}}">Validation error</p>
             </p>
         </section>
         <section>
@@ -48,8 +48,8 @@
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpFirst}"></option>
                 </select>
-                <p class="error" th:each="error: ${#fields.errors('motogpFirst')}"
-                   th:text="#{${error}}">Validation error</p>
+            <p class="error" th:each="error: ${#fields.errors('motogpFirst')}"
+               th:text="#{${error}}">Validation error</p>
             </p>
             <p>
                 <label for="motogp-second" th:text="#{bet.secondPilot}"></label>
@@ -58,8 +58,8 @@
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpSecond}"></option>
                 </select>
-                <p class="error" th:each="error: ${#fields.errors('motogpSecond')}"
-                   th:text="#{${error}}">Validation error</p>
+            <p class="error" th:each="error: ${#fields.errors('motogpSecond')}"
+               th:text="#{${error}}">Validation error</p>
             </p>
             <p>
                 <label for="motogp-third" th:text="#{bet.thirdPilot}"></label>
@@ -68,8 +68,8 @@
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpThird}"></option>
                 </select>
-                <p class="error" th:each="error: ${#fields.errors('motogpThird')}"
-                   th:text="#{${error}}">Validation error</p>
+            <p class="error" th:each="error: ${#fields.errors('motogpThird')}"
+               th:text="#{${error}}">Validation error</p>
             </p>
             <p>
                 <label for="motogp-fourth" th:text="#{bet.fourthPilot}"></label>
@@ -78,8 +78,8 @@
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpFourth}"></option>
                 </select>
-                <p class="error" th:each="error: ${#fields.errors('motogpFourth')}"
-                   th:text="#{${error}}">Validation error</p>
+            <p class="error" th:each="error: ${#fields.errors('motogpFourth')}"
+               th:text="#{${error}}">Validation error</p>
             </p>
             <p>
                 <label for="motogp-fifth" th:text="#{bet.fifthPilot}"></label>
@@ -88,8 +88,8 @@
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpFifth}"></option>
                 </select>
-                <p class="error" th:each="error: ${#fields.errors('motogpFifth')}"
-                   th:text="#{${error}}">Validation error</p>
+            <p class="error" th:each="error: ${#fields.errors('motogpFifth')}"
+               th:text="#{${error}}">Validation error</p>
             </p>
             <p>
                 <label for="motogp-sixth" th:text="#{bet.sixthPilot}"></label>
@@ -98,8 +98,8 @@
                     <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                             th:selected="${existingBet} != null and ${rider.dorsal} == ${existingBet.motogpSixth}"></option>
                 </select>
-                <p class="error" th:each="error: ${#fields.errors('motogpSixth')}"
-                   th:text="#{${error}}">Validation error</p>
+            <p class="error" th:each="error: ${#fields.errors('motogpSixth')}"
+               th:text="#{${error}}">Validation error</p>
             </p>
         </section>
         <section>

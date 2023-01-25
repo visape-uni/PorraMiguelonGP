@@ -13,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "riders")
+@Table(name = "riders", schema = "public")
 @IdClass(RiderId.class)
 public class Rider implements Serializable {
     @Id

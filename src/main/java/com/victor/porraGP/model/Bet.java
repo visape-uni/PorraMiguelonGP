@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "bets", uniqueConstraints = {@UniqueConstraint(name = "uniqueBetTeamRace", columnNames = {"team_id", "race_id"})})
+@Table(name = "bets", schema = "public", uniqueConstraints = {@UniqueConstraint(name = "uniqueBetTeamRace", columnNames = {"team_id", "race_id"})})
 public class Bet extends BaseEntity {
     @Column(name = "moto3")
     private String moto3;

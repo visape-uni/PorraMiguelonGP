@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "configuration")
+@Table(name = "configuration", schema = "public")
 public class Configuration {
     @Id
     private String clave;

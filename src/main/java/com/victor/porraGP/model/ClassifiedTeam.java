@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "classification", uniqueConstraints = {@UniqueConstraint(name = "uniqueClassifiedTeamRace", columnNames = {"team_id", "race_id"})})
+@Table(name = "classification", schema = "public", uniqueConstraints = {@UniqueConstraint(name = "uniqueClassifiedTeamRace", columnNames = {"team_id", "race_id"})})
 public class ClassifiedTeam extends BaseEntity {
     private Integer position;
     @Column(name = "entry_points")

@@ -335,6 +335,16 @@ ul ul{
 .firstLine{
     padding-top: 1%;
 }
+/* Pop up */
+dialog[open] {
+    position: fixed;
+    width: 50%;
+    max-width: 750px;
+    top: 10px;
+}
+dialog::backdrop {
+    background-color: rgba(255,0,0,0.8);
+}
 /* More info */
 .center{
     width: 60%;

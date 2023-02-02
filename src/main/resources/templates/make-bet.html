@@ -106,10 +106,44 @@
         <section>
             <p>
                 <button type="reset" th:text="#{bet.reset}"></button>
-                <button type="submit" th:text="#{bet.submit}"></button>
+                <button id="showPopup" type="submit" th:text="#{bet.submit}"></button>
             </p>
         </section>
     </form>
+    <dialog id="popUp">
+        <form method="dialog">
+            <p>aquí va la porra</p>
+            <button id="reset" type="submit">Anular</button>
+            <button id="send" type="submit">Enviar</button>
+        </form>
+    </dialog>
 </div>
+<script  th:inline="javascript">
+  var showDialog = document.getElementById('showPopup');
+  var dialog = document.getElementById("popUp");
+  var siBtn = document.getElementById("send");
+  var noBtn = document.getElementById("reset");
+
+  // Mostrar el cuadro de diálogo cuando se hace clic en el botón
+  showDialog.addEventListener("click", function() {
+    dialog.show();
+  });
+
+  // Cerrar el cuadro de diálogo y realizar la acción cuando el usuario hace clic en "Sí"
+  siBtn.addEventListener("click", function() {
+    dialog.close();
+    realizarAccion();
+  });
+
+  // Cerrar el cuadro de diálogo cuando el usuario hace clic en "No"
+  noBtn.addEventListener("click", function() {
+    dialog.close();
+  });
+
+  function realizarAccion() {
+    // El código para realizar la acción va aquí
+    console.log("Porra enviada");
+  }
+</script>
 </body>
 </html>

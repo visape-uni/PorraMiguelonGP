@@ -10,6 +10,20 @@
 <h1 th:text="#{bet.title}"></h1>
 <h3 th:text="${nextRace} != null ? #{bet.nextRace(${nextRace.id}, ${nextRace.name}, ${nextRace.country}, ${nextRace.startDate})} : #{bet.noNextRace}"></h3>
 <div>
+    <dialog open th:if="${existingBet}">
+        <button class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <label th:text="#{bet.moto3.title} + ' ' + ${existingBet.getMoto3()}"/>
+        <label th:text="#{bet.moto2.title} + ' ' + ${existingBet.getMoto2()}"/>
+        <label th:text="#{bet.motogp.title}"/>
+        <label th:text="#{bet.firstPilot} + ': ' + ${existingBet.getMotogpFirst()}"/>
+        <label th:text="#{bet.secondPilot} + ': ' + ${existingBet.getMotogpSecond()()}"/>
+        <label th:text="#{bet.thirdPilot} + ': ' + ${existingBet.getMotogpThird()}"/>
+        <label th:text="#{bet.fourthPilot} + ': ' + ${existingBet.getMotogpFourth()}"/>
+        <label th:text="#{bet.fifthPilot} + ': ' + ${existingBet.getMotogpFifth()}"/>
+        <label th:text="#{bet.sixthPilot} + ': ' + ${existingBet.getMotogpSixth()}"/>
+    </dialog>
     <p class="error" th:if="${existingBet}" th:text="#{bet.existingBet}"></p>
     <p class="error" th:if="${validationError}" th:text="#{${validationError}}"></p>
     <form class="makeBet" th:action="@{/make-bet}" th:if="${nextRace}" th:object="${bet}" method="post" enctype="utf8">
@@ -109,29 +123,33 @@
                 <button id="showPopup" type="button" th:text="#{bet.submit}"></button>
             </p>
             <dialog id="popUp">
-                <form method="dialog">
-                    <p>aquí va la porra</p>
-                    <button id="reset" type="button">Anular</button>
-                    <button id="send" type="submit">Enviar</button>
-                </form>
+
+                <button id="reset" type="button">Anular</button>
+                <button id="send" type="submit">Enviar</button>
             </dialog>
         </section>
     </form>
 </div>
 <script  th:inline="javascript">
-  var showDialog = document.getElementById('showPopup');
-  var dialog = document.getElementById("popUp");
-  var resetBtn = document.getElementById("reset");
+    let showDialog = document.getElementById('showPopup');
+    let dialog = document.getElementById("popUp");
+    let resetBtn = document.getElementById("reset");
 
-  // Mostrar el cuadro de diálogo cuando se hace clic en el botón
-  showDialog.addEventListener("click", function() {
-    dialog.show();
-  });
+    let motoGpSixthSelect = document.getElementById("motogp-sixth")
 
-  // Cerrar el cuadro de diálogo cuando el usuario hace clic en "No"
-  resetBtn.addEventListener("click", function() {
-    dialog.close();
-  });
+    // Mostrar el cuadro de diálogo cuando se hace clic en el botón
+    showDialog.addEventListener("click", function() {
+        const indexMotoGpSixth = motoGpSixthSelect.selectedIndex;
+        if(indexMotoGpSixth === -1) return; // Esto es cuando no hay elementos
+        const opcionSeleccionada = motoGpSixthSelect.options[indexMotoGpSixth];
+        console.log(opcionSeleccionada.text)
+        dialog.show();
+    });
+
+    // Cerrar el cuadro de diálogo cuando el usuario hace clic en "No"
+    resetBtn.addEventListener("click", function() {
+        dialog.close();
+    });
 </script>
 </body>
 </html>

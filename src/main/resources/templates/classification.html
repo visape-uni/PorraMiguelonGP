@@ -9,11 +9,12 @@
 <h1 th:text="#{classification.title(${currentClassification.raceName})}"></h1>
 <div>
     <form class="classification" action="#" th:action="@{/classification}" method="get">
-        <label th:text="#{classification.title('')}"></label>
-        <select id="raceSelect" name="race">
-            <option th:each="race: ${races}" th:value="${race.id}" th:text="${race.id} + '. ' + ${race.name}" th:selected="${race.name} == ${currentClassification.raceName}"></option>
-            <input type="submit" value="Ver" />
-        </select>
+        <div class="input-group mb-3">
+            <button type="submit" th:text="#{classification.view}" class="btn btn-danger"/>
+            <select id="raceSelect" name="race" class="form-select" >
+                <option th:each="race: ${races}" th:value="${race.id}" th:text="${race.id} + '. ' + ${race.name}" th:selected="${race.name} == ${currentClassification.raceName}"></option>
+            </select>
+        </div>
     </form>
     <table id="classificationTable" class="tableColumn">
         <thead>

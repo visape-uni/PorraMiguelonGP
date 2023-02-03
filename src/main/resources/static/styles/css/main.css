@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 /* Body */
 * {
     padding: 0;
@@ -6,8 +7,8 @@
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
-    color: lightgray;
 }
+
 html{
     height: 100%;
 }
@@ -16,6 +17,12 @@ body {
     margin: 0px;
     font-style: normal;
     font-weight: 200;
+}
+a {
+    text-decoration: none;
+}
+b {
+    font-weight: bold;
 }
 .sangria{
     margin-left: 25px;
@@ -27,11 +34,12 @@ body {
     background-attachment: fixed;
     height: 100%;
 }
-h1{
+label {
     color: #ccc7c7;
 }
 h1,h2, h3, h4, h5{
     margin-bottom: 2%;
+    color: #ccc7c7;
 }
 .error{
     color: red;
@@ -45,11 +53,9 @@ section{
 }
 /* Container */
 .container {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
     min-height: 100%;
     background-color: rgba(5, 5, 5, 0.9);
+    padding: 0;
 }
 .padding{
     padding: 2%;
@@ -119,9 +125,6 @@ nav ul li a{
 }
 nav ul li a:hover {
     background-color: #fc4040;
-}
-.user a:hover {
-    background-color: none;
 }
 .checkbtn{
     font-size: 30px;
@@ -204,6 +207,7 @@ th, td {
     padding: 1%;
 }
 th {
+    text-align: center;
     letter-spacing: 2px;
 }
 td {
@@ -216,7 +220,7 @@ tbody tr:nth-child(odd) {
 tbody tr:nth-child(even) {
     background-color: #585858;
 }
-thead, tfoot {
+thead {
     background-color: #790909;
     color: lightgray;
 }
@@ -224,9 +228,6 @@ tbody td {
     text-align: center;
 }
 
-tfoot th {
-    text-align: right;
-}
 .makeBet h2{
     margin-bottom: 1%;
     margin-top: 1%;}
@@ -236,27 +237,6 @@ form div{
 }
 form.makeBet {
     margin-bottom: 8%;
-}
-
-button, .center a{
-    display: inline-block;
-    background-color: #790909;
-    border: none;
-    color: lightgray;
-    text-transform: uppercase;
-    padding: 10px 10px;
-    text-decoration: none;
-    margin: 4px 2px;
-    font-size: 1em;
-    margin-top: 10px;
-    font-weight: bold;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-}
-label {
-    font-size: 1.1em;
-    font-weight: 550;
 }
 .makeBet label {
     display: inline-block;
@@ -269,9 +249,6 @@ input{
     border: 2px solid #ccc;
     border-radius: 4px;
     display: block;
-    color: black;
-}
-select option {
     color: black;
 }
 .classification input{
@@ -297,22 +274,12 @@ select{
     border: 1px solid #aaa;
     box-shadow: 0 1px 0 1px rgba(0,0,0,.03);
     border-radius: .3em;
-    color: #360404;
-    background: linear-gradient(to bottom, #d7c4c4 0%,#c19898 100%);
-    margin-bottom: 1%;
 }
 select::-ms-expand {
     display: none;
 }
 select:hover {
     border-color: #888;
-}
-select:focus {
-    border-color: #aaa;
-    box-shadow: 0 0 1px 3px rgba(121, 9, 9, .7);
-    box-shadow: 0 0 0 3px -moz-mac-focusring;
-    color: #360404;
-    outline: none;
 }
 select option {
     font-weight:normal;
@@ -355,19 +322,22 @@ dialog::backdrop {
     width: 10%;
     margin-bottom: 1%;
 }
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
 .copyright {
     text-align: center;
     padding-top: 1%;
     padding-bottom: 1%;
-    background-color: #414141;;
-    color: #FFFFFF;
+    background-color: var(--bs-form-control-bg);
+    color:  var(--bs-body-color);
     text-transform: uppercase;
     font-weight: lighter;
     letter-spacing: 2px;
     border-top-width: 2px;
-    position: fixed;
-    min-width: 80%;
-    bottom: 0;
+    border-top: var(--bs-border-width) solid var(--bs-border-color);
 }
 .hidden {
     display: none;
@@ -400,9 +370,6 @@ a.external-link {
     }
     h3{
         font-size: 1em;
-    }
-    .container {
-        width: 90%;
     }
     .checkbtn{
         display: block;
@@ -515,9 +482,6 @@ a.external-link {
     }
     .checkbtn{
         display: block;
-    }
-    .container {
-        width: 90%;
     }
     thead th:nth-child(1) {
         width: 10%;

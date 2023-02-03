@@ -11,15 +11,9 @@
     <title>Login Porra Miguelon</title>
 </head>
 <body class="background">
-<<<<<<< HEAD
 <div class="container">
     <div class="center">
         <div > <img th:src="@{/images/LOGO porra.png}" alt=""/> </div>
-=======
-    <div class="container">
-        <div class="center">
-            <div > <img th:src="@{/images/LOGO porraNegro.png}" alt=""/> </div>
->>>>>>> 2f4c7807d80a12679571d1802bf3c0f46e8cd424
 
         <h1 th:text="#{login.title}"></h1>
         <h2 th:if="${createdUser}" th:text="#{login.createdUser(${createdUser.teamName})}"></h2>
@@ -38,13 +32,12 @@
             </p>
         </form>
 
-        </div>
-    </div>
-    <footer class="footer">
-        <div class="container copyright">&copy;2023</div>
-    </footer>
     </div>
 </div>
+<footer class="footer">
+    <div class="container copyright">&copy;2023</div>
+</footer>
+
 
 </body>
 </html>

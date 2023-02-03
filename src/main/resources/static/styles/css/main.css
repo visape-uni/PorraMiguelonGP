@@ -37,6 +37,7 @@ b {
 label {
     color: #ccc7c7;
 }
+
 h1,h2, h3, h4, h5{
     margin-bottom: 2%;
     color: #ccc7c7;
@@ -163,7 +164,9 @@ nav ul li a:hover {
 }
 
 /* tabla */
-
+.marginBottomTable {
+    margin-bottom: 4%;
+}
 table {
     table-layout: fixed;
     width: 100%;
@@ -216,12 +219,7 @@ td {
     color: white;
 }
 
-tbody tr:nth-child(odd) {
-    background-color: #757373;
-}
-tbody tr:nth-child(even) {
-    background-color: #585858;
-}
+
 thead {
     background-color: #790909;
     color: lightgray;

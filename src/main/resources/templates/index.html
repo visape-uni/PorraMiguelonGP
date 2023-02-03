@@ -8,10 +8,10 @@
 <body>
     <h1 th:text="#{home.title}"></h1>
     <h3 th:text="${nextRace} != null ? #{home.nextRace(${nextRace.id}, ${nextRace.name}, ${nextRace.startDate}, ${nextRace.endDate})} : #{home.noNextRace}"></h3>
-    <a class="external-link" href="https://www.motogp.com/es/gp-results" target="_blank" th:text="#{home.qualificationResults}"></a>
+    <a class="external-link link-danger" href="https://www.motogp.com/es/gp-results" target="_blank" th:text="#{home.qualificationResults}"></a>
     <div>
         <h3 class="color" th:text="#{home.generalClassification}"></h3>
-        <table id="classificationTable">
+        <table id="classificationTable" class="table table-dark table-striped marginBottomTable">
             <thead>
                 <tr>
                     <th th:text="#{home.position}"></th>

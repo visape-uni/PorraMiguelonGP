@@ -3,43 +3,45 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <link th:href="@{/styles/css/main.css}" rel="stylesheet" type="text/css">
     <title>Registrarse Porra Miguelon</title>
 </head>
 <body class="background">
-<div class="container">
-
-    <div class="center">
-        <div > <img th:src="@{/images/LOGO porraNegro.png}" alt=""/> </div>
-     <h2 th:class="color" th:text="#{register.title}"></h2>
-     <div class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
-        <form action="/register" th:object="${user}" method="POST" enctype="utf8">
-        <p>
-            <label th:text="#{register.teamName}"></label>
-            <input th:field="*{teamName}"/>
-            <p class="error" th:each="error: ${#fields.errors('teamName')}"
-               th:text="#{${error}}">Validation error</p>
-        </p>
-        <p>
-            <label th:text="#{register.password}"></label>
-            <input type="password" th:field="*{password}"/>
-            <p class="error" th:each="error : ${#fields.errors('password')}"
-               th:text="#{${error}}">Validation error</p>
-        </p>
-        <p>
-            <label th:text="#{register.confirmPassword}"></label>
-            <input type="password" th:field="*{confirmPassword}"/>
-            <p class="error" th:each="error : ${#fields.globalErrors()}"
-               th:text="#{${error}}">Global error</p>
-        </p>
-            <button class="register" type="submit" th:text="#{register.create}"></button>
-            <a th:href="@{/login.html}" th:text="#{register.login}">login</a>
-        </form>
+    <div class="container">
+        <div class="center">
+            <div > <img th:src="@{/images/LOGO porraNegro.png}" alt=""/> </div>
+         <h2 th:class="color" th:text="#{register.title}"></h2>
+         <div class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
+            <form action="/register" th:object="${user}" method="POST" enctype="utf8">
+            <p>
+                <label th:text="#{register.teamName}"></label>
+                <input th:field="*{teamName}"/>
+                <p class="error" th:each="error: ${#fields.errors('teamName')}"
+                   th:text="#{${error}}">Validation error</p>
+            </p>
+            <p>
+                <label th:text="#{register.password}"></label>
+                <input type="password" th:field="*{password}"/>
+                <p class="error" th:each="error : ${#fields.errors('password')}"
+                   th:text="#{${error}}">Validation error</p>
+            </p>
+            <p>
+                <label th:text="#{register.confirmPassword}"></label>
+                <input type="password" th:field="*{confirmPassword}"/>
+                <p class="error" th:each="error : ${#fields.globalErrors()}"
+                   th:text="#{${error}}">Global error</p>
+            </p>
+                <a class="btn btn-outline-danger" th:href="@{/login.html}" th:text="#{register.login}">login</a>
+                <button class="register btn btn-danger" type="submit" th:text="#{register.create}"></button>
+            </form>
+        </div>
     </div>
     <footer class="footer">
         <div class="container copyright">&copy;2023</div>
     </footer>
-
-</div>
 </body>
 </html>

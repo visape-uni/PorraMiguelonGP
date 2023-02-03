@@ -34,13 +34,12 @@ b {
     background-attachment: fixed;
     height: 100%;
 }
-label {
+label, h2, h3, h4 {
     color: #ccc7c7;
 }
 
 h1,h2, h3, h4, h5{
     margin-bottom: 2%;
-    color: #ccc7c7;
 }
 .error{
     color: red;
@@ -209,9 +208,12 @@ thead th:nth-child(10) {
 th, td {
     padding: 1%;
 }
+.primaryColor {
+    background-color: #790909 !important;
+}
 th {
     text-align: center;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 td {
     letter-spacing: 1px;
@@ -222,7 +224,6 @@ td {
 
 thead {
     background-color: #790909;
-    color: lightgray;
 }
 tbody td {
     text-align: center;

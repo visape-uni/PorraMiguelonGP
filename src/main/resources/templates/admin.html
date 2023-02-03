@@ -17,8 +17,8 @@
         </div>
     </form>
     <div>
-        <p th:if="${existingResult}" th:text="#{admin.existingResult}"></p>
-        <p th:if="${validationError}" th:text="#{${validationError}}"></p>
+        <p class="error" th:if="${existingResult}" th:text="#{admin.existingResult}"></p>
+        <p class="error" th:if="${validationError}" th:text="#{${validationError}}"></p>
         <form class="makeBet" th:action="@{/admin}" th:if="${race}" th:object="${result}" method="post" enctype="utf8">
             <input type="hidden" name="raceId" th:value="${race.id}">
             <section>
@@ -31,7 +31,7 @@
                     </select>
                     <label for="moto3-first" th:text="#{admin.firstPilot}"></label>
                 </div>
-                <p th:each="error: ${#fields.errors('moto3')}"
+                <p class="error" th:each="error: ${#fields.errors('moto3')}"
                    th:text="#{${error}}">Validation error</p>
             </section>
             <section>
@@ -44,7 +44,7 @@
                     </select>
                     <label for="moto2-first" th:text="#{admin.firstPilot}"></label>
                 </div>
-                <p th:each="error: ${#fields.errors('moto2')}"
+                <p class="error" th:each="error: ${#fields.errors('moto2')}"
                    th:text="#{${error}}">Validation error</p>
             </section>
             <section>
@@ -57,7 +57,7 @@
                     </select>
                     <label for="motogp-first" th:text="#{admin.firstPilot}"></label>
                 </div>
-                <p th:each="error: ${#fields.errors('motogpFirst')}"
+                <p class="error" th:each="error: ${#fields.errors('motogpFirst')}"
                    th:text="#{${error}}">Validation error</p>
                 <div class="form-floating">
                     <select id="motogp-second" name="motogpSecond" class="form-select">
@@ -67,7 +67,7 @@
                     </select>
                     <label for="motogp-second" th:text="#{admin.secondPilot}"></label>
                 </div>
-                <p th:each="error: ${#fields.errors('motogpSecond')}"
+                <p class="error" th:each="error: ${#fields.errors('motogpSecond')}"
                    th:text="#{${error}}">Validation error</p>
                 <div class="form-floating">
                     <select id="motogp-third" name="motogpThird" class="form-select">
@@ -77,7 +77,7 @@
                     </select>
                     <label for="motogp-third" th:text="#{admin.thirdPilot}"></label>
                 </div>
-                <p th:each="error: ${#fields.errors('motogpThird')}"
+                <p class="error" th:each="error: ${#fields.errors('motogpThird')}"
                    th:text="#{${error}}">Validation error</p>
                 <div class="form-floating">
                     <select id="motogp-fourth" name="motogpFourth" class="form-select">
@@ -87,7 +87,7 @@
                     </select>
                     <label for="motogp-fourth" th:text="#{admin.fourthPilot}"></label>
                 </div>
-                <p th:each="error: ${#fields.errors('motogpFourth')}"
+                <p class="error" th:each="error: ${#fields.errors('motogpFourth')}"
                    th:text="#{${error}}">Validation error</p>
                 <div class="form-floating">
                     <select id="motogp-fifth" name="motogpFifth" class="form-select">
@@ -97,7 +97,7 @@
                     </select>
                     <label for="motogp-fifth" th:text="#{admin.fifthPilot}"></label>
                 </div>
-                <p th:each="error: ${#fields.errors('motogpFifth')}"
+                <p class="error" th:each="error: ${#fields.errors('motogpFifth')}"
                    th:text="#{${error}}">Validation error</p>
                 <div class="form-floating">
                     <select id="motogp-sixth" name="motogpSixth" class="form-select">
@@ -107,7 +107,7 @@
                     </select>
                     <label for="motogp-sixth" th:text="#{admin.sixthPilot}"></label>
                 </div>
-                <p th:each="error: ${#fields.errors('motogpSixth')}"
+                <p class="error" th:each="error: ${#fields.errors('motogpSixth')}"
                    th:text="#{${error}}">Validation error</p>
             </section>
             <section>

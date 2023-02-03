@@ -13,15 +13,15 @@
         <h3 class="color" th:text="#{home.generalClassification}"></h3>
         <table id="classificationTable" class="table table-dark table-striped marginBottomTable">
             <thead>
-                <tr>
-                    <th th:text="#{home.position}"></th>
-                    <th th:text="#{home.teamName}"></th>
-                    <th th:text="#{home.points}"></th>
-                    <th th:text="#{home.pointsDif}"></th>
+                <tr class="align-middle">
+                    <th class="primaryColor"  th:text="#{home.position}"></th>
+                    <th class="primaryColor"  th:text="#{home.teamName}"></th>
+                    <th class="primaryColor"  th:text="#{home.points}"></th>
+                    <th class="primaryColor"  th:text="#{home.pointsDif}"></th>
                 </tr>
             </thead>
             <tbody th:if="${classification} != null">
-                <tr th:each="classifiedTeam : ${classification.classifiedTeams}">
+                <tr class="align-middle" th:each="classifiedTeam : ${classification.classifiedTeams}">
                     <td th:text="${classifiedTeam.position} != 0 ? ${classifiedTeam.position} : '-' "></td>
                     <td th:text="${classifiedTeam.teamName}"></td>
                     <td th:text="${classifiedTeam.totalPoints}"></td>

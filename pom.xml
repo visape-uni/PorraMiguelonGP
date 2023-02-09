@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.victor</groupId>
 	<artifactId>porraGP</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<packaging>jar</packaging>
 	<name>porraGP</name>
 	<description>Web App motogp porra project for Spring Boot</description>
@@ -120,6 +120,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
+				<activatedProperties>prod</activatedProperties>
 				<war.name>prod</war.name>
 			</properties>
 		</profile>

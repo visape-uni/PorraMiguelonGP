@@ -127,6 +127,8 @@ public class BetServiceImpl implements BetService {
             generalTeam.setTotalPoints(totalTeamPoints);
             generalTeam.setEarned(totalTeamEarned);
         });
+        // Order according total points
+        generalTeams.sort(Comparator.comparing(ClassifiedTeam::getTotalPoints).reversed());
         calculatePositions(generalTeams);
     }
     private void calculateMoney(List<ClassifiedTeam> classifiedTeams) {

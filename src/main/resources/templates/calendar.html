@@ -7,8 +7,8 @@
 </head>
 <body>
 <h1 th:text="#{calendar.title}"></h1>
-<div>
-    <table class="tableColumn table table-dark table-striped marginBottomTable">
+<div class="table-responsive">
+    <table class="tableColumn table table-dark table-striped align-middle marginBottomTable">
         <thead>
         <tr class="align-middle">
             <th class="primaryColor" th:text="#{calendar.raceNumber}"></th>
@@ -19,7 +19,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="align-middle" th:each="race : ${races}">
+        <tr th:each="race : ${races}">
             <td th:text="${race.id}"></td>
             <td th:text="${race.country}"></td>
             <td th:text="${race.name}"></td>

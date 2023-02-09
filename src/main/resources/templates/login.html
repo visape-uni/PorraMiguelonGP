@@ -10,34 +10,31 @@
     <link th:href="@{/styles/css/main.css}" rel="stylesheet" type="text/css">
     <title>Login Porra Miguelon</title>
 </head>
-<body class="background">
-<div class="container">
-    <div class="center">
-        <div > <img th:src="@{/images/LOGO porra.png}" alt=""/> </div>
+<body class="background d-flex flex-column h-100">
+    <div class="container h-100">
+        <div class="center">
+            <div> <img th:src="@{/images/LOGO porra.png}" width="80" height="80" alt=""/> </div>
 
-        <h1 th:text="#{login.title}"></h1>
-        <h2 th:if="${createdUser}" th:text="#{login.createdUser(${createdUser.teamName})}"></h2>
-        <h2 class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></h2>
-        <h2 th:if="${param.logout}" th:text="#{login.loggedOut}"></h2>
-        <form th:action="@{/login}" method="post">
-            <p>
-                <label for="username" th:text="#{login.username}"> </label> <input id="username" type="text" name="username"/>
-            </p>
-            <p>
-                <label for="password" th:text="#{login.password}"> </label> <input id="password" type="password" name="password"/>
-            </p>
-            <p>
-                <a class="btn btn-outline-danger" th:text="#{layout.register}" th:href="@{/register}"></a>
-                <button class="btn btn-danger" type="submit" th:text="#{login.submit}"></button>
-            </p>
-        </form>
-
+            <h1 th:text="#{login.title}"></h1>
+            <h2 th:if="${createdUser}" th:text="#{login.createdUser(${createdUser.teamName})}"></h2>
+            <h2 class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></h2>
+            <h2 th:if="${param.logout}" th:text="#{login.loggedOut}"></h2>
+            <form th:action="@{/login}" method="post">
+                <p>
+                    <label for="username" th:text="#{login.username}"> </label> <input id="username" type="text" name="username"/>
+                </p>
+                <p>
+                    <label for="password" th:text="#{login.password}"> </label> <input id="password" type="password" name="password"/>
+                </p>
+                <p>
+                    <a class="btn btn-outline-danger" th:text="#{layout.register}" th:href="@{/register}"></a>
+                    <button class="btn btn-danger" type="submit" th:text="#{login.submit}"></button>
+                </p>
+            </form>
+        </div>
     </div>
-</div>
-<footer class="footer">
-    <div class="container copyright">&copy;2023</div>
+<footer class="footer mt-auto">
+    <div class="copyright">&copy;2023</div>
 </footer>
-
-
 </body>
 </html>

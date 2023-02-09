@@ -11,24 +11,26 @@
     <a class="external-link link-danger" href="https://www.motogp.com/es/gp-results" target="_blank" th:text="#{home.qualificationResults}"></a>
     <div>
         <h3 class="color" th:text="#{home.generalClassification}"></h3>
-        <table id="classificationTable" class="table table-dark table-striped marginBottomTable">
-            <thead>
+        <div class="table-responsive">
+            <table id="classificationTable" class="table table-dark table-striped align-middle marginBottomTable">
+                <thead>
                 <tr class="align-middle">
                     <th class="primaryColor"  th:text="#{home.position}"></th>
                     <th class="primaryColor"  th:text="#{home.teamName}"></th>
                     <th class="primaryColor"  th:text="#{home.points}"></th>
                     <th class="primaryColor"  th:text="#{home.pointsDif}"></th>
                 </tr>
-            </thead>
-            <tbody th:if="${classification} != null">
-                <tr class="align-middle" th:each="classifiedTeam : ${classification.classifiedTeams}">
+                </thead>
+                <tbody th:if="${classification} != null">
+                <tr th:each="classifiedTeam : ${classification.classifiedTeams}">
                     <td th:text="${classifiedTeam.position} != 0 ? ${classifiedTeam.position} : '-' "></td>
                     <td th:text="${classifiedTeam.teamName}"></td>
                     <td th:text="${classifiedTeam.totalPoints}"></td>
                     <td th:text="${classifiedTeam.pointsDif}"></td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

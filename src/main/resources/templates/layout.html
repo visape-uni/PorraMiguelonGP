@@ -1,60 +1,66 @@
 <!DOCTYPE html>
-<html data-bs-theme="dark" th:fragment="layout (template, menu)" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xml:lang="es">
+<html data-bs-theme="dark" th:fragment="layout (template, menu)"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xml:lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+            integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <link th:href="@{/styles/css/main.css}" rel="stylesheet" type="text/css">
     <title>Porra Miguelon GP</title>
-<body class="background">
+<body class="background d-flex flex-column h-100">
 
-    <div class="container">
-        <div class="pre-nav">
-            <div class="lang">
-                <a th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
-                   th:href="${urlBuilder.replaceQueryParam('lang', 'es').toUriString()}">
-                    <img th:src="@{/images/spain-flag.png}" alt="">
-                </a>
-                <a th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
-                   th:href="${urlBuilder.replaceQueryParam('lang', 'ca').toUriString()}">
-                    <img th:src="@{/images/catalan-flag.png}" alt="">
-                </a>
-            </div>
-            <div class="user" sec:authorize="isAuthenticated()">
-                <span th:text="${#authentication.getPrincipal().team.name}"></span>
-                <a th:text="#{layout.logout}" th:href="@{/logout}"></a>
-            </div>
-            <div class="user" sec:authorize="isAnonymous()">
-                <span><a th:text="#{layout.register}" th:href="@{/register}"></a></span>
-                <a th:text="#{layout.login}" th:href="@{/login}"></a>
+    <div class="pre-nav navbar">
+        <div class="lang">
+            <a class="m-1" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+               th:href="${urlBuilder.replaceQueryParam('lang', 'es').toUriString()}">
+                <img th:src="@{/images/spain-flag.png}" height="25" width="25" alt="">
+            </a>
+            <a class="m-1" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+               th:href="${urlBuilder.replaceQueryParam('lang', 'ca').toUriString()}">
+                <img th:src="@{/images/catalan-flag.png}" height="25" width="25" alt="">
+            </a>
+        </div>
+        <div class="user" sec:authorize="isAuthenticated()">
+            <span class="m1" th:text="${#authentication.getPrincipal().team.name}"></span>
+            <a class="m-1" th:text="#{layout.logout}" th:href="@{/logout}"></a>
+        </div>
+        <div class="user" sec:authorize="isAnonymous()">
+            <a class="m-1" th:text="#{layout.register}" th:href="@{/register}"></a>
+            <a class="m-1" th:text="#{layout.login}" th:href="@{/login}"></a>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-md navbar mb-4" role="navigation">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img th:src="@{/images/LOGO porra.png}" width="60" height="60" alt=""/></a>
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item" th:classappend="${menu} == 'home' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.home}" th:href="@{/}"></a></li>
+                    <li class="nav-item" th:classappend="${menu} == 'calendar' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.calendar}" th:href="@{/calendar}"></a></li>
+                    <li class="nav-item" th:classappend="${menu} == 'classification' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.viewTable}" th:href="@{/classification/?race=0}"></a></li>
+                    <li class="nav-item" th:classappend="${menu} == 'bet' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.makeBet}" th:href="@{/make-bet}"></a></li>
+                    <li class="nav-item" th:classappend="${menu} == 'rules' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.rules}" th:href="@{/rules}"></a></li>
+                    <li sec:authorize="hasRole('ADMIN')" class="nav-item" th:classappend="${menu} == 'admin' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.admin}" th:href="@{/admin}"></a></li>
+                </ul>
             </div>
         </div>
-            <nav class="ui-menu" role="navigation">
-                <input type="checkbox" id="check">
-                <label for="check" class="checkbtn">
-                    <i class="fas fa-bars"></i>
-                </label>
-                <div class="logo"> <img th:src="@{/images/LOGO porra.png}" alt=""/> </div>
-                <ul class="ui-menu">
-                    <li th:class="${menu} == 'home' ? 'active' : null"><a th:text="#{menu.home}" th:href="@{/}"></a></li>
-                    <li th:class="${menu} == 'calendar' ? 'active' : null"><a th:text="#{menu.calendar}" th:href="@{/calendar}"></a></li>
-                    <li th:class="${menu} == 'classification' ? 'active' : null"><a th:text="#{menu.viewTable}" th:href="@{/classification/?race=0}"></a></li>
-                    <li th:class="${menu} == 'bet' ? 'active' : null"><a th:text="#{menu.makeBet}" th:href="@{/make-bet}"></a></li>
-                    <li th:class="${menu} == 'rules' ? 'active' : null"><a th:text="#{menu.rules}" th:href="@{/rules}"></a></li>
-                    <li sec:authorize="hasRole('ADMIN')" th:class="${menu} == 'admin' ? 'active' : null"><a th:text="#{menu.admin}" th:href="@{/admin}"></a></li>
-                </ul>
-
-            </nav>
-
+    </nav>
+    <main class="container">
         <div class="padding">
             <th:block th:insert="${template}"/>
         </div>
-    </div>
-    <footer class="footer">
-        <div class="container copyright">&copy;2023</div>
+    </main>
+    <footer class="footer mt-auto">
+        <div class="copyright">&copy;2023</div>
     </footer>
 </body>
 </html>

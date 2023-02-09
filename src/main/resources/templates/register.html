@@ -10,10 +10,10 @@
     <link th:href="@{/styles/css/main.css}" rel="stylesheet" type="text/css">
     <title>Registrarse Porra Miguelon</title>
 </head>
-<body class="background">
-    <div class="container">
+<body class="background d-flex flex-column h-100">
+    <div class="container h-100">
         <div class="center">
-            <div > <img th:src="@{/images/LOGO porra.png}" alt=""/> </div>
+            <div> <img th:src="@{/images/LOGO porra.png}" width="80" height="80" alt=""/> </div>
          <h2 th:class="color" th:text="#{register.title}"></h2>
          <div class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
             <form action="/register" th:object="${user}" method="POST" enctype="utf8">
@@ -40,8 +40,8 @@
             </form>
         </div>
     </div>
-    <footer class="footer">
-        <div class="container copyright">&copy;2023</div>
+    <footer class="footer mt-auto">
+        <div class="copyright">&copy;2023</div>
     </footer>
 </body>
 </html>

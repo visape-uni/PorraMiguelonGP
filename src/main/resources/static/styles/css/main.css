@@ -1,31 +1,15 @@
 @charset "UTF-8";
 
 /* Body */
-* {
-    padding: 0;
-    margin: 0;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: border-box;
-}
 
 html{
     height: 100%;
 }
 body {
     font-family: source-sans-pro, sans-serif;
-    margin: 0px;
-    font-style: normal;
-    font-weight: 200;
 }
 a {
     text-decoration: none;
-}
-b {
-    font-weight: bold;
-}
-.sangria{
-    margin-left: 25px;
 }
 .background {
     background: no-repeat url("../../images/motorcycle-2016.jpeg");
@@ -34,26 +18,30 @@ b {
     background-attachment: fixed;
     height: 100%;
 }
+.center{
+    width: 60%;
+    margin-left: 25%;
+    padding-top: 2%;
+}
+.center img{
+    margin-bottom: 1%;
+}
 label, h2, h3, h4 {
     color: #ccc7c7;
 }
 
 h1,h2, h3, h4, h5{
-    margin-bottom: 2%;
+    /* margin-bottom: 2%; */
 }
 .error{
     color: red;
     font-weight: bold;
+    font-size: .875em;
 }
 .color{
     color: #ccc7c7;
 }
-section{
-    margin-bottom: 3%;
-}
-/* Container */
 .container {
-    min-height: 100%;
     background-color: rgba(5, 5, 5, 0.9);
     padding: 0;
 }
@@ -61,272 +49,46 @@ section{
     padding: 2%;
 }
 
-/*menu*/
-
-.logo{
-    float: left;
-    margin-left: 1%;
-    height: 100%;
-}
-.logo img {
-    height: 90%;
-    margin-left: 1%;
-    margin-top:5%;
-    float: left;
-}
 .pre-nav {
-    position: relative;
     background: #0a0a0a;
-    height: 36px;
-    width: 100%;
+    padding: 0;
 }
 .lang {
     float: left;
     height: 100%;
     display: flex;
     align-items: center;
-    font-size: 0.8em;
-    letter-spacing: 1px;
-    font-weight: bold;
-    width: 30%;
-}
-.lang a {
-    height: 100%;
-    padding-right: 2%;
-}
-.lang img {
-    height: 70%;
-    margin: 20%;
 }
 nav {
-    width: 100%;
-    height: 80px;
     background-color: #790909;
-}
-nav ul{
-    float: right;
-    margin-right: 5px;
-    font-size: 1em;
-}
-nav ul li{
-    display: inline-block;
-    line-height: 80px;
-}
-nav ul li a{
-    color: #fff;
-    font-size: 0.9em;
-    padding: 0px 13px;
-    letter-spacing: 2px;
-    font-weight: bold;
-    display: block;
+    letter-spacing: 1px;
 }
 .active {
-    background-color: #360404;
+    font-weight: bold;
 }
 nav ul li a:hover {
     background-color: #fc4040;
 }
-.checkbtn{
-    font-size: 30px;
-    color: #fff;
-    float: right;
-    line-height: 80px;
-    margin-right: 40px;
-    cursor: pointer;
-    display: none;
-}
-#check{
-    display: none;
-}
+
 .user{
-    float: right;
-    height: 100%;
     display: flex;
     align-items: center;
     font-size: 0.8em;
     letter-spacing: 1px;
     font-weight: bold;
-    width: 30%;
 }
 .user *{
     color: lightgray;
 }
-.user a{
+.user a {
     color: #ccc7c7;
-    text-align: right;
-    width: 30%;
-    margin-right: 3%;
-}
-.user span{
-    text-align: right;
-    width: 70%;
 }
 
-/* tabla */
-.marginBottomTable {
-    margin-bottom: 4%;
-}
-table {
-    table-layout: fixed;
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 4%;
-}
-thead th:nth-child(1) {
-    width: 10%;
-}
-thead th:nth-child(2) {
-    width: 10%;
-}
-thead th:nth-child(3) {
-    width: 10%;
-}
-thead th:nth-child(4) {
-    width: 10%;
-}
-thead th:nth-child(5) {
-    width: 10%;
-}
-thead th:nth-child(6) {
-    width: 10%;
-}
-thead th:nth-child(7) {
-    width: 10%;
-}
-thead th:nth-child(8) {
-    width: 10%;
-}
-thead th:nth-child(9) {
-    width: 10%;
-}
-thead th:nth-child(10) {
-    width: 10%;
-}
-.tableColumn thead th:nth-child(2) {
-    width: 10%;
-}
-th, td {
-    padding: 1%;
-}
 .primaryColor {
     background-color: #790909 !important;
 }
-th {
-    text-align: center;
-    letter-spacing: 1px;
-}
-td {
-    letter-spacing: 1px;
-    font-weight: 500;
-    color: white;
-}
-
-
-thead {
-    background-color: #790909;
-}
-tbody td {
-    text-align: center;
-}
-
-.makeBet h2{
-    margin-bottom: 1%;
-    margin-top: 1%;}
-/* formulario */
 form div{
     margin-bottom: 1%;
-}
-form.makeBet {
-    margin-bottom: 8%;
-}
-.makeBet label {
-    display: inline-block;
-    width: 90px;
-}
-input{
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    display: block;
-    color: black;
-}
-.classification input{
-    display: inline;
-    margin-left: 2%;
-    background-color: #790909;
-    border: none;
-    color: lightgray;
-    text-transform: uppercase;
-    padding: 0.4em 0.8em 0.3em 0.8em;
-    text-decoration: none;
-    font-size: 1em;
-    font-weight: 400;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
-select{
-    font-size: 1em;
-    padding: .4em 1.4em .3em .8em;
-    max-width: 100%;
-    box-sizing: border-box;
-    border: 1px solid #aaa;
-    box-shadow: 0 1px 0 1px rgba(0,0,0,.03);
-    border-radius: .3em;
-}
-select::-ms-expand {
-    display: none;
-}
-select:hover {
-    border-color: #888;
-}
-select option {
-    font-weight:normal;
-    font-size: 1em;
-
-}
-/* Rules */
-.rules li{
-    padding-bottom: 1%;
-    list-style-type: disc;
-}
-.rules {
-    padding-bottom: 2%;
-    padding-left: 1%;
-    line-height: 150%
-}
-ul ul{
-    padding-left: 1%;
-}
-.firstLine{
-    padding-top: 1%;
-}
-/* Pop up */
-dialog[open] {
-    position: fixed;
-    width: 50%;
-    max-width: 750px;
-    top: 10px;
-}
-dialog::backdrop {
-    background-color: rgba(255,0,0,0.8);
-}
-/* More info */
-.center{
-    width: 60%;
-    margin-left: 25%;
-    padding-top: 2%;
-}
-.center img{
-    width: 10%;
-    margin-bottom: 1%;
-}
-.footer{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }
 .copyright {
     text-align: center;
@@ -340,18 +102,10 @@ dialog::backdrop {
     border-top-width: 2px;
     border-top: var(--bs-border-width) solid var(--bs-border-color);
 }
-.hidden {
-    display: none;
-}
 a.external-link {
-    font-size: 0.8em;
-    font-weight: bold;
     text-decoration: underline;
     display: inline-block;
-    background-color: #414141;
-    padding: 0.5%;
     margin-bottom: 2%;
-
 }
 .external-link::after {
     content: "";
@@ -360,242 +114,3 @@ a.external-link {
     width: 14px;
     height: 12px;
 }
-
-/* Mobile */
-@media (max-width: 399px) {
-    h1{
-        font-size: 1.6em;
-    }
-    h1, h2, h3, h4, h5 {
-        margin-bottom: 3%;
-    }
-    h3{
-        font-size: 1em;
-    }
-    .checkbtn{
-        display: block;
-    }
-    ul{
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        background: #2c3e50;
-        top: 80px;
-        left: -100%;
-        text-align: center;
-        transition: all .5s;
-    }
-    nav ul li{
-        display: block;
-        margin: 50px 0;
-        line-height: 30px;
-    }
-    nav ul li a{
-        font-size: 20px;
-    }
-     #check:checked ~ ul{
-        left:0;
-    }
-    table {
-        width: 100%;
-        margin-bottom: 15%;
-    }
-    th, td {
-        font-size: 0.6em;
-        letter-spacing: 1px;
-    }
-    td{
-        font-weight: 400;
-    }
-    thead th:nth-child(1) {
-        width: 20%;
-    }
-    thead th:nth-child(2) {
-        width: 35%;
-    }
-    thead th:nth-child(3) {
-        width: 25%;
-    }
-    thead th:nth-child(4) {
-        width: 15%;
-    }
-   /* #classificationTable thead th:nth-child(3) {
-        width: 20%;
-    }
-    #classificationTable thead th:nth-child(4) {
-        width: 25%;
-    }*/
-    thead th:nth-child(5) {
-        width: 15%;
-    }
-    .user {
-        width: 60%;
-    }
-    .padding label {
-        display: block;
-        margin-bottom: 1%;
-    }
-    form.makeBet {
-        margin-bottom: 8%;
-    }
-    section {
-        margin-top: 5%;
-    }
-    .copyright {
-        min-width: 90%;
-        padding-top: 2%;
-        padding-bottom: 2%;
-    }
-    select{
-        margin-top: 1%;
-        margin-bottom: 3%;
-        padding: 0.3em 1em 0.2em 0.1em;
-    }
-    .classification input {
-        padding: 0.3em 0.4em 0.3em 0.4em;
-        margin-left: 0;
-    }
-    a.external-link {
-        font-size: 1em;
-        margin-bottom: 6%;
-        font-weight: 550;
-        font-weight: 550;
-        padding: 1.5%;
-        padding-bottom: 2%
-    }
-    .external-link::after {
-        width: 14px;
-        height: 12px;
-    }
-}
-
-
-/* Small Tablets */
-@media (min-width: 400px)and (max-width: 767px) {
-    h1{
-        font-size: 1.7em;
-    }
-    h3{
-        font-size: 1.1em;
-    }
-    .user {
-        width: 70%;
-    }
-    .checkbtn{
-        display: block;
-    }
-    thead th:nth-child(1) {
-        width: 10%;
-    }
-    thead th:nth-child(2) {
-        width: 10%;
-    }
-    thead th:nth-child(3) {
-        width: 10%;
-    }
-    thead th:nth-child(4) {
-        width: 10%;
-    }
-    thead th:nth-child(5) {
-        width: 15%;
-    }
-    thead th:nth-child(6) {
-        width: 9%;
-    }
-     thead th:nth-child(7) {
-         width: 9%;
-     }
-    thead th:nth-child(8) {
-        width: 9%;
-    }
-    thead th:nth-child(9) {
-        width: 9%;
-    }
-    thead th:nth-child(10) {
-        width: 9%;
-    }
-
-    ul{
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        background: #790909;
-        top: 80px;
-        left: -100%;
-        text-align: center;
-        transition: all .5s;
-    }
-    nav ul li{
-        display: block;
-        margin: 50px 0;
-        line-height: 30px;
-    }
-    nav ul li a{
-        font-size: 20px;
-    }
-    #check:checked ~ ul{
-        left:0;
-    }
-    table {
-        width: 100%;
-          -webkit-hyphens: auto;
-          -moz-hyphens: auto;
-          -ms-hyphens: auto;
-          hyphens: auto;
-    }
-    th, td {
-        font-size: 0.6em;
-        letter-spacing: 0px;
-    }
-    .copyright {
-        min-width: 90%;
-    }
-    td{
-        font-weight: 400;
-    }
-    .copyright {
-        padding-top: 2%;
-        padding-bottom: 2%;
-    }
-    select{
-        margin-top: 1%;
-        margin-bottom: 3%;
-    }
-}
-
-
-
-/* Small Desktops */
-@media (min-width: 768px) and (max-width: 983px) {
-    .user {
-        width: 70%;
-    }
-
-    nav ul li {
-        margin-right: 0px;
-        letter-spacing: 1.5px;
-        padding-right: 0px;
-        padding-left: 0px;
-    }
-
-    nav ul li a {
-        padding: 0px;
-        padding-left: 4px;
-        padding-right: 4px;
-        font-size: 0.8em;
-        letter-spacing: 1px;
-    }
-    table {
-        width: 100%;
-    }
-    th, td {
-        font-size: 0.6em;
-    }
-    th {
-        letter-spacing: 0px;
-    }
-
-}
-
-
-

@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -50,13 +47,24 @@ public class AdminController {
             String validationError = betService.validateAndCompleteBet(betDto);
             if (!StringUtils.hasText(validationError)) {
                 BetDto bet = betService.saveResult(betDto);
-                //TODO: SHOW SUCCESS MESSAGE
             } else {
                 model.addAttribute("validationError", validationError);
             }
         }
         addAttributesToModel(model, betDto.getRaceId());
         return model;
+    }
+
+    @PostMapping("/admin/close-race")
+    public String closeRace(@RequestParam(value = "race") Long raceId) {
+        raceService.closeRace(raceId);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/open-race")
+    public String openRace(@RequestParam(value = "race") Long raceId) {
+        raceService.openRace(raceId);
+        return "redirect:/admin";
     }
 
     private void addAttributesToModel(Model model, Long raceId) {

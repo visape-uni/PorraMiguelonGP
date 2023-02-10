@@ -9,4 +9,6 @@ public interface RaceService {
     RaceDto findNextRace();
     List<RaceDto> getAllRaces(boolean general);
     List<RaceDto> getAllRacesBySeason(Integer season, boolean general);
+    boolean closeRace(Long raceId);
+    boolean openRace(Long raceId);
 }

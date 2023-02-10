@@ -22,11 +22,11 @@
             <tr class="align-middle">
                 <th class="primaryColor"  th:text="#{classification.position}"></th>
                 <th class="primaryColor"  th:text="#{classification.teamName}"></th>
-                <th class="primaryColor"  th:text="#{classification.entryPoints}"></th>
-                <th class="primaryColor"  th:text="#{classification.positionPoints}"></th>
-                <th class="primaryColor"  th:text="#{classification.bonificationPoints}"></th>
-                <th class="primaryColor"  th:text="#{classification.totalGpPoints}"></th>
-                <th class="primaryColor"  th:text="#{classification.moto2and3Points}"></th>
+                <th class="primaryColor" th:if="${currentClassification.getRaceName()} != 'General'" th:text="#{classification.entryPoints}"></th>
+                <th class="primaryColor" th:if="${currentClassification.getRaceName()} != 'General'" th:text="#{classification.positionPoints}"></th>
+                <th class="primaryColor" th:if="${currentClassification.getRaceName()} != 'General'" th:text="#{classification.bonificationPoints}"></th>
+                <th class="primaryColor" th:if="${currentClassification.getRaceName()} != 'General'" th:text="#{classification.totalGpPoints}"></th>
+                <th class="primaryColor" th:if="${currentClassification.getRaceName()} != 'General'" th:text="#{classification.moto2and3Points}"></th>
                 <th class="primaryColor"  th:text="#{classification.totalPoints}"></th>
                 <th class="primaryColor"  th:text="#{classification.pointsDif}"></th>
                 <th class="primaryColor"  th:text="#{classification.earned}"></th>
@@ -36,11 +36,11 @@
             <tr th:each="classifiedTeam : ${currentClassification.classifiedTeams}">
                 <td th:text="${classifiedTeam.position}"></td>
                 <td th:text="${classifiedTeam.teamName}"></td>
-                <td th:text="${classifiedTeam.entryPoints}"></td>
-                <td th:text="${classifiedTeam.positionPoints}"></td>
-                <td th:text="${classifiedTeam.bonificationGpPoints}"></td>
-                <td th:text="${classifiedTeam.totalGpPoints}"></td>
-                <td th:text="${classifiedTeam.motoTwoAndThreePoints}"></td>
+                <td th:if="${currentClassification.getRaceName()} != 'General'" th:text="${classifiedTeam.entryPoints}"></td>
+                <td th:if="${currentClassification.getRaceName()} != 'General'" th:text="${classifiedTeam.positionPoints}"></td>
+                <td th:if="${currentClassification.getRaceName()} != 'General'" th:text="${classifiedTeam.bonificationGpPoints}"></td>
+                <td th:if="${currentClassification.getRaceName()} != 'General'" th:text="${classifiedTeam.totalGpPoints}"></td>
+                <td th:if="${currentClassification.getRaceName()} != 'General'" th:text="${classifiedTeam.motoTwoAndThreePoints}"></td>
                 <td th:text="${classifiedTeam.totalPoints}"></td>
                 <td th:text="${classifiedTeam.pointsDif}"></td>
                 <td th:text="${classifiedTeam.earned}"></td>

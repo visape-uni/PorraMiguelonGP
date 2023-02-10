@@ -7,7 +7,6 @@
     <title>Miguelon Porra GP</title>
 </head>
 <body>
-    <h1 th:text="#{admin.title}"></h1>
     <form class="classification" action="#" th:action="@{/admin}" method="get">
         <div class="input-group mb-3">
             <button type="submit" th:text="#{admin.view}" class="btn btn-danger"/>
@@ -16,15 +15,119 @@
             </select>
         </div>
     </form>
+
+    <h1 th:text="#{admin.title(${race.id}, ${race.name}, ${race.country})}"></h1>
+
+    <form th:action="@{/admin/close-race(race=${race.id})}" method="post" th:if="${race.isOpen()}">
+        <div class="input-group mb-3">
+            <button type="button" th:text="#{admin.closeRace(${race.name})}" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#secureCloseRaceModal"></button>
+        </div>
+
+        <!-- Modal Secure Close -->
+        <div class="modal fade" id="secureCloseRaceModal" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" th:text="#{admin.confirmTitle}"></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <label class="col" th:utext="#{admin.confirmCloseMsg(${race.name})}"></label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-danger" data-bs-dismiss="modal" type="button" th:text="#{admin.cancel}"></button>
+                        <button class="btn btn-danger"  data-bs-dismiss="modal" type="submit" th:text="#{admin.confirmCloseBtn}"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form th:action="@{/admin/open-race(race=${race.id})}" method="post" th:if="${!race.isOpen()}">
+        <div class="input-group mb-3">
+            <button type="button" th:text="#{admin.openRace(${race.name})}" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#secureOpenRaceModal"></button>
+        </div>
+
+        <!-- Modal Secure Open -->
+        <div class="modal fade" id="secureOpenRaceModal" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" th:text="#{admin.confirmTitle}"></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <label class="col" th:utext="#{admin.confirmOpenMsg(${race.name})}"></label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-danger" data-bs-dismiss="modal" type="button" th:text="#{admin.cancel}"></button>
+                        <button class="btn btn-danger"  data-bs-dismiss="modal" type="submit" th:text="#{admin.confirmOpenBtn}"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
     <div>
-        <p class="error" th:if="${existingResult}" th:text="#{admin.existingResult}"></p>
         <p class="error" th:if="${validationError}" th:text="#{${validationError}}"></p>
-        <form class="makeBet" th:action="@{/admin}" th:if="${race}" th:object="${result}" method="post" enctype="utf8">
+        <!-- Modal Existing Result -->
+        <div th:if="${existingResult}" class="modal fade" id="existingResultModal" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" th:text="#{admin.resultSent}"></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success row" role="alert" th:text="#{admin.existingResult}"></div>
+                        <h4 th:text="#{admin.moto3.title}"></h4>
+                        <div class="row">
+                            <label th:each="rider : ${ridersMoto3}" th:if="${rider.dorsal} == ${existingResult.moto3}" th:utext="'<b>' + #{admin.firstPilot} + ':</b> ' + ${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}" class="col"></label>
+                        </div>
+                        <h4 th:text="#{admin.moto2.title}"></h4>
+                        <div class="row">
+                            <label th:each="rider : ${ridersMoto2}" th:if="${rider.dorsal} == ${existingResult.moto2}" th:utext="'<b>' + #{admin.firstPilot} + ':</b> ' + ${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}" class="col"></label>
+                        </div>
+                        <h4 th:text="#{admin.motogp.title}"></h4>
+                        <div class="row">
+                            <label th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${existingResult.motogpFirst}" th:utext="'<b>' + #{admin.firstPilot} + ':</b> ' + ${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}" class="col"></label>
+                        </div>
+                        <div class="row">
+                            <label th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${existingResult.motogpSecond}" th:utext="'<b>' + #{admin.secondPilot} + ':</b> ' + ${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}" class="col"></label>
+                        </div>
+                        <div class="row">
+                            <label th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${existingResult.motogpThird}" th:utext="'<b>' + #{admin.thirdPilot} + ':</b> ' + ${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}" class="col"></label>
+                        </div>
+                        <div class="row">
+                            <label th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${existingResult.motogpFourth}" th:utext="'<b>' + #{admin.fourthPilot} + ':</b> ' + ${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}" class="col"></label>
+                        </div>
+                        <div class="row">
+                            <label th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${existingResult.motogpFifth}" th:utext="'<b>' + #{admin.fifthPilot} + ':</b> ' + ${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}" class="col"></label>
+                        </div>
+                        <div class="row">
+                            <label th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${existingResult.motogpSixth}" th:utext="'<b>' + #{admin.sixthPilot} + ':</b> ' + ${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}" class="col"></label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" th:text="#{admin.close}"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form class="makeBet needs-validation" th:action="@{/admin}" th:if="${race}" th:object="${result}" method="post" enctype="utf8" novalidate>
             <input type="hidden" name="raceId" th:value="${race.id}">
             <section>
                 <h2 th:text="#{admin.moto3.title}"></h2>
-                <div class="form-floating">
-                    <select id="moto3-first" name="moto3" class="form-select">
+                <div class="form-floating mb-3">
+                    <select id="moto3-first" name="moto3" class="form-select" required>
                         <option value="">Selecciona un corredor</option>
                         <option th:each="rider : ${ridersMoto3}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                                 th:selected="${existingResult} != null and ${rider.dorsal} == ${existingResult.moto3}"></option>
@@ -36,8 +139,8 @@
             </section>
             <section>
                 <h2 th:text="#{admin.moto2.title}"></h2>
-                <div class="form-floating">
-                    <select id="moto2-first" name="moto2" class="form-select">
+                <div class="form-floating mb-3">
+                    <select id="moto2-first" name="moto2" class="form-select" required>
                         <option value="">Selecciona un corredor</option>
                         <option th:each="rider : ${ridersMoto2}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                                 th:selected="${existingResult} != null and ${rider.dorsal} == ${existingResult.moto2}"></option>
@@ -49,8 +152,8 @@
             </section>
             <section>
                 <h2 th:text="#{admin.motogp.title}"></h2>
-                <div class="form-floating">
-                    <select id="motogp-first" name="motogpFirst" class="form-select">
+                <div class="form-floating mb-3">
+                    <select id="motogp-first" name="motogpFirst" class="form-select" required>
                         <option value="">Selecciona un corredor</option>
                         <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                                 th:selected="${existingResult} != null and ${rider.dorsal} == ${existingResult.motogpFirst}"></option>
@@ -59,8 +162,8 @@
                 </div>
                 <p class="error" th:each="error: ${#fields.errors('motogpFirst')}"
                    th:text="#{${error}}">Validation error</p>
-                <div class="form-floating">
-                    <select id="motogp-second" name="motogpSecond" class="form-select">
+                <div class="form-floating mb-3">
+                    <select id="motogp-second" name="motogpSecond" class="form-select" required>
                         <option value="">Selecciona un corredor</option>
                         <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                                 th:selected="${existingResult} != null and ${rider.dorsal} == ${existingResult.motogpSecond}"></option>
@@ -69,8 +172,8 @@
                 </div>
                 <p class="error" th:each="error: ${#fields.errors('motogpSecond')}"
                    th:text="#{${error}}">Validation error</p>
-                <div class="form-floating">
-                    <select id="motogp-third" name="motogpThird" class="form-select">
+                <div class="form-floating mb-3">
+                    <select id="motogp-third" name="motogpThird" class="form-select" required>
                         <option value="">Selecciona un corredor</option>
                         <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                                 th:selected="${existingResult} != null and ${rider.dorsal} == ${existingResult.motogpThird}"></option>
@@ -79,8 +182,8 @@
                 </div>
                 <p class="error" th:each="error: ${#fields.errors('motogpThird')}"
                    th:text="#{${error}}">Validation error</p>
-                <div class="form-floating">
-                    <select id="motogp-fourth" name="motogpFourth" class="form-select">
+                <div class="form-floating mb-3">
+                    <select id="motogp-fourth" name="motogpFourth" class="form-select" required>
                         <option value="">Selecciona un corredor</option>
                         <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                                 th:selected="${existingResult} != null and ${rider.dorsal} == ${existingResult.motogpFourth}"></option>
@@ -89,8 +192,8 @@
                 </div>
                 <p class="error" th:each="error: ${#fields.errors('motogpFourth')}"
                    th:text="#{${error}}">Validation error</p>
-                <div class="form-floating">
-                    <select id="motogp-fifth" name="motogpFifth" class="form-select">
+                <div class="form-floating mb-3">
+                    <select id="motogp-fifth" name="motogpFifth" class="form-select" required>
                         <option value="">Selecciona un corredor</option>
                         <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                                 th:selected="${existingResult} != null and ${rider.dorsal} == ${existingResult.motogpFifth}"></option>
@@ -99,8 +202,8 @@
                 </div>
                 <p class="error" th:each="error: ${#fields.errors('motogpFifth')}"
                    th:text="#{${error}}">Validation error</p>
-                <div class="form-floating">
-                    <select id="motogp-sixth" name="motogpSixth" class="form-select">
+                <div class="form-floating mb-3">
+                    <select id="motogp-sixth" name="motogpSixth" class="form-select" required>
                         <option value="">Selecciona un corredor</option>
                         <option th:each="rider : ${ridersMotoGP}" th:value="${rider.dorsal}" th:text="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"
                                 th:selected="${existingResult} != null and ${rider.dorsal} == ${existingResult.motogpSixth}"></option>
@@ -118,5 +221,15 @@
             </section>
         </form>
     </div>
+
+    <script  th:inline="javascript">
+
+        window.onload = () => {
+            var existingResult = [[${existingResult}]]
+            if (existingResult) {
+                $('#existingResultModal').modal('show');
+            }
+        }
+    </script>
 </body>
 </html>

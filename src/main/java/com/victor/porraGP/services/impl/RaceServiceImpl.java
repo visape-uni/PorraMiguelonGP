@@ -37,7 +37,7 @@ public class RaceServiceImpl implements RaceService {
     public RaceDto findNextRace() {
         RaceDto raceDto = null;
         Date now = new Date();
-        Race race = raceRepository.findFirstByEndDateAfter(now);
+        Race race = raceRepository.findFirstByEndDateAfterAndOpen(now, true);
         if (race != null) {
             raceDto = new RaceDto(race);
         }
@@ -55,6 +55,22 @@ public class RaceServiceImpl implements RaceService {
     @Override
     public List<RaceDto> getAllRacesBySeason(Integer season, boolean general) {
         return raceRepository.findAllBySeason(season).stream().filter(race -> generalRaceFilter(general, race)).map(RaceDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean closeRace(Long raceId) {
+        if (raceId != null && raceId > 0) {
+            return raceRepository.updateOpenState(false, raceId) > 0;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean openRace(Long raceId) {
+        if (raceId != null && raceId > 0) {
+            return raceRepository.updateOpenState(true, raceId) > 0;
+        }
+        return false;
     }
 
     private static boolean generalRaceFilter(boolean general, Race race) {

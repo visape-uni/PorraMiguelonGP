@@ -70,7 +70,7 @@ public class BetServiceImpl implements BetService {
         List<Bet> bets = betRepository.findBetsByRaceId(result.getRace().getId()).stream().filter(b -> !b.getResult()).collect(Collectors.toList());
         List<ClassifiedTeam> classifiedTeams = classificationRepository.findClassificationsByRaceId(result.getRace().getId());
         List<ClassifiedTeam> generalTeams = classificationRepository.findClassificationsByRaceId(0L);
-
+        // See if there is any unique pilot and set it to uniqueRidersList
         Map<String, Integer> allRidersMap = createUniqueRidersList(bets);
         List<String> uniqueRidersList = new ArrayList<>();
         if (allRidersMap.containsValue(1)) {
@@ -202,7 +202,7 @@ public class BetServiceImpl implements BetService {
     private static void calculateGpPositions(List<ClassifiedTeam> classifiedTeams) {
         int position = 1;
         int positionSkipped = 1;
-        int pointsLast = 0;
+        int pointsLast = -1;
         for(ClassifiedTeam classifiedTeam : classifiedTeams) {
             if (pointsLast == classifiedTeam.getTotalGpPoints()) {
                 classifiedTeam.setPosition(position - positionSkipped);
@@ -218,7 +218,7 @@ public class BetServiceImpl implements BetService {
     private static void calculatePositions(List<ClassifiedTeam> classifiedTeams) {
         int position = 1;
         int positionSkipped = 1;
-        int pointsLast = 0;
+        int pointsLast = -1;
         for(ClassifiedTeam classifiedTeam : classifiedTeams) {
             if (pointsLast == classifiedTeam.getTotalPoints()) {
                 classifiedTeam.setPosition(position - positionSkipped);
@@ -257,7 +257,7 @@ public class BetServiceImpl implements BetService {
         addBonusPointsForAllRiders(rightPositions, motoGpPoints);
 
         //Set points
-        moto2And3Points += motoGpPoints.bonificationMoto3And2Points;
+        moto2And3Points += motoGpPoints.bonificationMoto3And2Points; // La bonificacion de acertar moto 3, moto 2 y moto gp se suma en los puntos de moto 2 y moto 3
         totalGpPoints = motoGpPoints.entryPoints + motoGpPoints.positionPoints + motoGpPoints.bonificationPoints;
         totalPoints = moto2And3Points + totalGpPoints;
         classifiedTeam.setMotoTwoAndThreePoints(moto2And3Points);

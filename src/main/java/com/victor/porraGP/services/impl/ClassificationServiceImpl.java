@@ -21,7 +21,7 @@ public class ClassificationServiceImpl implements ClassificationService {
     public ClassificationDto findClassificationByRace(Long id) {
         List<ClassifiedTeam> classificationList = classificationRepository.findClassificationsByRaceIdIsOrderByPositionAsc(id);
         if (classificationList != null && !classificationList.isEmpty()) {
-            ClassifiedTeam firstClassified = classificationList.stream().filter(classifiedTeam -> classifiedTeam.getPosition() != 0).findFirst().orElse(null);
+            ClassifiedTeam firstClassified = classificationList.stream().filter(classifiedTeam -> classifiedTeam.getPosition() != 0).findFirst().orElse(classificationList.get(0));
             return new ClassificationDto(classificationList, firstClassified);
         }
         return null;

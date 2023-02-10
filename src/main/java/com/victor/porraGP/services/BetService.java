@@ -6,6 +6,6 @@ public interface BetService {
     BetDto saveResult(BetDto betDto);
     BetDto findResult(Long raceId);
     BetDto saveBet(BetDto betDto);
-    String validateAndCompleteBet(BetDto betDto);
+    String validateAndCompleteBet(BetDto betDto, boolean result);
     BetDto findBet(Long raceId) ;
 }

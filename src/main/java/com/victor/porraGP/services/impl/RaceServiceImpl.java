@@ -34,10 +34,15 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
-    public RaceDto findNextRace() {
+    public RaceDto findNextRace(boolean openedOnly) {
         RaceDto raceDto = null;
         Date now = new Date();
-        Race race = raceRepository.findFirstByEndDateAfterAndOpen(now, true);
+        Race race;
+        if (openedOnly) {
+            race = raceRepository.findFirstByEndDateAfterAndOpen(now, true);
+        } else {
+            race = raceRepository.findFirstByEndDateAfter(now);
+        }
         if (race != null) {
             raceDto = new RaceDto(race);
         }

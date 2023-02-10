@@ -44,7 +44,7 @@ public class AdminController {
     public Model postResult(@Valid @ModelAttribute("result") BetDto betDto,
                          Errors errors, Model model) {
         if (!errors.hasErrors()) {
-            String validationError = betService.validateAndCompleteBet(betDto);
+            String validationError = betService.validateAndCompleteBet(betDto, true);
             if (!StringUtils.hasText(validationError)) {
                 BetDto bet = betService.saveResult(betDto);
             } else {
@@ -70,7 +70,7 @@ public class AdminController {
     private void addAttributesToModel(Model model, Long raceId) {
         model.addAttribute("races", raceService.getAllRacesBySeason(SEASON_2023, false));
 
-        RaceDto race = (raceId != null) ? raceService.findRace(raceId) : raceService.findNextRace();
+        RaceDto race = (raceId != null) ? raceService.findRace(raceId) : raceService.findNextRace(false);
         model.addAttribute("race", race);
         model.addAttribute("existingResult", betService.findResult(race.getId()));
 

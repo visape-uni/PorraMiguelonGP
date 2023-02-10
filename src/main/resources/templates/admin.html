@@ -18,6 +18,10 @@
 
     <h1 th:text="#{admin.title(${race.id}, ${race.name}, ${race.country})}"></h1>
 
+    <div class="alert alert-warning" th:if="${race.isOpen()}">
+        <label class="text-warning" th:text="#{admin.closeFirstMsg}"></label>
+    </div>
+
     <form th:action="@{/admin/close-race(race=${race.id})}" method="post" th:if="${race.isOpen()}">
         <div class="input-group mb-3">
             <button type="button" th:text="#{admin.closeRace(${race.name})}" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#secureCloseRaceModal"></button>
@@ -75,7 +79,7 @@
     </form>
 
 
-    <div>
+    <div th:if="${!race.isOpen()}">
         <p class="error" th:if="${validationError}" th:text="#{${validationError}}"></p>
         <!-- Modal Existing Result -->
         <div th:if="${existingResult}" class="modal fade" id="existingResultModal" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">

@@ -45,7 +45,7 @@ public class BetController {
     public Model makeBet(@Valid @ModelAttribute("bet") BetDto betDto,
                                 Errors errors, Model model) {
         if (!errors.hasErrors()) {
-            String validationError = betService.validateAndCompleteBet(betDto);
+            String validationError = betService.validateAndCompleteBet(betDto, false);
             if (!StringUtils.hasText(validationError)) {
                 RaceDto race = raceService.findRace(betDto.getRaceId());
                 if (race.isOpen()) {
@@ -62,7 +62,7 @@ public class BetController {
     }
 
     private void addAttributesToModel(Model model) {
-        RaceDto nextRace = raceService.findNextRace();
+        RaceDto nextRace = raceService.findNextRace(true);
         model.addAttribute("nextRace", nextRace);
         BetDto existingBet = betService.findBet(nextRace.getId());
         model.addAttribute("existingBet", existingBet);

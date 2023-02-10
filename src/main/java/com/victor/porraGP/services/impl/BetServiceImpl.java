@@ -22,6 +22,7 @@ public class BetServiceImpl implements BetService {
     // Errors
     private static final String ERROR_RIDER_NOT_FOUND = "error.riderNotFound";
     private static final String ERROR_RIDER_DUPLICATED = "error.riderDuplicated";
+    private static final String ERROR_RACE_IS_CLOSED = "error.raceClosed";
     // Points
     private static final Integer MOTO3_POINTS = 10;
     private static final Integer MOTO2_POINTS = 10;
@@ -353,7 +354,14 @@ public class BetServiceImpl implements BetService {
     }
 
     @Override
-    public String validateAndCompleteBet(BetDto betDto) {
+    public String validateAndCompleteBet(BetDto betDto, boolean result) {
+        if (!result) {
+            Optional<Race> optionalRace = raceRepository.findById(betDto.getRaceId());
+            if (optionalRace.isEmpty() || !optionalRace.get().isOpen()) {
+                return ERROR_RACE_IS_CLOSED;
+            }
+        }
+
         List<RiderId> riderIdList = List.of(
                 new RiderId(Long.valueOf(betDto.getMoto3()), MOTO_3_CATEGORY),
                 new RiderId(Long.valueOf(betDto.getMoto2()), MOTO_2_CATEGORY),

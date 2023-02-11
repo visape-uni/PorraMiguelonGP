@@ -11,32 +11,32 @@
     <title>Registrarse Porra Miguelon</title>
 </head>
 <body class="background d-flex flex-column h-100">
-    <div class="container h-100">
-        <div class="center">
-            <div> <img th:src="@{/images/LOGO porra.png}" width="80" height="80" alt=""/> </div>
-         <h2 th:class="color" th:text="#{register.title}"></h2>
-         <div class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
+    <div class="container h-100 text-center">
+        <div class="form-signin">
             <form action="/register" th:object="${user}" method="POST" enctype="utf8">
-            <p>
-                <label th:text="#{register.teamName}"></label>
-                <input th:field="*{teamName}"/>
-                <p class="error" th:each="error: ${#fields.errors('teamName')}"
+                <img class="mb-3" th:src="@{/images/LOGO porra.png}" width="80" height="80" alt=""/>
+                <h1 class="text-white mb-3" th:text="#{register.title}"></h1>
+                <div class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
+                <div class="form-floating mb-2">
+                    <input id="teamName" class="form-control" th:field="*{teamName}" th:placeholder="#{register.teamNamePlaceholder}"/>
+                    <label for="teamName" th:text="#{register.teamName}"></label>
+                    <p class="error mt-1" th:each="error: ${#fields.errors('teamName')}"
+                       th:text="#{${error}}">Validation error</p>
+                </div>
+                <div class="form-floating mb-2">
+                    <input id="password" type="password" class="form-control"  th:field="*{password}" th:placeholder="#{register.password}"/>
+                    <label for="password" th:text="#{register.password}"></label>
+                    <p class="error mt-1" th:each="error : ${#fields.errors('password')}"
                    th:text="#{${error}}">Validation error</p>
-            </p>
-            <p>
-                <label th:text="#{register.password}"></label>
-                <input type="password" th:field="*{password}"/>
-                <p class="error" th:each="error : ${#fields.errors('password')}"
-                   th:text="#{${error}}">Validation error</p>
-            </p>
-            <p>
-                <label th:text="#{register.confirmPassword}"></label>
-                <input type="password" th:field="*{confirmPassword}"/>
-                <p class="error" th:each="error : ${#fields.globalErrors()}"
-                   th:text="#{${error}}">Global error</p>
-            </p>
-                <a class="btn btn-outline-danger" th:href="@{/login.html}" th:text="#{register.login}">login</a>
-                <button class="register btn btn-danger" type="submit" th:text="#{register.create}"></button>
+                </div>
+                <div class="form-floating mb-4">
+                    <input id="confirmPassword" type="password" class="form-control" th:field="*{confirmPassword}" th:placeholder="#{register.password}"/>
+                    <label for="confirmPassword" th:text="#{register.confirmPassword}"></label>
+                    <p class="error mt-1" th:each="error : ${#fields.globalErrors()}"
+                       th:text="#{${error}}">Global error</p>
+                </div>
+                <button class="register btn btn-danger w-100 mb-2" type="submit" th:text="#{register.create}"></button>
+                <a class="btn btn-outline-danger w-100 mb-2" th:href="@{/login.html}" th:text="#{register.login}">login</a>
             </form>
         </div>
     </div>

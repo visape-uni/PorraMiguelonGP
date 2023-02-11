@@ -38,6 +38,12 @@ h1,h2, h3, h4, h5{
     font-weight: bold;
     font-size: .875em;
 }
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
 .color{
     color: #ccc7c7;
 }
@@ -83,12 +89,8 @@ nav ul li a:hover {
 .user a {
     color: #ccc7c7;
 }
-
 .primaryColor {
     background-color: #790909 !important;
-}
-form div{
-    margin-bottom: 1%;
 }
 .copyright {
     text-align: center;

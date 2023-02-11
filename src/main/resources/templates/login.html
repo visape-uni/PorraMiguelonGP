@@ -11,30 +11,31 @@
     <title>Login Porra Miguelon</title>
 </head>
 <body class="background d-flex flex-column h-100">
-    <div class="container h-100">
-        <div class="center">
-            <div> <img th:src="@{/images/LOGO porra.png}" width="80" height="80" alt=""/> </div>
-
-            <h1 th:text="#{login.title}"></h1>
-            <h2 th:if="${createdUser}" th:text="#{login.createdUser(${createdUser.teamName})}"></h2>
-            <h2 class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></h2>
-            <h2 th:if="${param.logout}" th:text="#{login.loggedOut}"></h2>
+    <div class="container h-100 text-center">
+        <div class="form-signin">
             <form th:action="@{/login}" method="post">
-                <p>
-                    <label for="username" th:text="#{login.username}"> </label> <input id="username" type="text" name="username"/>
-                </p>
-                <p>
-                    <label for="password" th:text="#{login.password}"> </label> <input id="password" type="password" name="password"/>
-                </p>
-                <p>
-                    <a class="btn btn-outline-danger" th:text="#{layout.register}" th:href="@{/register}"></a>
-                    <button class="btn btn-danger" type="submit" th:text="#{login.submit}"></button>
-                </p>
+                <img class="mb-3" th:src="@{/images/LOGO porra.png}" width="80" height="80" alt=""/>
+
+                <h1 class="text-white mb-3" th:text="#{login.title}"></h1>
+                <h2 class="text-white mb-3" th:if="${createdUser}" th:text="#{login.createdUser(${createdUser.teamName})}"></h2>
+                <h2 class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></h2>
+                <h2 class="text-white mb-3"th:if="${param.logout}" th:text="#{login.loggedOut}"></h2>
+
+                <div class="form-floating mb-2">
+                    <input id="username" class="form-control"  type="text" name="username" th:placeholder="#{login.username}"/>
+                    <label for="username" th:text="#{login.username}"></label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input id="password" class="form-control"  type="password" name="password" th:placeholder="#{login.password}"/>
+                    <label for="password" th:text="#{login.password}"> </label>
+                </div>
+                <button class="btn btn-danger w-100 mb-2" type="submit" th:text="#{login.submit}"></button>
+                <a class="btn btn-outline-danger w-100 mb-2" th:text="#{layout.register}" th:href="@{/register}"></a>
             </form>
         </div>
     </div>
-<footer class="footer mt-auto">
-    <div class="copyright">&copy;2023</div>
-</footer>
+    <footer class="footer mt-auto">
+        <div class="copyright">&copy;2023</div>
+    </footer>
 </body>
 </html>

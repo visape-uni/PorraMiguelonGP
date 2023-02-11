@@ -13,9 +13,9 @@ import java.util.Date;
 
 @Repository
 public interface RaceRepository extends CrudRepository<Race, Long> {
-    Race findFirstByEndDateAfterAndOpen(Date date, boolean open);
-    Race findFirstByEndDateAfter(Date date);
-    Collection<Race> findAllBySeason(Integer season);
+    Race findFirstByEndDateAfterAndOpenOrderById(Date date, boolean open);
+    Race findFirstByEndDateAfterOrderById(Date date);
+    Collection<Race> findAllBySeasonOrderById(Integer season);
     @Modifying
     @Transactional
     @Query("UPDATE Race SET open = :open WHERE id = :id")

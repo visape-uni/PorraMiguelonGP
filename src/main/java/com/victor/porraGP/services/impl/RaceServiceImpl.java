@@ -6,6 +6,7 @@ import com.victor.porraGP.repositories.RaceRepository;
 import com.victor.porraGP.services.RaceService;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -39,9 +40,9 @@ public class RaceServiceImpl implements RaceService {
         Date now = new Date();
         Race race;
         if (openedOnly) {
-            race = raceRepository.findFirstByEndDateAfterAndOpen(now, true);
+            race = raceRepository.findFirstByEndDateAfterAndOpenOrderById(now, true);
         } else {
-            race = raceRepository.findFirstByEndDateAfter(now);
+            race = raceRepository.findFirstByEndDateAfterOrderById(now);
         }
         if (race != null) {
             raceDto = new RaceDto(race);
@@ -54,12 +55,17 @@ public class RaceServiceImpl implements RaceService {
         return StreamSupport.stream(raceRepository.findAll().spliterator(), false)
                 .filter(race -> generalRaceFilter(general, race))
                 .map(RaceDto::new)
+                .sorted(Comparator.comparing(RaceDto::getId))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<RaceDto> getAllRacesBySeason(Integer season, boolean general) {
-        return raceRepository.findAllBySeason(season).stream().filter(race -> generalRaceFilter(general, race)).map(RaceDto::new).collect(Collectors.toList());
+        return raceRepository.findAllBySeasonOrderById(season).stream()
+                .filter(race -> generalRaceFilter(general, race))
+                .map(RaceDto::new)
+                .sorted(Comparator.comparing(RaceDto::getId))
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -397,6 +397,12 @@ public class BetServiceImpl implements BetService {
         return betDto;
     }
 
+    @Override
+    public List<BetDto> findAllBetsByRace(Long raceId) {
+        return betRepository.findBetsByRaceId(raceId).stream()
+                .map(BetDto::new).collect(Collectors.toList());
+    }
+
     private Bet modifyResult(BetDto betDto, Bet existingResult) {
         fillBetWithPilots(betDto, existingResult);
         existingResult.setResult(true);

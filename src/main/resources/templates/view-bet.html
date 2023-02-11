@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::body}, 'viewBet')}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Miguelon Porra GP</title>
+</head>
+<body>
+    <h1 th:text="#{viewBet.title}"></h1>
+    <div>
+        <form action="#" th:action="@{/view-bet/view}" method="get">
+            <div class="input-group mb-3">
+                <button type="submit" th:text="#{viewBet.view}" class="btn btn-danger"/>
+                <select id="raceSelect" name="race" class="form-select" >
+                    <option th:each="race: ${races}" th:value="${race.id}" th:text="${race.id} + '. ' + ${race.name}" th:selected="${race.name} == ${currentRace.name}"></option>
+                </select>
+            </div>
+        </form>
+
+        <div class="container-lg">
+            <div class="alert alert-warning" th:if="${validationError}">
+                <label class="text-warning" th:text="#{error.betIsOpen}"></label>
+            </div>
+            <div class="alert alert-warning" th:if="${bets != null && bets.isEmpty()}">
+                <label class="text-warning" th:text="#{error.betIsOpen}"></label>
+            </div>
+            <div class="row row-cols-auto" th:if="${bets != null && !bets.isEmpty()}">
+                <div class="col" th:each="bet: ${bets}">
+                    <label th:text="${bet.getTeamName()}"></label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

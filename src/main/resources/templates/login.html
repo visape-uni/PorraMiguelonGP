@@ -17,7 +17,7 @@
                 <img class="mb-3" th:src="@{/images/LOGO porra.png}" width="80" height="80" alt=""/>
 
                 <h1 class="text-white mb-3" th:text="#{login.title}"></h1>
-                <h2 class="text-white mb-3" th:if="${createdUser}" th:text="#{login.createdUser(${createdUser.teamName})}"></h2>
+                <h2 class="text-white mb-3" th:if="${createdUser}" th:utext="#{login.createdUser(${createdUser.teamName})}"></h2>
                 <h2 class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></h2>
                 <h2 class="text-white mb-3"th:if="${param.logout}" th:text="#{login.loggedOut}"></h2>
 

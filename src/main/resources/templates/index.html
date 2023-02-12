@@ -7,10 +7,10 @@
 </head>
 <body>
     <h1 th:text="#{home.title}"></h1>
-    <h3 th:text="${nextRace} != null ? #{home.nextRace(${nextRace.id}, ${nextRace.name}, ${nextRace.startDate}, ${nextRace.endDate})} : #{home.noNextRace}"></h3>
+    <p class="fw-bold" th:text="${nextRace} != null ? #{home.nextRace(${nextRace.id}, ${nextRace.name}, ${nextRace.startDate}, ${nextRace.endDate})} : #{home.noNextRace}"></p>
     <a class="external-link link-danger" href="https://www.motogp.com/es/gp-results" target="_blank" th:text="#{home.qualificationResults}"></a>
     <div>
-        <h3 class="color" th:text="#{home.generalClassification}"></h3>
+        <h3 th:text="#{home.generalClassification}"></h3>
         <div class="table-responsive">
             <table id="classificationTable" class="table table-dark table-striped align-middle marginBottomTable">
                 <thead>

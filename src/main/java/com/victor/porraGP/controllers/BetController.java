@@ -67,6 +67,10 @@ public class BetController {
         RaceDto currentRace = raceService.findRace(raceId);
         model.addAttribute("currentRace", currentRace);
         model.addAttribute("races", raceService.getAllRacesBySeason(SEASON_2023, false));
+        Map<String, List<RiderDto>> ridersMap = riderService.getAllRiders();
+        model.addAttribute("ridersMoto3", ridersMap.get(MOTO_3_CATEGORY));
+        model.addAttribute("ridersMoto2", ridersMap.get(MOTO_2_CATEGORY));
+        model.addAttribute("ridersMotoGP", ridersMap.get(MOTO_GP_CATEGORY));
         if (currentRace.isOpen()) {
             model.addAttribute("validationError", ERROR_BET_IS_OPEN);
         } else {

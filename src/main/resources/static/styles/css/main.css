@@ -26,13 +26,7 @@ a {
 .center img{
     margin-bottom: 1%;
 }
-label, h2, h3, h4 {
-    color: #ccc7c7;
-}
 
-h1,h2, h3, h4, h5{
-    /* margin-bottom: 2%; */
-}
 .error{
     color: red;
     font-weight: bold;
@@ -43,9 +37,6 @@ h1,h2, h3, h4, h5{
     max-width: 330px;
     padding: 15px;
     margin: auto;
-}
-.color{
-    color: #ccc7c7;
 }
 .container {
     background-color: rgba(5, 5, 5, 0.9);
@@ -115,4 +106,7 @@ a.external-link {
     background: url("../../images/ic_external_linkWhite.svg") no-repeat top right;
     width: 14px;
     height: 12px;
+}
+.sangria{
+    margin-left: 25px;
 }

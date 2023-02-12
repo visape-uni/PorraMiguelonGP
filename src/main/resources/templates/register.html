@@ -18,7 +18,7 @@
                 <h1 class="text-white mb-3" th:text="#{register.title}"></h1>
                 <div class="error" th:if="${errorMessage}" th:text="#{${errorMessage}}"></div>
                 <div class="form-floating mb-2">
-                    <input id="teamName" class="form-control" th:field="*{teamName}" th:placeholder="#{register.teamNamePlaceholder}"/>
+                    <input id="teamName" type="text" class="form-control" th:field="*{teamName}" th:placeholder="#{register.teamNamePlaceholder}"/>
                     <label for="teamName" th:text="#{register.teamName}"></label>
                     <p class="error mt-1" th:each="error: ${#fields.errors('teamName')}"
                        th:text="#{${error}}">Validation error</p>
@@ -29,11 +29,17 @@
                     <p class="error mt-1" th:each="error : ${#fields.errors('password')}"
                    th:text="#{${error}}">Validation error</p>
                 </div>
-                <div class="form-floating mb-4">
+                <div class="form-floating mb-2">
                     <input id="confirmPassword" type="password" class="form-control" th:field="*{confirmPassword}" th:placeholder="#{register.password}"/>
                     <label for="confirmPassword" th:text="#{register.confirmPassword}"></label>
                     <p class="error mt-1" th:each="error : ${#fields.globalErrors()}"
                        th:text="#{${error}}">Global error</p>
+                </div>
+                <div class="form-floating mb-4">
+                    <input id="registerCode" type="text" class="form-control"  th:field="*{registerCode}" th:placeholder="#{register.registerCode}"/>
+                    <label for="registerCode" th:text="#{register.registerCode}"></label>
+                    <p class="error mt-1" th:each="error : ${#fields.errors('registerCode')}"
+                       th:text="#{${error}}">Validation error</p>
                 </div>
                 <button class="register btn btn-danger w-100 mb-2" type="submit" th:text="#{register.create}"></button>
                 <a class="btn btn-outline-danger w-100 mb-2" th:href="@{/login.html}" th:text="#{register.login}">login</a>

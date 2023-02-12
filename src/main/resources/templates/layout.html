@@ -47,7 +47,7 @@
                     <li class="nav-item" th:classappend="${menu} == 'home' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.home}" th:href="@{/}"></a></li>
                     <li class="nav-item" th:classappend="${menu} == 'calendar' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.calendar}" th:href="@{/calendar}"></a></li>
                     <li class="nav-item" th:classappend="${menu} == 'classification' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.viewTable}" th:href="@{/classification/?race=0}"></a></li>
-                    <li class="nav-item" th:classappend="${menu} == 'viewBet' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.viewBet}" th:href="@{bet/view-bet/?race=1}"></a></li>
+                    <li class="nav-item" th:classappend="${menu} == 'viewBet' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.viewBet}" th:href="@{/bet/view-bet/?race=1}"></a></li>
                     <li class="nav-item" th:classappend="${menu} == 'bet' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.makeBet}" th:href="@{/bet/make-bet}"></a></li>
                     <li class="nav-item" th:classappend="${menu} == 'rules' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.rules}" th:href="@{/rules}"></a></li>
                     <li sec:authorize="hasRole('ADMIN')" class="nav-item" th:classappend="${menu} == 'admin' ? 'active' : null"><a class="nav-link text-white" th:text="#{menu.admin}" th:href="@{/admin}"></a></li>

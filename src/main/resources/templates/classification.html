@@ -12,7 +12,7 @@
         <div class="input-group mb-3">
             <button type="submit" th:text="#{classification.view}" class="btn btn-danger"/>
             <select id="raceSelect" name="race" class="form-select" >
-                <option th:each="race: ${races}" th:value="${race.id}" th:text="${race.id} + '. ' + ${race.name}" th:selected="${race.name} == ${currentClassification.raceName}"></option>
+                <option th:each="race: ${races}" th:value="${race.id}" th:text="${race.id} + '. ' + ${race.name} + (${race.country} != null ? (' - ' + ${race.country}) : '')" th:selected="${race.name} == ${currentClassification.raceName}"></option>
             </select>
         </div>
     </form>

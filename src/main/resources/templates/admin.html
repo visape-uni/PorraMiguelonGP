@@ -92,15 +92,15 @@
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-success row" role="alert" th:text="#{admin.existingResult}"></div>
-                        <h4 th:text="#{admin.moto3.title}"></h4>
+                        <h4 class="fw-bold" th:text="#{admin.moto3.title}"></h4>
                         <div class="row">
                             <label th:each="rider : ${ridersMoto3}" th:if="${rider.dorsal} == ${existingResult.moto3}" th:utext="'<b>' + #{admin.firstPilot} + ':</b> ' + ${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}" class="col"></label>
                         </div>
-                        <h4 th:text="#{admin.moto2.title}"></h4>
+                        <h4 class="mt-3 fw-bold" th:text="#{admin.moto2.title}"></h4>
                         <div class="row">
                             <label th:each="rider : ${ridersMoto2}" th:if="${rider.dorsal} == ${existingResult.moto2}" th:utext="'<b>' + #{admin.firstPilot} + ':</b> ' + ${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}" class="col"></label>
                         </div>
-                        <h4 th:text="#{admin.motogp.title}"></h4>
+                        <h4 class="mt-3 fw-bold" th:text="#{admin.motogp.title}"></h4>
                         <div class="row">
                             <label th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${existingResult.motogpFirst}" th:utext="'<b>' + #{admin.firstPilot} + ':</b> ' + ${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}" class="col"></label>
                         </div>

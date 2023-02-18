@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "teams")
+@Table(name = "teams", schema = "public")
 public class Team extends BaseEntity {
 
     @Column(name = "name")

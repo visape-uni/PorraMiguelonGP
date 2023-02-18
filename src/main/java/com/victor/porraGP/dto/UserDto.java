@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -17,4 +18,6 @@ public class UserDto {
     @Size(min = 6, message = "error.passwordTooShort")
     private String password;
     private String confirmPassword;
+    @Pattern(regexp = "^PorraMiguelon2023$", message = "error.registerCodeIncorrect")
+    private String registerCode;
 }

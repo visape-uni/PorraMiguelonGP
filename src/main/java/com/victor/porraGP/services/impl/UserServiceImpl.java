@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void addToClassifications(Team team) {
-        List<Race> races = raceRepository.findAllBySeason(SEASON_2023).stream().toList();
+        List<Race> races = raceRepository.findAllBySeasonOrderById(SEASON_2023).stream().toList();
         List<ClassifiedTeam> classifications = new ArrayList<>();
         for (Race race : races) {
             ClassifiedTeam classifiedTeam = new ClassifiedTeam();

@@ -21,7 +21,7 @@ public class IndexController {
     @RequestMapping({"", "/", "index", "index.html", "home", "home.html"})
     public String index(Model model){
         model.addAttribute("classification", classificationService.findClassificationByRace(ID_GENERAL_CLASSIFICATION));
-        model.addAttribute("nextRace", raceService.findNextRace());
+        model.addAttribute("nextRace", raceService.findNextRace(true));
         return "index";
     }
 }

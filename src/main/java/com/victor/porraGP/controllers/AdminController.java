@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -47,10 +44,9 @@ public class AdminController {
     public Model postResult(@Valid @ModelAttribute("result") BetDto betDto,
                          Errors errors, Model model) {
         if (!errors.hasErrors()) {
-            String validationError = betService.validateAndCompleteBet(betDto);
+            String validationError = betService.validateAndCompleteBet(betDto, true);
             if (!StringUtils.hasText(validationError)) {
                 BetDto bet = betService.saveResult(betDto);
-                //TODO: SHOW SUCCESS MESSAGE
             } else {
                 model.addAttribute("validationError", validationError);
             }
@@ -59,10 +55,22 @@ public class AdminController {
         return model;
     }
 
+    @PostMapping("/admin/close-race")
+    public String closeRace(@RequestParam(value = "race") Long raceId) {
+        raceService.closeRace(raceId);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/open-race")
+    public String openRace(@RequestParam(value = "race") Long raceId) {
+        raceService.openRace(raceId);
+        return "redirect:/admin";
+    }
+
     private void addAttributesToModel(Model model, Long raceId) {
         model.addAttribute("races", raceService.getAllRacesBySeason(SEASON_2023, false));
 
-        RaceDto race = (raceId != null) ? raceService.findRace(raceId) : raceService.findNextRace();
+        RaceDto race = (raceId != null) ? raceService.findRace(raceId) : raceService.findNextRace(false);
         model.addAttribute("race", race);
         model.addAttribute("existingResult", betService.findResult(race.getId()));
 

@@ -7,15 +7,15 @@
 </head>
 <body>
 <h1 th:text="#{calendar.title}"></h1>
-<div>
-    <table class="tableColumn">
+<div class="table-responsive">
+    <table class="tableColumn table table-dark table-striped align-middle marginBottomTable">
         <thead>
-        <tr>
-            <th th:text="#{calendar.raceNumber}"></th>
-            <th th:text="#{calendar.raceCountry}"></th>
-            <th th:text="#{calendar.circuitName}"></th>
-            <th th:text="#{calendar.raceStartDate}"></th>
-            <th th:text="#{calendar.raceEndDate}"></th>
+        <tr class="align-middle">
+            <th class="primaryColor" th:text="#{calendar.raceNumber}"></th>
+            <th class="primaryColor"  th:text="#{calendar.raceCountry}"></th>
+            <th class="primaryColor"  th:text="#{calendar.circuitName}"></th>
+            <th class="primaryColor"  th:text="#{calendar.raceStartDate}"></th>
+            <th class="primaryColor"  th:text="#{calendar.raceEndDate}"></th>
         </tr>
         </thead>
         <tbody>

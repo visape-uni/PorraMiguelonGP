@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::body}, 'viewBet')}"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Miguelon Porra GP</title>
+</head>
+<body>
+    <main class="container">
+        <h1 th:text="#{viewBet.title}"></h1>
+        <div>
+            <form action="#" th:action="@{/bet/view-bet}" method="get">
+                <div class="input-group mb-3">
+                    <button type="submit" th:text="#{viewBet.view}" class="btn btn-danger"/>
+                    <select id="raceSelect" name="race" class="form-select" >
+                        <option th:each="race: ${races}" th:value="${race.id}" th:text="${race.id} + '. ' + ${race.name} + (${race.country} != null ? (' - ' + ${race.country}) : '')" th:selected="${race.name} == ${currentRace.name}"></option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="alert alert-warning" th:if="${validationError}">
+                <label class="text-warning" th:text="#{error.betIsOpen}"></label>
+            </div>
+            <div class="alert alert-warning" th:if="${bets != null && bets.isEmpty()}">
+                <label class="text-warning" th:text="#{error.betIsOpen}"></label>
+            </div>
+            <div class="card-group" th:if="${bets != null && !bets.isEmpty()}">
+                <div class="card" th:each="bet: ${bets}">
+                    <div class="card-header fw-bold" th:text="${bet.getTeamName()}"></div>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="#{viewBet.moto3.title}"></h5>
+                        <p class="card-text" th:each="rider : ${ridersMoto3}" th:if="${rider.dorsal} == ${bet.moto3}" th:utext="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"></p>
+                        <h5 class="card-title" th:text="#{viewBet.moto2.title}"></h5>
+                        <p class="card-text" th:each="rider : ${ridersMoto2}" th:if="${rider.dorsal} == ${bet.moto2}" th:utext="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"></p>
+                        <h5 class="card-title" th:text="#{viewBet.motogp.title}"></h5>
+                        <p class="card-text" th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${bet.motogpFirst}" th:utext="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"></p>
+                        <p class="card-text" th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${bet.motogpSecond}" th:utext="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"></p>
+                        <p class="card-text" th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${bet.motogpThird}" th:utext="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"></p>
+                        <p class="card-text" th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${bet.motogpFourth}" th:utext="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"></p>
+                        <p class="card-text" th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${bet.motogpFifth}" th:utext="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"></p>
+                        <p class="card-text" th:each="rider : ${ridersMotoGP}" th:if="${rider.dorsal} == ${bet.motogpSixth}" th:utext="${rider.dorsal} + '. ' + ${rider.name} + ' - ' + ${rider.team}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

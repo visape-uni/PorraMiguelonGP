@@ -6,6 +6,7 @@ import com.victor.porraGP.repositories.RaceRepository;
 import com.victor.porraGP.services.RaceService;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -34,10 +35,15 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
-    public RaceDto findNextRace() {
+    public RaceDto findNextRace(boolean openedOnly) {
         RaceDto raceDto = null;
         Date now = new Date();
-        Race race = raceRepository.findFirstByEndDateAfter(now);
+        Race race;
+        if (openedOnly) {
+            race = raceRepository.findFirstByEndDateAfterAndOpenOrderById(now, true);
+        } else {
+            race = raceRepository.findFirstByEndDateAfterOrderById(now);
+        }
         if (race != null) {
             raceDto = new RaceDto(race);
         }
@@ -49,12 +55,33 @@ public class RaceServiceImpl implements RaceService {
         return StreamSupport.stream(raceRepository.findAll().spliterator(), false)
                 .filter(race -> generalRaceFilter(general, race))
                 .map(RaceDto::new)
+                .sorted(Comparator.comparing(RaceDto::getId))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<RaceDto> getAllRacesBySeason(Integer season, boolean general) {
-        return raceRepository.findAllBySeason(season).stream().filter(race -> generalRaceFilter(general, race)).map(RaceDto::new).collect(Collectors.toList());
+        return raceRepository.findAllBySeasonOrderById(season).stream()
+                .filter(race -> generalRaceFilter(general, race))
+                .map(RaceDto::new)
+                .sorted(Comparator.comparing(RaceDto::getId))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean closeRace(Long raceId) {
+        if (raceId != null && raceId > 0) {
+            return raceRepository.updateOpenState(false, raceId) > 0;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean openRace(Long raceId) {
+        if (raceId != null && raceId > 0) {
+            return raceRepository.updateOpenState(true, raceId) > 0;
+        }
+        return false;
     }
 
     private static boolean generalRaceFilter(boolean general, Race race) {

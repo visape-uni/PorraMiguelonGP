@@ -22,6 +22,7 @@ public class BetServiceImpl implements BetService {
     // Errors
     private static final String ERROR_RIDER_NOT_FOUND = "error.riderNotFound";
     private static final String ERROR_RIDER_DUPLICATED = "error.riderDuplicated";
+    private static final String ERROR_RACE_IS_CLOSED = "error.raceClosed";
     // Points
     private static final Integer MOTO3_POINTS = 10;
     private static final Integer MOTO2_POINTS = 10;
@@ -70,7 +71,7 @@ public class BetServiceImpl implements BetService {
         List<Bet> bets = betRepository.findBetsByRaceId(result.getRace().getId()).stream().filter(b -> !b.getResult()).collect(Collectors.toList());
         List<ClassifiedTeam> classifiedTeams = classificationRepository.findClassificationsByRaceId(result.getRace().getId());
         List<ClassifiedTeam> generalTeams = classificationRepository.findClassificationsByRaceId(0L);
-
+        // See if there is any unique pilot and set it to uniqueRidersList
         Map<String, Integer> allRidersMap = createUniqueRidersList(bets);
         List<String> uniqueRidersList = new ArrayList<>();
         if (allRidersMap.containsValue(1)) {
@@ -127,6 +128,8 @@ public class BetServiceImpl implements BetService {
             generalTeam.setTotalPoints(totalTeamPoints);
             generalTeam.setEarned(totalTeamEarned);
         });
+        // Order according total points
+        generalTeams.sort(Comparator.comparing(ClassifiedTeam::getTotalPoints).reversed());
         calculatePositions(generalTeams);
     }
     private void calculateMoney(List<ClassifiedTeam> classifiedTeams) {
@@ -200,7 +203,7 @@ public class BetServiceImpl implements BetService {
     private static void calculateGpPositions(List<ClassifiedTeam> classifiedTeams) {
         int position = 1;
         int positionSkipped = 1;
-        int pointsLast = 0;
+        int pointsLast = -1;
         for(ClassifiedTeam classifiedTeam : classifiedTeams) {
             if (pointsLast == classifiedTeam.getTotalGpPoints()) {
                 classifiedTeam.setPosition(position - positionSkipped);
@@ -216,7 +219,7 @@ public class BetServiceImpl implements BetService {
     private static void calculatePositions(List<ClassifiedTeam> classifiedTeams) {
         int position = 1;
         int positionSkipped = 1;
-        int pointsLast = 0;
+        int pointsLast = -1;
         for(ClassifiedTeam classifiedTeam : classifiedTeams) {
             if (pointsLast == classifiedTeam.getTotalPoints()) {
                 classifiedTeam.setPosition(position - positionSkipped);
@@ -255,7 +258,7 @@ public class BetServiceImpl implements BetService {
         addBonusPointsForAllRiders(rightPositions, motoGpPoints);
 
         //Set points
-        moto2And3Points += motoGpPoints.bonificationMoto3And2Points;
+        moto2And3Points += motoGpPoints.bonificationMoto3And2Points; // La bonificacion de acertar moto 3, moto 2 y moto gp se suma en los puntos de moto 2 y moto 3
         totalGpPoints = motoGpPoints.entryPoints + motoGpPoints.positionPoints + motoGpPoints.bonificationPoints;
         totalPoints = moto2And3Points + totalGpPoints;
         classifiedTeam.setMotoTwoAndThreePoints(moto2And3Points);
@@ -351,7 +354,14 @@ public class BetServiceImpl implements BetService {
     }
 
     @Override
-    public String validateAndCompleteBet(BetDto betDto) {
+    public String validateAndCompleteBet(BetDto betDto, boolean result) {
+        if (!result) {
+            Optional<Race> optionalRace = raceRepository.findById(betDto.getRaceId());
+            if (optionalRace.isEmpty() || !optionalRace.get().isOpen()) {
+                return ERROR_RACE_IS_CLOSED;
+            }
+        }
+
         List<RiderId> riderIdList = List.of(
                 new RiderId(Long.valueOf(betDto.getMoto3()), MOTO_3_CATEGORY),
                 new RiderId(Long.valueOf(betDto.getMoto2()), MOTO_2_CATEGORY),
@@ -385,6 +395,12 @@ public class BetServiceImpl implements BetService {
                     bet.getMotogpThird(), bet.getMotogpFourth(), bet.getMotogpFifth(), bet.getMotogpSixth());
         }
         return betDto;
+    }
+
+    @Override
+    public List<BetDto> findAllBetsByRace(Long raceId) {
+        return betRepository.findBetsByRaceId(raceId).stream()
+                .map(BetDto::new).collect(Collectors.toList());
     }
 
     private Bet modifyResult(BetDto betDto, Bet existingResult) {

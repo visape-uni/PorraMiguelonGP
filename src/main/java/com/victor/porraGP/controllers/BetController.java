@@ -10,20 +10,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
 import static com.victor.porraGP.services.impl.BetServiceImpl.*;
+import static com.victor.porraGP.services.impl.RaceServiceImpl.SEASON_2023;
 
 @Controller
+@RequestMapping("/bet")
 public class BetController {
 
     private static final String ERROR_BET_CLOSED = "error.betIsClosed";
+    private static final String ERROR_BET_IS_OPEN = "error.betIsOpen";
     private final BetService betService;
     private final RaceService raceService;
     private final RiderService riderService;
@@ -42,10 +43,10 @@ public class BetController {
     }
 
     @PostMapping("/make-bet")
-    public Model makeBet(@Valid @ModelAttribute("bet") BetDto betDto,
+    public String makeBet(@Valid @ModelAttribute("bet") BetDto betDto,
                                 Errors errors, Model model) {
         if (!errors.hasErrors()) {
-            String validationError = betService.validateAndCompleteBet(betDto);
+            String validationError = betService.validateAndCompleteBet(betDto, false);
             if (!StringUtils.hasText(validationError)) {
                 RaceDto race = raceService.findRace(betDto.getRaceId());
                 if (race.isOpen()) {
@@ -58,11 +59,28 @@ public class BetController {
             }
         }
         addAttributesToModel(model);
-        return model;
+        return "make-bet";
+    }
+
+    @RequestMapping("/view-bet")
+    public String getBet(Model model, @RequestParam("race") Long raceId) {
+        RaceDto currentRace = raceService.findRace(raceId);
+        model.addAttribute("currentRace", currentRace);
+        model.addAttribute("races", raceService.getAllRacesBySeason(SEASON_2023, false));
+        Map<String, List<RiderDto>> ridersMap = riderService.getAllRiders();
+        model.addAttribute("ridersMoto3", ridersMap.get(MOTO_3_CATEGORY));
+        model.addAttribute("ridersMoto2", ridersMap.get(MOTO_2_CATEGORY));
+        model.addAttribute("ridersMotoGP", ridersMap.get(MOTO_GP_CATEGORY));
+        if (currentRace.isOpen()) {
+            model.addAttribute("validationError", ERROR_BET_IS_OPEN);
+        } else {
+            model.addAttribute("bets", betService.findAllBetsByRace(raceId));
+        }
+        return "view-bet";
     }
 
     private void addAttributesToModel(Model model) {
-        RaceDto nextRace = raceService.findNextRace();
+        RaceDto nextRace = raceService.findNextRace(true);
         model.addAttribute("nextRace", nextRace);
         BetDto existingBet = betService.findBet(nextRace.getId());
         model.addAttribute("existingBet", existingBet);

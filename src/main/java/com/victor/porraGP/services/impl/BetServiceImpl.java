@@ -132,6 +132,11 @@ public class BetServiceImpl implements BetService {
         generalTeams.sort(Comparator.comparing(ClassifiedTeam::getTotalPoints).reversed());
         calculatePositions(generalTeams);
     }
+    private void addMoneyLeftTo13Classified(Long race_id, int moneyLeft) {
+        final String KEY = "PRICE_13_CLASSIFIED_RACE_" + race_id;
+        Optional<Configuration> optionalRacePriceLeft = configurationRepository.findById(KEY);
+        configurationRepository.save(optionalRacePriceLeft.orElse(new Configuration(KEY, String.valueOf(moneyLeft))));
+    }
     private void calculateMoney(List<ClassifiedTeam> classifiedTeams) {
         final int RACE_PRICE = Integer.parseInt(configurationRepository
                 .findConfigurationByClave("RACE_PRICE").getValor());
@@ -187,6 +192,8 @@ public class BetServiceImpl implements BetService {
             if (fourthTeams != null && fourthTeams.size() == 1) {
                 setEarnedMoney(fourthTeams, FOURTH_MONEY*RACE_PRICE/100);
                 awardedTeams += fourthTeams.size();
+            } else if(fourthTeams != null && fourthTeams.size() > 1) {
+                addMoneyLeftTo13Classified(fourthTeams.get(0).getRace().getId(), FOURTH_MONEY*RACE_PRICE/100);
             }
         }
     }
@@ -399,7 +406,7 @@ public class BetServiceImpl implements BetService {
 
     @Override
     public List<BetDto> findAllBetsByRace(Long raceId) {
-        return betRepository.findBetsByRaceId(raceId).stream()
+        return betRepository.findBetsByRaceId(raceId).stream().filter(bet -> bet.getTeam() != null)
                 .map(BetDto::new).collect(Collectors.toList());
     }
 

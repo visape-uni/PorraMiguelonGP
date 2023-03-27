@@ -25,8 +25,8 @@
             <div class="alert alert-warning" th:if="${bets != null && bets.isEmpty()}">
                 <label class="text-warning" th:text="#{error.betIsOpen}"></label>
             </div>
-            <div class="card-group" th:if="${bets != null && !bets.isEmpty()}">
-                <div class="card" th:each="bet: ${bets}">
+            <div class="card-deck mb-1" th:if="${bets != null && !bets.isEmpty()}">
+                <div class="card mb-2" th:each="bet: ${bets}">
                     <div class="card-header fw-bold" th:text="${bet.getTeamName()}"></div>
                     <div class="card-body">
                         <h5 class="card-title" th:text="#{viewBet.moto3.title}"></h5>

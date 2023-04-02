@@ -6,6 +6,7 @@ import com.victor.porraGP.dto.RiderDto;
 import com.victor.porraGP.services.BetService;
 import com.victor.porraGP.services.RaceService;
 import com.victor.porraGP.services.RiderService;
+import com.victor.porraGP.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -25,11 +26,20 @@ public class AdminController {
     private final RaceService raceService;
     private final BetService betService;
     private final RiderService riderService;
+    private final UserService userService;
 
-    public AdminController(RaceService raceService, BetService betService, RiderService riderService) {
+    public AdminController(RaceService raceService, BetService betService, RiderService riderService, UserService userService) {
         this.raceService = raceService;
         this.betService = betService;
         this.riderService = riderService;
+        this.userService = userService;
+    }
+
+    //${host}/admin/change-password?username={name}&password={pass}
+    @GetMapping("/admin/change-password")
+    public String getChagePassword(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
+        userService.changePassword(username, password);
+        return "redirect:/home";
     }
 
     @RequestMapping("/admin")

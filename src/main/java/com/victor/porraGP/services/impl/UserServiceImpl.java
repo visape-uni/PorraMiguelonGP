@@ -64,6 +64,13 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    public User changePassword(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+        return user;
+    }
+
     private void addToClassifications(Team team) {
         List<Race> races = raceRepository.findAllBySeasonOrderById(SEASON_2023).stream().toList();
         List<ClassifiedTeam> classifications = new ArrayList<>();

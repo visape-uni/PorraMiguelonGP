@@ -18,6 +18,6 @@ public class UserDto {
     @Size(min = 6, message = "error.passwordTooShort")
     private String password;
     private String confirmPassword;
-    @Pattern(regexp = "^PorraMiguelon2023$", message = "error.registerCodeIncorrect")
+    @Pattern(regexp = "^PorraMiguelon2023_$", message = "error.registerCodeIncorrect")
     private String registerCode;
 }

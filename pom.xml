@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.victor</groupId>
 	<artifactId>porraGP</artifactId>
-	<version>0.1.10</version>
+	<version>0.1.12</version>
 	<packaging>jar</packaging>
 	<name>porraGP</name>
 	<description>Web App motogp porra project for Spring Boot</description>

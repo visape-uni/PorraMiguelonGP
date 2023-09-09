@@ -281,8 +281,12 @@ public class BetServiceImpl implements BetService {
             if (rightPositions.size() == 8) {
                 motoGpPoints.bonificationMoto3And2Points += ALL_RIDERS_POINTS;
                 motoGpPoints.bonificationPoints += ALL_MOTOGP_RIDERS_POINTS;
-            } else if(!rightPositions.contains(7) && !rightPositions.contains(8)) {
-                motoGpPoints.bonificationPoints += ALL_MOTOGP_RIDERS_POINTS;
+            } else {
+                if (rightPositions.size() == 6 && (!rightPositions.contains(7) && !rightPositions.contains(8))) {
+                    motoGpPoints.bonificationPoints += ALL_MOTOGP_RIDERS_POINTS;
+                } else if (rightPositions.size() == 7 && !(rightPositions.contains(7) && rightPositions.contains(8))) {
+                    motoGpPoints.bonificationPoints += ALL_MOTOGP_RIDERS_POINTS;
+                }
             }
         }
     }

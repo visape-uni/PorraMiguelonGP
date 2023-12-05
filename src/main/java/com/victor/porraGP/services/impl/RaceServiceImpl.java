@@ -44,6 +44,10 @@ public class RaceServiceImpl implements RaceService {
         } else {
             race = raceRepository.findFirstByEndDateAfterOrderById(now);
         }
+        if (race == null) {
+            List<Race> raceList = raceRepository.findAllBySeasonOrderById(SEASON_2023).stream().collect(Collectors.toList());
+            race = raceList.get(raceList.size() - 1);
+        }
         if (race != null) {
             raceDto = new RaceDto(race);
         }
